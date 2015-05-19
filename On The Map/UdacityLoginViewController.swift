@@ -27,10 +27,13 @@ class UdacityLoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // NOTE:
+    // Most of the configureUI() code is based on parts of the MovieManager and MyFavoriteMovies apps
+    // by Jarrod Parkes
     func configureUI()
     {
         /* Configure background gradient */
-        // NOTE: Inspired by the MovieManager app
+        // code based on the MovieManager app
         self.view.backgroundColor = UIColor.clearColor()
         let colorTop = UIColor(red: 1.0, green: 0.596, blue: 0.035, alpha: 1.0).CGColor
         let colorBottom = UIColor(red: 1.0, green: 0.431, blue: 0.0, alpha: 1.0).CGColor
@@ -41,7 +44,7 @@ class UdacityLoginViewController: UIViewController {
         self.view.layer.insertSublayer(backgroundGradient, atIndex: 0)
         
         /* Configure email textfield */
-        // NOTE: Inspired by the MyFavoriteMovies app
+        // code based on the MyFavoriteMovies app
         let emailTextFieldPaddingViewFrame = CGRectMake(0.0, 0.0, 13.0, 0.0);
         let emailTextFieldPaddingView = UIView(frame: emailTextFieldPaddingViewFrame)
         emailTextField.leftView = emailTextFieldPaddingView
@@ -53,6 +56,7 @@ class UdacityLoginViewController: UIViewController {
         emailTextField.tintColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         
         /* Configure password textfield */
+        // code based on the MyFavoriteMovies app
         let passwordTextFieldPaddingViewFrame = CGRectMake(0.0, 0.0, 13.0, 0.0);
         let passwordTextFieldPaddingView = UIView(frame: passwordTextFieldPaddingViewFrame)
         passwordTextField.leftView = passwordTextFieldPaddingView
@@ -63,8 +67,7 @@ class UdacityLoginViewController: UIViewController {
         passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         passwordTextField.tintColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         
-        // NOTE:
-        // BorderedButton code based on the MyFavoriteMovies app by Jarrod Parkes
+        // BorderedButton code based on the MyFavoriteMovies app
         loginButton.themeBorderedButton()
         loginButton.highlightedBackingColor = UIColor(red: 0.899, green: 0.222, blue: 0.0, alpha:1.0)
         loginButton.backingColor = UIColor(red: 0.956, green:0.333, blue:0.0, alpha: 1.0)
@@ -77,6 +80,10 @@ class UdacityLoginViewController: UIViewController {
         // let lighterBlue = UIColor(red: 0.956, green:0.333, blue:0.0, alpha: 1.0)
     }
     
+    @IBAction func openInSafari( sender: UIButton )
+    {
+        UIApplication.sharedApplication().openURL( NSURL( string: "https://www.udacity.com/account/auth#!/signin" )! )
+    }
 
     /*
     // MARK: - Navigation
