@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -69,7 +70,7 @@
                                     </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -180,7 +181,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
                                 <state key="normal" title="Sign Up">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -244,30 +245,30 @@
                                 <exclude reference="Frx-UV-zxJ"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="btM-Cx-l2r"/>
-                                <exclude reference="eEi-Gs-cIW"/>
-                                <exclude reference="hvI-rT-jsq"/>
-                                <exclude reference="vzS-tj-xTo"/>
-                                <exclude reference="Tkz-lx-xZM"/>
-                                <exclude reference="WhH-Dn-Btp"/>
-                                <exclude reference="vDm-09-ln8"/>
+                                <exclude reference="AdR-Cd-fB3"/>
                                 <exclude reference="8sE-WN-Qae"/>
                                 <exclude reference="IKQ-N2-eRA"/>
                                 <exclude reference="Vst-uN-YHo"/>
                                 <exclude reference="8Lq-3l-uCv"/>
                                 <exclude reference="XxB-0v-o3q"/>
                                 <exclude reference="uDo-9e-rLB"/>
-                                <exclude reference="DMt-qZ-qzF"/>
-                                <exclude reference="VXr-Ba-MOK"/>
-                                <exclude reference="mnK-hC-zSk"/>
+                                <exclude reference="Tkz-lx-xZM"/>
+                                <exclude reference="WhH-Dn-Btp"/>
+                                <exclude reference="vDm-09-ln8"/>
                                 <exclude reference="BnC-42-T7F"/>
                                 <exclude reference="ELL-Uo-xrO"/>
+                                <exclude reference="Ff6-w9-Nj0"/>
+                                <exclude reference="UaA-Dq-ioc"/>
                                 <exclude reference="TbQ-sz-W9A"/>
                                 <exclude reference="ofo-hh-Rnq"/>
                                 <exclude reference="uyh-Hc-6LU"/>
-                                <exclude reference="Ff6-w9-Nj0"/>
-                                <exclude reference="UaA-Dq-ioc"/>
-                                <exclude reference="AdR-Cd-fB3"/>
+                                <exclude reference="DMt-qZ-qzF"/>
+                                <exclude reference="VXr-Ba-MOK"/>
+                                <exclude reference="mnK-hC-zSk"/>
+                                <exclude reference="btM-Cx-l2r"/>
+                                <exclude reference="eEi-Gs-cIW"/>
+                                <exclude reference="hvI-rT-jsq"/>
+                                <exclude reference="vzS-tj-xTo"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -282,30 +283,30 @@
                                 <include reference="Frx-UV-zxJ"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="btM-Cx-l2r"/>
-                                <include reference="eEi-Gs-cIW"/>
-                                <exclude reference="hvI-rT-jsq"/>
-                                <include reference="vzS-tj-xTo"/>
-                                <include reference="Tkz-lx-xZM"/>
-                                <include reference="WhH-Dn-Btp"/>
-                                <include reference="vDm-09-ln8"/>
+                                <include reference="AdR-Cd-fB3"/>
                                 <include reference="8sE-WN-Qae"/>
                                 <include reference="IKQ-N2-eRA"/>
                                 <include reference="Vst-uN-YHo"/>
                                 <include reference="8Lq-3l-uCv"/>
                                 <include reference="XxB-0v-o3q"/>
                                 <include reference="uDo-9e-rLB"/>
-                                <include reference="DMt-qZ-qzF"/>
-                                <include reference="VXr-Ba-MOK"/>
-                                <include reference="mnK-hC-zSk"/>
+                                <include reference="Tkz-lx-xZM"/>
+                                <include reference="WhH-Dn-Btp"/>
+                                <include reference="vDm-09-ln8"/>
                                 <include reference="BnC-42-T7F"/>
                                 <include reference="ELL-Uo-xrO"/>
+                                <include reference="Ff6-w9-Nj0"/>
+                                <include reference="UaA-Dq-ioc"/>
                                 <include reference="TbQ-sz-W9A"/>
                                 <include reference="ofo-hh-Rnq"/>
                                 <include reference="uyh-Hc-6LU"/>
-                                <include reference="Ff6-w9-Nj0"/>
-                                <include reference="UaA-Dq-ioc"/>
-                                <include reference="AdR-Cd-fB3"/>
+                                <include reference="DMt-qZ-qzF"/>
+                                <include reference="VXr-Ba-MOK"/>
+                                <include reference="mnK-hC-zSk"/>
+                                <exclude reference="btM-Cx-l2r"/>
+                                <include reference="eEi-Gs-cIW"/>
+                                <exclude reference="hvI-rT-jsq"/>
+                                <include reference="vzS-tj-xTo"/>
                             </mask>
                         </variation>
                     </view>
