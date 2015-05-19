@@ -170,6 +170,9 @@
                                         <include reference="QXy-Sk-sR1"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="facebookAlert:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="p3Z-et-ZXW"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Frx-UV-zxJ">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>

@@ -15,11 +15,27 @@ class UdacityLoginViewController: UIViewController {
     @IBOutlet weak var loginButton: BorderedButton!
     @IBOutlet weak var facebookButton: BorderedButton!
     
+    // NOTE:
+    // alert code adapted from
+    // http://stackoverflow.com/a/24022696
+    // create the Facebook alert
+    var alert = UIAlertController(
+        title: "Sorry 😓",
+        message: "I don't have a Facebook account, so I haven't implemented this functionality.",
+        preferredStyle: UIAlertControllerStyle.Alert )
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         configureUI()
+        
+        // add an alert action
+        alert.addAction( UIAlertAction(
+            title: "OK",
+            style: UIAlertActionStyle.Default,
+            handler: nil )
+        )
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,11 +96,24 @@ class UdacityLoginViewController: UIViewController {
         // let lighterBlue = UIColor(red: 0.956, green:0.333, blue:0.0, alpha: 1.0)
     }
     
+    // NOTE:
+    // code adapted from
+    // https://mobilitytalks.wordpress.com/2012/04/19/open-a-link-in-safari-from-your-iphone-application/
     @IBAction func openInSafari( sender: UIButton )
     {
         UIApplication.sharedApplication().openURL( NSURL( string: "https://www.udacity.com/account/auth#!/signin" )! )
     }
 
+    // show the Facebook alert
+    @IBAction func facebookAlert( sender: BorderedButton )
+    {
+        self.presentViewController(
+            alert,
+            animated: true,
+            completion: nil
+        )
+    }
+    
     /*
     // MARK: - Navigation
 
