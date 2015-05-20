@@ -67,7 +67,7 @@ class UdacityLoginViewController: UIViewController {
         emailTextField.leftViewMode = .Always
         emailTextField.font = UIFont(name: "AvenirNext-Medium", size: 17.0)
         emailTextField.backgroundColor = UIColor(red: 1.0, green: 0.776, blue: 0.576, alpha:1.0)
-        emailTextField.textColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
+        emailTextField.textColor = UIColor.whiteColor()
         emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         emailTextField.tintColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         
@@ -79,7 +79,7 @@ class UdacityLoginViewController: UIViewController {
         passwordTextField.leftViewMode = .Always
         passwordTextField.font = UIFont(name: "AvenirNext-Medium", size: 17.0)
         passwordTextField.backgroundColor = UIColor(red: 1.0, green: 0.776, blue: 0.576, alpha:1.0)
-        passwordTextField.textColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
+        passwordTextField.textColor = UIColor.whiteColor()
         passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         passwordTextField.tintColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         
@@ -94,6 +94,54 @@ class UdacityLoginViewController: UIViewController {
         facebookButton.backingColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         facebookButton.backgroundColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         // let lighterBlue = UIColor(red: 0.956, green:0.333, blue:0.0, alpha: 1.0)
+    }
+    
+    // attempt to verify user credentials with Udacity;
+    // segue to the map and table view if successful
+    @IBAction func loginToUdacity( sender: BorderedButton )
+    {
+        let enteredEmail = emailTextField.text
+        let enteredPassword = passwordTextField.text
+        
+        let loginParameters =
+        [
+            "udacity" :
+            [
+                "username" : enteredEmail,
+                "password" : enteredPassword
+            ]
+        ]
+        
+        var jsonifyError: NSError?
+        var loginData = NSJSONSerialization.dataWithJSONObject( loginParameters, options: nil, error: &jsonifyError )
+        
+        let request = NSMutableURLRequest( URL: NSURL( string: "https://www.udacity.com/api/session" )! )
+        request.HTTPMethod = "POST"
+        request.addValue( "application/json", forHTTPHeaderField: "Accept" )
+        request.addValue( "application/json", forHTTPHeaderField: "Content-Type" )
+        request.HTTPBody = loginData
+        
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest( request )
+        {
+            data, response, error in
+            
+            if let error = error
+            {
+                println( "There was a problem logging into Udacity: \( error )." )
+                return
+            }
+            else
+            {
+                println( "Response: \( response )." )
+                
+                let newData = data.subdataWithRange( NSMakeRange( 5, data.length - 5 ) )
+                // println( newData )
+                println(NSString(data: newData, encoding: NSUTF8StringEncoding))
+            }
+        }
+        
+        task.resume()
     }
     
     // NOTE:
