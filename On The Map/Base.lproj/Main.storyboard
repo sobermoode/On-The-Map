@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="x5Z-lQ-BWJ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -30,7 +30,8 @@
                                         <exclude reference="zlo-fk-p5g"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="138" y="57" width="125" height="125"/>
                                     <mask key="constraints">
                                         <include reference="jdJ-z6-hE3"/>
                                         <include reference="zlo-fk-p5g"/>
@@ -54,7 +55,8 @@
                                         <exclude reference="e1H-FT-10Z"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="27" y="214" width="350" height="31"/>
                                     <mask key="constraints">
                                         <include reference="NWj-Qs-OcC"/>
                                         <include reference="e1H-FT-10Z"/>
@@ -78,7 +80,8 @@
                                         <exclude reference="vE7-jY-18C"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="33" y="438" width="230" height="25"/>
                                     <mask key="constraints">
                                         <include reference="RzM-b4-hwd"/>
                                         <include reference="vE7-jY-18C"/>
@@ -100,7 +103,8 @@
                                         <exclude reference="KIf-NR-DZW"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="33" y="373" width="335" height="40"/>
                                     <mask key="constraints">
                                         <include reference="AbO-BQ-Rh2"/>
                                         <include reference="KIf-NR-DZW"/>
@@ -124,7 +128,8 @@
                                         <exclude reference="Ibk-XJ-TTW"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="27" y="320" width="350" height="45"/>
                                     <mask key="constraints">
                                         <include reference="HkN-uF-Qxt"/>
                                         <include reference="Ibk-XJ-TTW"/>
@@ -145,7 +150,8 @@
                                         <exclude reference="yEF-u3-vcY"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="27" y="267" width="350" height="45"/>
                                     <mask key="constraints">
                                         <include reference="V2z-E3-4Zd"/>
                                         <include reference="yEF-u3-vcY"/>
@@ -196,7 +202,8 @@
                                         <exclude reference="P39-Vr-gaq"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact">
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="271" y="432" width="97" height="37"/>
                                     <mask key="constraints">
                                         <include reference="FDm-hO-Z8Q"/>
                                         <include reference="P39-Vr-gaq"/>
@@ -319,6 +326,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="LpL-eE-eOD"/>
                     <connections>
                         <outlet property="emailTextField" destination="4fV-Kc-AfW" id="6qN-Sf-1xf"/>
                         <outlet property="facebookButton" destination="5IU-fg-hQS" id="TOI-ib-obt"/>
@@ -328,6 +336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1485" y="435"/>
         </scene>
         <!--Item 2-->
         <scene sceneID="JI7-C0-c4X">
@@ -338,6 +347,7 @@
                         <viewControllerLayoutGuide type="bottom" id="flJ-eC-Ce3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6ms-ah-Hn0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -345,7 +355,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZm-7D-ZRQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2247" y="781"/>
+            <point key="canvasLocation" x="3165" y="781"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="u59-Dn-rG3">
@@ -356,6 +366,7 @@
                         <viewControllerLayoutGuide type="bottom" id="MdH-gp-Hhz"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wLU-EO-6WY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -363,12 +374,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AsZ-sy-fal" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2247" y="119"/>
+            <point key="canvasLocation" x="3165" y="119"/>
         </scene>
         <!--Map And Table View Controller-->
         <scene sceneID="O7r-Nr-Sgz">
             <objects>
-                <tabBarController id="jjb-AE-6Ew" customClass="MapAndTableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MapAndTable" id="jjb-AE-6Ew" customClass="MapAndTableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="kyM-iL-MBp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -382,7 +393,25 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uN9-VC-HMC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1317" y="450"/>
+            <point key="canvasLocation" x="2371.5" y="435"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="wHh-0d-nVU">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="x5Z-lQ-BWJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4Xi-ni-bmw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="wET-B5-yZ3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wJZ-Sr-yoh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="724.5" y="435"/>
         </scene>
     </scenes>
     <resources>

@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 AaronJ. All rights reserved.
 //
 
+// TODO: OnTheMapClient
+// create the OnTheMapClient class and abstract all network code to it.
+
 import UIKit
 
 class UdacityLoginViewController: UIViewController {
@@ -19,10 +22,10 @@ class UdacityLoginViewController: UIViewController {
     // alert code adapted from
     // http://stackoverflow.com/a/24022696
     // create the Facebook alert
-    var alert = UIAlertController(
-        title: "Sorry 😓",
-        message: "I don't have a Facebook account, so I haven't implemented this functionality.",
-        preferredStyle: UIAlertControllerStyle.Alert )
+//    var alert = UIAlertController(
+//        title: "Sorry 😓",
+//        message: "I don't have a Facebook account, so I haven't implemented this functionality.",
+//        preferredStyle: UIAlertControllerStyle.Alert )
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +34,11 @@ class UdacityLoginViewController: UIViewController {
         configureUI()
         
         // add an alert action
-        alert.addAction( UIAlertAction(
-            title: "OK",
-            style: UIAlertActionStyle.Default,
-            handler: nil )
-        )
+//        alert.addAction( UIAlertAction(
+//            title: "OK",
+//            style: UIAlertActionStyle.Default,
+//            handler: nil )
+//        )
     }
 
     override func didReceiveMemoryWarning() {
@@ -126,18 +129,92 @@ class UdacityLoginViewController: UIViewController {
         {
             data, response, error in
             
+            /*
+                possible error codes:
+                400: either missing username or password
+                403: both credentials are present, but the account doesn't exist
+                NSURLErrorDomain Code = -1001: The request timed out. The error in the
+                    completion handler will not be nil and contain this value.
+                All of these errors need to be handled with an alert.
+            */
             if let error = error
             {
-                println( "There was a problem logging into Udacity: \( error )." )
+                // println( "There was a problem logging into Udacity: \( error )." )
+                // self.createAlert( "The login attempt timed out." )
+                self.createAlert(
+                    title: "Whoops!",
+                    message: "The login attempt timed out."
+                )
                 return
             }
             else
             {
-                println( "Response: \( response )." )
+                // println( "Response: \( response )." )
                 
                 let newData = data.subdataWithRange( NSMakeRange( 5, data.length - 5 ) )
                 // println( newData )
-                println(NSString(data: newData, encoding: NSUTF8StringEncoding))
+                // println(NSString(data: newData, encoding: NSUTF8StringEncoding))
+                let dataJSON = NSJSONSerialization.JSONObjectWithData(
+                    newData,
+                    options: nil,
+                    error: nil
+                ) as! NSDictionary
+                println( dataJSON )
+                
+                // udacity error code (missing login parameter)
+                if let statusCode = dataJSON[ "status" ] as? Int
+                {
+                    switch statusCode
+                    {
+                        case 400:
+                            dispatch_async( dispatch_get_main_queue(),
+                            {
+                                let parameter = dataJSON[ "parameter" ] as! NSString
+                                let missingParameter = parameter.substringFromIndex( 8 )
+                                // self.createAlert( "You forgot to enter a \( missingParameter )." )
+                                self.createAlert(
+                                    title: "Whoops!",
+                                    message: "You forgot to enter a \( missingParameter )."
+                                )
+                                return
+                            })
+                        
+                        case 403:
+                            dispatch_async( dispatch_get_main_queue(),
+                            {
+                                self.createAlert(
+                                title: "Whoops!",
+                                message: "There is no account with that username and password."
+                                )
+                                return
+                            })
+                            // self.createAlert( "There is no account with that username and password." )
+                        
+                        default:
+                            dispatch_async( dispatch_get_main_queue(),
+                            {
+                                self.createAlert(
+                                title: "Whoops!",
+                                message: "There was a problem logging in to Udacity."
+                                )
+                                return
+                            })
+                            // self.createAlert( "There was a problem logging in to Udacity." )
+                            
+                    }
+//                    let parameter = dataJSON[ "parameter" ] as! NSString
+//                    let missingParameter = parameter.substringFromIndex( 8 )
+//                    createAlert( "You forgot to enter a \( missingParameter )." )
+                }
+                else
+                {
+                    dispatch_async( dispatch_get_main_queue(),
+                    {
+                        let mapAndTableView = self.storyboard?.instantiateViewControllerWithIdentifier( "MapAndTable" ) as! MapAndTableViewController
+                    
+                        self.navigationController?.showViewController( mapAndTableView, sender: self )
+                    })
+                }
             }
         }
         
@@ -155,6 +232,42 @@ class UdacityLoginViewController: UIViewController {
     // show the Facebook alert
     @IBAction func facebookAlert( sender: BorderedButton )
     {
+        createAlert(
+            title: "Sorry 😓",
+            message: "I don't have a Facebook account, so I haven't implemented this functionality."
+        )
+//        var alert = UIAlertController(
+//            title: "Sorry 😓",
+//            message: "I don't have a Facebook account, so I haven't implemented this functionality.",
+//            preferredStyle: UIAlertControllerStyle.Alert )
+//        
+//        alert.addAction( UIAlertAction(
+//            title: "OK",
+//            style: UIAlertActionStyle.Default,
+//            handler: nil )
+//        )
+//        
+//        self.presentViewController(
+//            alert,
+//            animated: true,
+//            completion: nil
+//        )
+    }
+    
+    func createAlert( #title: String, message: String )
+    {
+        var alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: UIAlertControllerStyle.Alert
+        )
+        
+        alert.addAction( UIAlertAction(
+            title: "OK",
+            style: UIAlertActionStyle.Default,
+            handler: nil )
+        )
+        
         self.presentViewController(
             alert,
             animated: true,
