@@ -18,27 +18,11 @@ class UdacityLoginViewController: UIViewController {
     @IBOutlet weak var loginButton: BorderedButton!
     @IBOutlet weak var facebookButton: BorderedButton!
     
-    // NOTE:
-    // alert code adapted from
-    // http://stackoverflow.com/a/24022696
-    // create the Facebook alert
-//    var alert = UIAlertController(
-//        title: "Sorry 😓",
-//        message: "I don't have a Facebook account, so I haven't implemented this functionality.",
-//        preferredStyle: UIAlertControllerStyle.Alert )
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         configureUI()
-        
-        // add an alert action
-//        alert.addAction( UIAlertAction(
-//            title: "OK",
-//            style: UIAlertActionStyle.Default,
-//            handler: nil )
-//        )
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,6 +35,9 @@ class UdacityLoginViewController: UIViewController {
     // by Jarrod Parkes
     func configureUI()
     {
+        // hide the navigation bar, as per the image in the specification
+        self.navigationController?.setNavigationBarHidden( true, animated: false )
+        
         /* Configure background gradient */
         // code based on the MovieManager app
         self.view.backgroundColor = UIColor.clearColor()
@@ -62,7 +49,7 @@ class UdacityLoginViewController: UIViewController {
         backgroundGradient.frame = view.frame
         self.view.layer.insertSublayer(backgroundGradient, atIndex: 0)
         
-        /* Configure email textfield */
+        /* configure email textfield */
         // code based on the MyFavoriteMovies app
         let emailTextFieldPaddingViewFrame = CGRectMake(0.0, 0.0, 13.0, 0.0);
         let emailTextFieldPaddingView = UIView(frame: emailTextFieldPaddingViewFrame)
@@ -74,7 +61,7 @@ class UdacityLoginViewController: UIViewController {
         emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         emailTextField.tintColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         
-        /* Configure password textfield */
+        /* configure password textfield */
         // code based on the MyFavoriteMovies app
         let passwordTextFieldPaddingViewFrame = CGRectMake(0.0, 0.0, 13.0, 0.0);
         let passwordTextFieldPaddingView = UIView(frame: passwordTextFieldPaddingViewFrame)
@@ -86,6 +73,7 @@ class UdacityLoginViewController: UIViewController {
         passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         passwordTextField.tintColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         
+        // configure login button and facebook button
         // BorderedButton code based on the MyFavoriteMovies app
         loginButton.themeBorderedButton()
         loginButton.highlightedBackingColor = UIColor(red: 0.899, green: 0.222, blue: 0.0, alpha:1.0)
@@ -96,7 +84,6 @@ class UdacityLoginViewController: UIViewController {
         facebookButton.highlightedBackingColor = UIColor(red: 0.0, green: 0.298, blue: 0.686, alpha:1.0)
         facebookButton.backingColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         facebookButton.backgroundColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
-        // let lighterBlue = UIColor(red: 0.956, green:0.333, blue:0.0, alpha: 1.0)
     }
     
     // attempt to verify user credentials with Udacity;
@@ -115,15 +102,18 @@ class UdacityLoginViewController: UIViewController {
             ]
         ]
         
+        // create a data object to attach to the request
         var jsonifyError: NSError?
         var loginData = NSJSONSerialization.dataWithJSONObject( loginParameters, options: nil, error: &jsonifyError )
         
+        // create the request
         let request = NSMutableURLRequest( URL: NSURL( string: "https://www.udacity.com/api/session" )! )
         request.HTTPMethod = "POST"
         request.addValue( "application/json", forHTTPHeaderField: "Accept" )
         request.addValue( "application/json", forHTTPHeaderField: "Content-Type" )
         request.HTTPBody = loginData
         
+        // create the task
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest( request )
         {
@@ -135,12 +125,9 @@ class UdacityLoginViewController: UIViewController {
                 403: both credentials are present, but the account doesn't exist
                 NSURLErrorDomain Code = -1001: The request timed out. The error in the
                     completion handler will not be nil and contain this value.
-                All of these errors need to be handled with an alert.
             */
             if let error = error
             {
-                // println( "There was a problem logging into Udacity: \( error )." )
-                // self.createAlert( "The login attempt timed out." )
                 self.createAlert(
                     title: "Whoops!",
                     message: "The login attempt timed out."
@@ -149,17 +136,12 @@ class UdacityLoginViewController: UIViewController {
             }
             else
             {
-                // println( "Response: \( response )." )
-                
                 let newData = data.subdataWithRange( NSMakeRange( 5, data.length - 5 ) )
-                // println( newData )
-                // println(NSString(data: newData, encoding: NSUTF8StringEncoding))
                 let dataJSON = NSJSONSerialization.JSONObjectWithData(
                     newData,
                     options: nil,
                     error: nil
                 ) as! NSDictionary
-                println( dataJSON )
                 
                 // udacity error code (missing login parameter)
                 if let statusCode = dataJSON[ "status" ] as? Int
@@ -171,13 +153,12 @@ class UdacityLoginViewController: UIViewController {
                             {
                                 let parameter = dataJSON[ "parameter" ] as! NSString
                                 let missingParameter = parameter.substringFromIndex( 8 )
-                                // self.createAlert( "You forgot to enter a \( missingParameter )." )
                                 self.createAlert(
                                     title: "Whoops!",
                                     message: "You forgot to enter a \( missingParameter )."
                                 )
                                 return
-                            })
+                            } )
                         
                         case 403:
                             dispatch_async( dispatch_get_main_queue(),
@@ -187,8 +168,7 @@ class UdacityLoginViewController: UIViewController {
                                 message: "There is no account with that username and password."
                                 )
                                 return
-                            })
-                            // self.createAlert( "There is no account with that username and password." )
+                            } )
                         
                         default:
                             dispatch_async( dispatch_get_main_queue(),
@@ -198,13 +178,9 @@ class UdacityLoginViewController: UIViewController {
                                 message: "There was a problem logging in to Udacity."
                                 )
                                 return
-                            })
-                            // self.createAlert( "There was a problem logging in to Udacity." )
+                            } )
                             
                     }
-//                    let parameter = dataJSON[ "parameter" ] as! NSString
-//                    let missingParameter = parameter.substringFromIndex( 8 )
-//                    createAlert( "You forgot to enter a \( missingParameter )." )
                 }
                 else
                 {
@@ -213,7 +189,7 @@ class UdacityLoginViewController: UIViewController {
                         let mapAndTableView = self.storyboard?.instantiateViewControllerWithIdentifier( "MapAndTable" ) as! MapAndTableViewController
                     
                         self.navigationController?.showViewController( mapAndTableView, sender: self )
-                    })
+                    } )
                 }
             }
         }
@@ -236,24 +212,11 @@ class UdacityLoginViewController: UIViewController {
             title: "Sorry 😓",
             message: "I don't have a Facebook account, so I haven't implemented this functionality."
         )
-//        var alert = UIAlertController(
-//            title: "Sorry 😓",
-//            message: "I don't have a Facebook account, so I haven't implemented this functionality.",
-//            preferredStyle: UIAlertControllerStyle.Alert )
-//        
-//        alert.addAction( UIAlertAction(
-//            title: "OK",
-//            style: UIAlertActionStyle.Default,
-//            handler: nil )
-//        )
-//        
-//        self.presentViewController(
-//            alert,
-//            animated: true,
-//            completion: nil
-//        )
     }
     
+    // NOTE:
+    // alert code adapted from
+    // http://stackoverflow.com/a/24022696
     func createAlert( #title: String, message: String )
     {
         var alert = UIAlertController(

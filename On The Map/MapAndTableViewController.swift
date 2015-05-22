@@ -13,6 +13,8 @@ class MapAndTableViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.setNavigationBarHidden( false, animated: false )
+        
         println( "The MapAndTableViewController did load!!!" )
 
         // Do any additional setup after loading the view.
