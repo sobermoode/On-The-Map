@@ -14,6 +14,9 @@
 		8158B4C51B0AAEE000FA2D87 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8158B4C31B0AAEE000FA2D87 /* LaunchScreen.xib */; };
 		8158B4D11B0AAEE000FA2D87 /* On_The_MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8158B4D01B0AAEE000FA2D87 /* On_The_MapTests.swift */; };
 		8158B4DB1B0AAFBD00FA2D87 /* UdacityLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8158B4DA1B0AAFBD00FA2D87 /* UdacityLoginViewController.swift */; };
+		8158B4DD1B0AB8DE00FA2D87 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8158B4DC1B0AB8DE00FA2D87 /* BorderedButton.swift */; };
+		81C6B4041B0B9849002CEDCC /* MapAndTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C6B4031B0B9849002CEDCC /* MapAndTableViewController.swift */; };
+		81EFF9031B0F9459000A36A1 /* OnTheMapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EFF9021B0F9459000A36A1 /* OnTheMapClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +41,9 @@
 		8158B4CF1B0AAEE000FA2D87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8158B4D01B0AAEE000FA2D87 /* On_The_MapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = On_The_MapTests.swift; sourceTree = "<group>"; };
 		8158B4DA1B0AAFBD00FA2D87 /* UdacityLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityLoginViewController.swift; sourceTree = "<group>"; };
+		8158B4DC1B0AB8DE00FA2D87 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
+		81C6B4031B0B9849002CEDCC /* MapAndTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAndTableViewController.swift; sourceTree = "<group>"; };
+		81EFF9021B0F9459000A36A1 /* OnTheMapClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnTheMapClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +88,10 @@
 				8158B4BA1B0AAEE000FA2D87 /* AppDelegate.swift */,
 				8158B4BC1B0AAEE000FA2D87 /* ViewController.swift */,
 				8158B4BE1B0AAEE000FA2D87 /* Main.storyboard */,
+				81EFF9021B0F9459000A36A1 /* OnTheMapClient.swift */,
 				8158B4DA1B0AAFBD00FA2D87 /* UdacityLoginViewController.swift */,
+				81C6B4031B0B9849002CEDCC /* MapAndTableViewController.swift */,
+				8158B4DC1B0AB8DE00FA2D87 /* BorderedButton.swift */,
 				8158B4C11B0AAEE000FA2D87 /* Images.xcassets */,
 				8158B4C31B0AAEE000FA2D87 /* LaunchScreen.xib */,
 				8158B4B81B0AAEE000FA2D87 /* Supporting Files */,
@@ -215,9 +224,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81EFF9031B0F9459000A36A1 /* OnTheMapClient.swift in Sources */,
 				8158B4DB1B0AAFBD00FA2D87 /* UdacityLoginViewController.swift in Sources */,
 				8158B4BD1B0AAEE000FA2D87 /* ViewController.swift in Sources */,
+				8158B4DD1B0AB8DE00FA2D87 /* BorderedButton.swift in Sources */,
 				8158B4BB1B0AAEE000FA2D87 /* AppDelegate.swift in Sources */,
+				81C6B4041B0B9849002CEDCC /* MapAndTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +425,7 @@
 				8158B4D61B0AAEE000FA2D87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8158B4D71B0AAEE000FA2D87 /* Build configuration list for PBXNativeTarget "On The MapTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +434,7 @@
 				8158B4D91B0AAEE000FA2D87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
