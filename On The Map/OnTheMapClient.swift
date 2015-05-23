@@ -20,6 +20,8 @@ class OnTheMapClient: NSObject
         static let udacityLogin = "https://www.udacity.com/api/session"
     }
     
+    // NOTE:
+    // modeled after the MovieManager singleton client class by Jarrod Parkes
     override init()
     {
         session = NSURLSession.sharedSession()
@@ -59,6 +61,7 @@ class OnTheMapClient: NSObject
             parameters: loginData
         )
         
+        // create the task and handle the result
         let task = createUdacityLoginTaskWithRequest( request )
         {
             success, loginError, timeoutError in
@@ -79,12 +82,10 @@ class OnTheMapClient: NSObject
                 return completionHandler( success: false, loginError: nil, timeoutError: error )
             }
         }
-        
-        // task.resume()
-        
-        // return completionHandler( success: true, loginError: nil, timeoutError: nil )
     }
     
+    // create a URL request with the supplied username/password dictionary
+    // as a data object for the HTTPBody
     func createRequestForPOST( #url: String, parameters: NSData ) -> NSURLRequest
     {
         let request = NSMutableURLRequest( URL: NSURL( string: url )! )
@@ -96,6 +97,8 @@ class OnTheMapClient: NSObject
         return request
     }
     
+    // the login task is created and any error codes are sent back up the completion handler chain;
+    // otherwise, a successful login attempt is communicated back to the UdacityLoginViewController
     func createUdacityLoginTaskWithRequest( request: NSURLRequest, completionHandler: ( success: Bool, loginError: String?, timeoutError: String? ) -> Void ) -> NSURLSessionDataTask
     {
         let loginTask = session.dataTaskWithRequest( request )
@@ -111,15 +114,15 @@ class OnTheMapClient: NSObject
             */
             if let error = error
             {
-                return completionHandler( success: false, loginError: nil, timeoutError: "The login attempt timed out." )
-//                self.createAlert(
-//                    title: "Whoops!",
-//                    message: "The login attempt timed out."
-//                )
-//                return
+                return completionHandler(
+                    success: false,
+                    loginError: nil,
+                    timeoutError: "The login attempt timed out."
+                )
             }
             else
             {
+                // parse returned data, as per the Udacity API guide
                 let newData = data.subdataWithRange( NSMakeRange( 5, data.length - 5 ) )
                 let dataJSON = NSJSONSerialization.JSONObjectWithData(
                     newData,
@@ -127,58 +130,47 @@ class OnTheMapClient: NSObject
                     error: nil
                 ) as! NSDictionary
 
-                // udacity error code (missing login parameter)
+                // udacity error code
                 if let statusCode = dataJSON[ "status" ] as? Int
                 {
                     switch statusCode
                     {
+                        // missing username or password
                         case 400:
                             let parameter = dataJSON[ "parameter" ] as! NSString
                             let missingParameter = parameter.substringFromIndex( 8 )
-                            return completionHandler( success: false, loginError: "You forgot to enter a \( missingParameter ).", timeoutError: nil )
-//                            dispatch_async( dispatch_get_main_queue(),
-//                            {
-//                                let parameter = dataJSON[ "parameter" ] as! NSString
-//                                let missingParameter = parameter.substringFromIndex( 8 )
-//                                self.createAlert(
-//                                    title: "Whoops!",
-//                                    message: "You forgot to enter a \( missingParameter )."
-//                                )
-//                                return
-//                            } )
-//
+                            
+                            return completionHandler(
+                                success: false,
+                                loginError: "You forgot to enter a \( missingParameter ).",
+                                timeoutError: nil
+                            )
+                        
+                        // no account with the supplied username/password
                         case 403:
-                            return completionHandler( success: false, loginError: "There is no account with that username and password.", timeoutError: nil )
-//                            dispatch_async( dispatch_get_main_queue(),
-//                            {
-//                                self.createAlert(
-//                                title: "Whoops!",
-//                                message: "There is no account with that username and password."
-//                                )
-//                                return
-//                            } )
+                            return completionHandler(
+                                success: false,
+                                loginError: "There is no account with that username and password.",
+                                timeoutError: nil
+                            )
 
+                        // something unexpected happened
                         default:
-                            return completionHandler( success: false, loginError: "There was a problem logging into Udacity.", timeoutError: nil )
-//                            dispatch_async( dispatch_get_main_queue(),
-//                            {
-//                                self.createAlert(
-//                                title: "Whoops!",
-//                                message: "There was a problem logging in to Udacity."
-//                                )
-//                                return
-//                            } )
+                            return completionHandler(
+                                success: false,
+                                loginError: "There was a problem logging into Udacity.",
+                                timeoutError: nil
+                            )
                     }
                 }
+                // successful login
                 else
                 {
-                    return completionHandler( success: true, loginError: nil, timeoutError: nil )
-//                    dispatch_async( dispatch_get_main_queue(),
-//                    {
-//                        let mapAndTableView = self.storyboard?.instantiateViewControllerWithIdentifier( "MapAndTable" ) as! MapAndTableViewController
-//                    
-//                        self.navigationController?.showViewController( mapAndTableView, sender: self )
-//                    } )
+                    return completionHandler(
+                        success: true,
+                        loginError: nil,
+                        timeoutError: nil
+                    )
                 }
             }
         }
@@ -188,6 +180,8 @@ class OnTheMapClient: NSObject
         return loginTask
     }
     
+    // NOTE:
+    // modeled after the MovieManager singleton client class by Jarrod Parkes
     class func sharedInstance() -> OnTheMapClient {
         
         struct Singleton {

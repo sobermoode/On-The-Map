@@ -18,6 +18,13 @@ class UdacityLoginViewController: UIViewController {
     @IBOutlet weak var loginButton: BorderedButton!
     @IBOutlet weak var facebookButton: BorderedButton!
     
+    // navigation bar is not hidden when returning from the MapAndTable controller
+    // if this line is part of configureUI(), which is only called after viewDidLoad()
+    override func viewWillAppear( animated: Bool )
+    {
+        self.navigationController?.setNavigationBarHidden( true, animated: false )
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,8 +42,6 @@ class UdacityLoginViewController: UIViewController {
     // by Jarrod Parkes
     func configureUI()
     {
-        // hide the navigation bar, as per the image in the specification
-        self.navigationController?.setNavigationBarHidden( true, animated: false )
         
         /* Configure background gradient */
         // code based on the MovieManager app
