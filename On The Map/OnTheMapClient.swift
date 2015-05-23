@@ -13,7 +13,7 @@ class OnTheMapClient: NSObject
     var session: NSURLSession
     
     // required for logging into Udacity
-    var sessionID: Int?
+    var sessionID: String?
     
     struct URLs
     {
@@ -166,6 +166,12 @@ class OnTheMapClient: NSObject
                 // successful login
                 else
                 {
+                    let session = dataJSON[ "session" ] as! NSDictionary
+                    let id = session[ "id" ] as! String
+                    
+                    // save the session ID
+                    self.sessionID = id
+                    
                     return completionHandler(
                         success: true,
                         loginError: nil,

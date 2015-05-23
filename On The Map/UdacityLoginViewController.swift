@@ -117,128 +117,18 @@ class UdacityLoginViewController: UIViewController {
                 // handle Udacity login error code
                 dispatch_async( dispatch_get_main_queue(),
                 {
-                    // println( error )
                     self.createAlert( title: "Whoops!", message: error )
                 } )
-                // println( error )
             }
             else if let error = timeoutError
             {
                 // timeout error
                 dispatch_async( dispatch_get_main_queue(),
                 {
-                    // println( error )
                     self.createAlert( title: "Whoops!", message: error )
                 } )
             }
         }
-        
-//        let loginParameters =
-//        [
-//            "udacity" :
-//            [
-//                "username" : enteredEmail,
-//                "password" : enteredPassword
-//            ]
-//        ]
-        
-        // create a data object to attach to the request
-        // var jsonifyError: NSError?
-        // var loginData = NSJSONSerialization.dataWithJSONObject( loginParameters, options: nil, error: &jsonifyError )
-        
-        // create the request
-//        let request = NSMutableURLRequest( URL: NSURL( string: "https://www.udacity.com/api/session" )! )
-//        request.HTTPMethod = "POST"
-//        request.addValue( "application/json", forHTTPHeaderField: "Accept" )
-//        request.addValue( "application/json", forHTTPHeaderField: "Content-Type" )
-//        request.HTTPBody = loginData
-//        let request = OnTheMapClient.sharedInstance().createRequestForPOST(
-//            url: OnTheMapClient.URLs.udacityLogin,
-//            parameters: loginData
-//        )
-        
-        // create the task
-        // let session = NSURLSession.sharedSession()
-//        let task = session.dataTaskWithRequest( request )
-//        {
-//            data, response, error in
-//            
-//            /*
-//                possible error codes:
-//                400: either missing username or password
-//                403: both credentials are present, but the account doesn't exist
-//                NSURLErrorDomain Code = -1001: The request timed out. The error in the
-//                    completion handler will not be nil and contain this value.
-//            */
-//            if let error = error
-//            {
-//                self.createAlert(
-//                    title: "Whoops!",
-//                    message: "The login attempt timed out."
-//                )
-//                return
-//            }
-//            else
-//            {
-//                let newData = data.subdataWithRange( NSMakeRange( 5, data.length - 5 ) )
-//                let dataJSON = NSJSONSerialization.JSONObjectWithData(
-//                    newData,
-//                    options: nil,
-//                    error: nil
-//                ) as! NSDictionary
-//                
-//                // udacity error code (missing login parameter)
-//                if let statusCode = dataJSON[ "status" ] as? Int
-//                {
-//                    switch statusCode
-//                    {
-//                        case 400:
-//                            dispatch_async( dispatch_get_main_queue(),
-//                            {
-//                                let parameter = dataJSON[ "parameter" ] as! NSString
-//                                let missingParameter = parameter.substringFromIndex( 8 )
-//                                self.createAlert(
-//                                    title: "Whoops!",
-//                                    message: "You forgot to enter a \( missingParameter )."
-//                                )
-//                                return
-//                            } )
-//                        
-//                        case 403:
-//                            dispatch_async( dispatch_get_main_queue(),
-//                            {
-//                                self.createAlert(
-//                                title: "Whoops!",
-//                                message: "There is no account with that username and password."
-//                                )
-//                                return
-//                            } )
-//                        
-//                        default:
-//                            dispatch_async( dispatch_get_main_queue(),
-//                            {
-//                                self.createAlert(
-//                                title: "Whoops!",
-//                                message: "There was a problem logging in to Udacity."
-//                                )
-//                                return
-//                            } )
-//                            
-//                    }
-//                }
-//                else
-//                {
-//                    dispatch_async( dispatch_get_main_queue(),
-//                    {
-//                        let mapAndTableView = self.storyboard?.instantiateViewControllerWithIdentifier( "MapAndTable" ) as! MapAndTableViewController
-//                    
-//                        self.navigationController?.showViewController( mapAndTableView, sender: self )
-//                    } )
-//                }
-//            }
-//        }
-//        
-//        task.resume()
     }
     
     // NOTE:
