@@ -108,6 +108,10 @@ class UdacityLoginViewController: UIViewController {
                 dispatch_async( dispatch_get_main_queue(),
                 {
                     let mapAndTableView = self.storyboard?.instantiateViewControllerWithIdentifier( "MapAndTable" ) as! MapAndTableViewController
+                    let googleMapView = self.storyboard?.instantiateViewControllerWithIdentifier( "GoogleMap" ) as! GoogleMapViewController
+                    let studentListView = self.storyboard?.instantiateViewControllerWithIdentifier( "StudentList" ) as! StudentListTableViewController
+                    
+                    mapAndTableView.viewControllers = [ googleMapView, studentListView ]
                     
                     self.navigationController?.showViewController( mapAndTableView, sender: self )
                 } )
