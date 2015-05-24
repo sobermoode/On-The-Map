@@ -9,11 +9,18 @@
 import UIKit
 
 class GoogleMapViewController: UIViewController {
+    
+//    override func viewWillAppear( animated: Bool )
+//    {
+//        var navBar = UINavigationBar( frame: CGRectMake( 0, 0, 320, 44 ) )
+//        self.view.addSubview( navBar )
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationController?.setNavigationBarHidden( false, animated: false )
     }
 
     override func didReceiveMemoryWarning() {
