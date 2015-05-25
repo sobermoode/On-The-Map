@@ -370,6 +370,7 @@
                             <outlet property="delegate" destination="EDP-At-EJz" id="4As-R3-0Gc"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="81d-LG-nAz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -427,6 +428,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="fvz-2L-niA"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQK-6b-rYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -438,6 +440,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uN9-VC-HMC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController storyboardIdentifier="MapAndTable" id="jjb-AE-6Ew" customClass="MapAndTableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="vbq-tf-dOf"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="kyM-iL-MBp">
