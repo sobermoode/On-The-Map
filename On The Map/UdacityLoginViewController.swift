@@ -126,6 +126,7 @@ class UdacityLoginViewController: UIViewController {
                     // mapAndTableView.sender = self
                     
                     self.showViewController( mapAndTableView, sender: self )
+                    mapAndTableView.viewControllers?.first?.viewWillAppear( true )
                     // navControl. = mapAndTableView
                     
                     // self.performSegueWithIdentifier( "segueToMapAndTable", sender: self )

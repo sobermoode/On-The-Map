@@ -10,17 +10,18 @@ import UIKit
 
 class GoogleMapViewController: UIViewController {
     
-//    override func viewWillAppear( animated: Bool )
-//    {
-//        var navBar = UINavigationBar( frame: CGRectMake( 0, 0, 320, 44 ) )
-//        self.view.addSubview( navBar )
-//    }
+    override func viewWillAppear( animated: Bool )
+    {
+        OnTheMapClient.sharedInstance().getStudentLocations()
+        println( "Got the student locations. They are: \( OnTheMapClient.sharedInstance().studentLocations.count )." )
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationController?.setNavigationBarHidden( false, animated: false )
+        
+        // self.navigationController?.setNavigationBarHidden( false, animated: false )
     }
 
     override func didReceiveMemoryWarning() {

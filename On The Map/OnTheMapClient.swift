@@ -15,9 +15,20 @@ class OnTheMapClient: NSObject
     // required for logging into Udacity
     var sessionID: String?
     
-    struct URLs
+    // the current 100 student locations on the map
+    var studentLocations = [ StudentLocation ]()
+    
+    struct UdacityInfo
     {
         static let udacityLogin = "https://www.udacity.com/api/session"
+        static let personalKey = 968766250
+    }
+    
+    struct ParseInfo
+    {
+        static let appID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
+        static let apiKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+        static let GETURL = "https://api.parse.com/1/classes/StudentLocation"
     }
     
     // NOTE:
@@ -57,7 +68,7 @@ class OnTheMapClient: NSObject
         
         // create the request
         let request = createRequestForPOST(
-            url: OnTheMapClient.URLs.udacityLogin,
+            url: OnTheMapClient.UdacityInfo.udacityLogin,
             parameters: loginData
         )
         
@@ -184,6 +195,59 @@ class OnTheMapClient: NSObject
         loginTask.resume()
         
         return loginTask
+    }
+    
+    func getStudentLocations()
+    {
+        let parseRequest = createParseRequest()
+        
+        let studentLocationsTask = session.dataTaskWithRequest( parseRequest )
+        {
+            data, response, error in
+            
+            if let error = error
+            {
+                // handle error
+                // TODO: use alert for Parse error
+                println( "There was error with the Parse request." )
+            }
+            else
+            {
+                // parse data
+                var jsonificationError: NSError?
+                let results = NSJSONSerialization.JSONObjectWithData(
+                    data,
+                    options: nil,
+                    error: &jsonificationError
+                ) as! NSDictionary
+                
+                let studentLocations = results[ "results" ] as! NSArray
+                
+                for currentLocation in studentLocations
+                {
+                    let locationDict: [ String : AnyObject ] = currentLocation as! Dictionary
+                    
+                    var newStudentInfo = StudentLocation( studentInfo: locationDict )
+                    
+//                    dispatch_async( dispatch_get_main_queue(),
+//                    {
+//                        self.studentLocations.append( newStudentInfo )
+//                    } )
+                    self.studentLocations.append( newStudentInfo )
+                }
+            }
+        }
+        
+        studentLocationsTask.resume()
+    }
+    
+    func createParseRequest() -> NSURLRequest
+    {
+        let request = NSMutableURLRequest( URL: NSURL( string: OnTheMapClient.ParseInfo.GETURL )! )
+        request.addValue( OnTheMapClient.ParseInfo.appID, forHTTPHeaderField: "X-Parse-Application-Id" )
+        request.addValue( OnTheMapClient.ParseInfo.apiKey, forHTTPHeaderField: "X-Parse-REST-API-Key" )
+        
+        return request
     }
     
     // NOTE:
