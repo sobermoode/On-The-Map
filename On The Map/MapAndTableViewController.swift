@@ -29,7 +29,8 @@ class MapAndTableViewController: UITabBarController {
         // create a navigation bar for the buttons
         let frameSize = self.view.frame
         var navBar = UINavigationBar( frame: CGRectMake( 0, 21, frameSize.width, 44 ) )
-        navBar.barTintColor = UIColor.lightGrayColor()
+        navBar.alpha = 0.35
+        // navBar.barTintColor = UIColor.clearColor()
         
         // create a navigation item for the navigation bar
         var navItem = UINavigationItem( title: "On The Map" )
