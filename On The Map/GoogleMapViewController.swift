@@ -21,6 +21,10 @@ class GoogleMapViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        var camera = GMSCameraPosition.cameraWithLatitude( 33.862, longitude: -118.399, zoom: 5 )
+        var mapView = GMSMapView.mapWithFrame( CGRectZero, camera: camera )
+        self.view = mapView
+        
         // self.navigationController?.setNavigationBarHidden( false, animated: false )
     }
 
