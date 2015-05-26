@@ -168,6 +168,7 @@
 				8158B4C11B0AAEE000FA2D87 /* Images.xcassets */,
 				8158B4C31B0AAEE000FA2D87 /* LaunchScreen.xib */,
 				8158B4B81B0AAEE000FA2D87 /* Supporting Files */,
+				812E57A81B13DA11004F0644 /* On The Map-Bridging-Header.h */,
 			);
 			path = "On The Map";
 			sourceTree = "<group>";
@@ -175,7 +176,6 @@
 		8158B4B81B0AAEE000FA2D87 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				812E57A81B13DA11004F0644 /* On The Map-Bridging-Header.h */,
 				8158B4B91B0AAEE000FA2D87 /* Info.plist */,
 			);
 			name = "Supporting Files";
