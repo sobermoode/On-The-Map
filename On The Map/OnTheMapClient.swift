@@ -223,11 +223,6 @@ class OnTheMapClient: NSObject
                 
                 let studentLocations = results[ "results" ] as! NSArray
                 
-                if self.studentLocations.count > 0
-                {
-                    self.studentLocations.removeAll( keepCapacity: true )
-                }
-                
                 for currentLocation in studentLocations
                 {
                     let locationDict: [ String : AnyObject ] = currentLocation as! Dictionary
