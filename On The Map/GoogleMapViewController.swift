@@ -25,6 +25,8 @@ class GoogleMapViewController: UIViewController {
         var mapView = GMSMapView.mapWithFrame( CGRectZero, camera: camera )
         self.view = mapView
         
+        var marker = GMSMarke
+        
         // self.navigationController?.setNavigationBarHidden( false, animated: false )
     }
 
