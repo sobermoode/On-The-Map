@@ -10,6 +10,8 @@ import UIKit
 
 class MapAndTableViewController: UITabBarController {
     
+    // var sender: UIViewController?
+    
     override func viewWillAppear( animated: Bool )
     {
         // create the navigation bar
@@ -26,7 +28,8 @@ class MapAndTableViewController: UITabBarController {
     {
         // create a navigation bar for the buttons
         let frameSize = self.view.frame
-        var navBar = UINavigationBar( frame: CGRectMake( 0, 0, frameSize.width, 64 ) )
+        var navBar = UINavigationBar( frame: CGRectMake( 0, 21, frameSize.width, 44 ) )
+        navBar.barTintColor = UIColor.lightGrayColor()
         
         // create a navigation item for the navigation bar
         var navItem = UINavigationItem( title: "On The Map" )

@@ -21,17 +21,6 @@ class GoogleMapViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        var camera = GMSCameraPosition.cameraWithLatitude( 33.862, longitude: -118.399, zoom: 5 )
-        var mapView = GMSMapView.mapWithFrame( CGRectZero, camera: camera )
-        mapView.myLocationEnabled = true
-        self.view = mapView
-        
-        var marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake( 33.862, -118.399 )
-        marker.title = "Hermosa Beach, CA"
-        marker.snippet = "USA"
-        marker.map = mapView
-        
         // self.navigationController?.setNavigationBarHidden( false, animated: false )
     }
 
