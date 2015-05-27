@@ -7,13 +7,33 @@
 //
 
 import UIKit
+import MapKit
 
 class GoogleMapViewController: UIViewController {
+    
+    var studentMap: MKMapView!
     
     override func viewWillAppear( animated: Bool )
     {
         OnTheMapClient.sharedInstance().getStudentLocations()
         println( "Got the student locations. They are: \( OnTheMapClient.sharedInstance().studentLocations.count )." )
+        
+        studentMap = MKMapView( frame: self.view.frame )
+        studentMap.region = MKCoordinateRegion(
+            center: CLLocationCoordinate2DMake( 33.862, -118.399 ),
+            span: MKCoordinateSpan( latitudeDelta: 15.0, longitudeDelta: 15.0 )
+        )
+        
+        self.view = studentMap
+        
+        var exampleInfo: StudentLocation? = OnTheMapClient.sharedInstance().studentLocations.first
+        
+        var pin = MKPointAnnotation()
+        pin.coordinate = exampleInfo?.coordinate
+        pin.title = exampleInfo?.title
+        pin.subtitle = exampleInfo?.subtitle
+        
+        studentMap.addAnnotation( pin )
     }
 
     override func viewDidLoad() {
