@@ -79,7 +79,6 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
     // NOTE:
     // code taken from Jarrod Parkes's PinSample project, posted to the forums
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        println( "mapView:viewForAnnotation" )
         let pinIdentifier = "pin"
         
         var pin = mapView.dequeueReusableAnnotationViewWithIdentifier( pinIdentifier ) as? MKPinAnnotationView
