@@ -72,6 +72,9 @@ class MapAndTableViewController: UITabBarController {
     func dropPin()
     {
         println( "Dropping a pin..." )
+        let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView" ) as! InformationPostingViewController
+        
+        presentViewController( infoView, animated: true, completion: nil )
     }
     
     func refreshResults()
