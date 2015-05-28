@@ -97,6 +97,8 @@ class UdacityLoginViewController: UIViewController {
     // segue to the map and table view if successful
     @IBAction func loginToUdacity( sender: BorderedButton )
     {
+        println( "Logging into Udacity..." )
+        
         let enteredEmail = emailTextField.text
         let enteredPassword = passwordTextField.text
         
@@ -106,6 +108,8 @@ class UdacityLoginViewController: UIViewController {
             
             if success
             {
+                println( "Segueing to MapAndTableView..." )
+                
                 // segue to MapAndTable view
                 dispatch_async( dispatch_get_main_queue(),
                 {
@@ -125,8 +129,15 @@ class UdacityLoginViewController: UIViewController {
                     mapAndTableView.viewControllers = [ googleMapView, studentListView ]
                     // mapAndTableView.sender = self
                     
+//                    dispatch_async( dispatch_get_main_queue(),
+//                    {
+//                        OnTheMapClient.sharedInstance().getStudentLocations()
+//                        googleMapView.studentLocations = OnTheMapClient.sharedInstance().studentLocations
+//                        self.showViewController( mapAndTableView, sender: self )
+//                    } )
                     self.showViewController( mapAndTableView, sender: self )
-                    mapAndTableView.viewControllers?.first?.viewWillAppear( true )
+                    mapAndTableView.viewWillAppear( true )
+                    // mapAndTableView.viewControllers?.first?.viewWillAppear( true )
                     // navControl. = mapAndTableView
                     
                     // self.performSegueWithIdentifier( "segueToMapAndTable", sender: self )

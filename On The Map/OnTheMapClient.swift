@@ -197,8 +197,11 @@ class OnTheMapClient: NSObject
         return loginTask
     }
     
+    // TODO: try implementing a completion handler for this function
     func getStudentLocations()
     {
+        println( "Getting student locations..." )
+        
         let parseRequest = createParseRequest()
         
         let studentLocationsTask = session.dataTaskWithRequest( parseRequest )
@@ -213,34 +216,70 @@ class OnTheMapClient: NSObject
             }
             else
             {
-                // parse data
-                var jsonificationError: NSError?
-                let results = NSJSONSerialization.JSONObjectWithData(
-                    data,
-                    options: nil,
-                    error: &jsonificationError
-                ) as! NSDictionary
-                
-                let studentLocations = results[ "results" ] as! NSArray
-                
-                // empty the current set of student locations
-                self.studentLocations.removeAll( keepCapacity: true )
-                
-                for currentLocation in studentLocations
+                dispatch_async( dispatch_get_main_queue(),
                 {
-                    let locationDict: [ String : AnyObject ] = currentLocation as! Dictionary
+                    var jsonificationError: NSError?
+                    let results = NSJSONSerialization.JSONObjectWithData(
+                        data,
+                        options: nil,
+                        error: &jsonificationError
+                        ) as! NSDictionary
                     
-                    var newStudentInfo = StudentLocation( studentInfo: locationDict )
+                    let udacityStudents = results[ "results" ] as! NSArray
+                    // println( udacityStudents )
                     
+                    // empty the current set of student locations
+                    self.studentLocations.removeAll( keepCapacity: false )
+                    
+                    for currentStudent in udacityStudents
+                    {
+                        // let locationDict: [ String : AnyObject ] = currentStudent as! Dictionary
+                        // println( "locationDict: \( locationDict )." )
+                        
+                        var newStudentInfo = StudentLocation( studentInfo: currentStudent as? [String : AnyObject] )
+                        
+                        dispatch_async( dispatch_get_main_queue(),
+                            {
+                                self.studentLocations.append( newStudentInfo )
+                        } )
+                        // self.studentLocations.append( newStudentInfo )
+                        // println( "There are \( self.studentLocations.count ) student records." )
+                    }
+                    
+                    println( "Finished adding all the student locations to the array." )
+                } )
+//                // parse data
+//                var jsonificationError: NSError?
+//                let results = NSJSONSerialization.JSONObjectWithData(
+//                    data,
+//                    options: nil,
+//                    error: &jsonificationError
+//                ) as! NSDictionary
+//                
+//                let udacityStudents = results[ "results" ] as! NSArray
+//                // println( udacityStudents )
+//                
+//                // empty the current set of student locations
+//                self.studentLocations.removeAll( keepCapacity: true )
+//                
+//                for currentStudent in udacityStudents
+//                {
+//                    // let locationDict: [ String : AnyObject ] = currentStudent as! Dictionary
+//                    // println( "locationDict: \( locationDict )." )
+//                    
+//                    var newStudentInfo = StudentLocation( studentInfo: currentStudent as? [String : AnyObject] )
+//                    
 //                    dispatch_async( dispatch_get_main_queue(),
 //                    {
 //                        self.studentLocations.append( newStudentInfo )
 //                    } )
-                    self.studentLocations.append( newStudentInfo )
-                }
+//                    // self.studentLocations.append( newStudentInfo )
+//                    // println( "There are \( self.studentLocations.count ) student records." )
+//                }
             }
         }
         
+        println( "About to resume studentLocationsTask..." )
         studentLocationsTask.resume()
     }
     
