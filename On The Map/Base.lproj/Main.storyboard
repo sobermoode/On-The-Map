@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="x5Z-lQ-BWJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -30,8 +30,7 @@
                                         <exclude reference="zlo-fk-p5g"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="138" y="57" width="125" height="125"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="jdJ-z6-hE3"/>
                                         <include reference="zlo-fk-p5g"/>
@@ -55,8 +54,7 @@
                                         <exclude reference="e1H-FT-10Z"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="27" y="214" width="350" height="31"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="NWj-Qs-OcC"/>
                                         <include reference="e1H-FT-10Z"/>
@@ -80,8 +78,7 @@
                                         <exclude reference="vE7-jY-18C"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="33" y="438" width="230" height="25"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="RzM-b4-hwd"/>
                                         <include reference="vE7-jY-18C"/>
@@ -103,8 +100,7 @@
                                         <exclude reference="KIf-NR-DZW"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="33" y="373" width="335" height="40"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="AbO-BQ-Rh2"/>
                                         <include reference="KIf-NR-DZW"/>
@@ -128,8 +124,7 @@
                                         <exclude reference="Ibk-XJ-TTW"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="27" y="320" width="350" height="45"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="HkN-uF-Qxt"/>
                                         <include reference="Ibk-XJ-TTW"/>
@@ -150,8 +145,7 @@
                                         <exclude reference="yEF-u3-vcY"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="27" y="267" width="350" height="45"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="V2z-E3-4Zd"/>
                                         <include reference="yEF-u3-vcY"/>
@@ -202,8 +196,7 @@
                                         <exclude reference="P39-Vr-gaq"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="271" y="432" width="97" height="37"/>
+                                <variation key="widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="FDm-hO-Z8Q"/>
                                         <include reference="P39-Vr-gaq"/>
@@ -341,7 +334,7 @@
         <!--Item 2-->
         <scene sceneID="JI7-C0-c4X">
             <objects>
-                <viewController id="wdY-ij-cHs" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StudentList2" id="wdY-ij-cHs" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6K8-DP-6Gr"/>
                         <viewControllerLayoutGuide type="bottom" id="flJ-eC-Ce3"/>
@@ -357,10 +350,37 @@
             </objects>
             <point key="canvasLocation" x="3165" y="781"/>
         </scene>
+        <!--Student List Table View Controller-->
+        <scene sceneID="ktr-0q-Hf2">
+            <objects>
+                <tableViewController storyboardIdentifier="StudentList" id="EDP-At-EJz" customClass="StudentListTableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ect-dg-vaj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="1dI-BS-lkJ">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1dI-BS-lkJ" id="aRc-Rb-0np">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="EDP-At-EJz" id="LS2-v3-Bqh"/>
+                            <outlet property="delegate" destination="EDP-At-EJz" id="4As-R3-0Gc"/>
+                        </connections>
+                    </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="81d-LG-nAz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3831" y="781"/>
+        </scene>
         <!--Item 1-->
         <scene sceneID="u59-Dn-rG3">
             <objects>
-                <viewController id="U4B-L3-IpD" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GoogleMap2" id="U4B-L3-IpD" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="S24-Oj-hYi"/>
                         <viewControllerLayoutGuide type="bottom" id="MdH-gp-Hhz"/>
@@ -376,10 +396,32 @@
             </objects>
             <point key="canvasLocation" x="3165" y="119"/>
         </scene>
+        <!--Google Map View Controller-->
+        <scene sceneID="MJi-r6-W7a">
+            <objects>
+                <viewController storyboardIdentifier="GoogleMap" id="AaD-fa-3Rc" customClass="GoogleMapViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ReC-0G-kg6"/>
+                        <viewControllerLayoutGuide type="bottom" id="yrD-li-wj5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OEh-jt-dTG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="fvz-2L-niA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oQK-6b-rYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3831" y="119"/>
+        </scene>
         <!--Map And Table View Controller-->
         <scene sceneID="O7r-Nr-Sgz">
             <objects>
                 <tabBarController storyboardIdentifier="MapAndTable" id="jjb-AE-6Ew" customClass="MapAndTableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="vbq-tf-dOf"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="kyM-iL-MBp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -398,16 +440,13 @@
         <!--Navigation Controller-->
         <scene sceneID="wHh-0d-nVU">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="x5Z-lQ-BWJ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MapAndTableNavCon" automaticallyAdjustsScrollViewInsets="NO" id="x5Z-lQ-BWJ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4Xi-ni-bmw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="wET-B5-yZ3"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wJZ-Sr-yoh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
