@@ -43,17 +43,23 @@ class GoogleMapViewController: UIViewController {
                         
                         self.view = self.studentMap
                         
-                        var exampleInfo: StudentLocation = self.studentLocations.first!
-                        
-                        var pin = MKPointAnnotation()
-                        pin.coordinate = exampleInfo.coordinate!
-                        pin.title = exampleInfo.title!
-                        pin.subtitle = exampleInfo.subtitle!
-                        
-                        self.studentMap.addAnnotation( pin )
+                        self.addLocationsToMap( studentLocations )
                     } )
                 }
             }
+        }
+    }
+    
+    func addLocationsToMap( locations: [ StudentLocation ] )
+    {
+        for location in locations
+        {
+            var pin = MKPointAnnotation()
+            pin.coordinate = location.coordinate
+            pin.title = location.title
+            pin.subtitle = location.subtitle
+            
+            studentMap.addAnnotation( pin )
         }
     }
 
