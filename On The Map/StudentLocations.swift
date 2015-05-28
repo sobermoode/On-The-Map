@@ -41,7 +41,6 @@ struct StudentLocation
             self.createdAt = studentInfo[ "createdAt" ] as? NSDate
             self.updatedAt = studentInfo[ "updatedAt" ] as? NSDate
             
-            // self.coordinate = CLLocationCoordinate2DMake( self.latitude!, self.longitude! )
             self.coordinate = CLLocationCoordinate2D( latitude: self.latitude!, longitude: self.longitude! )
             self.title = "\( self.firstName ) \( self.lastName )"
             self.subtitle = self.mediaURL

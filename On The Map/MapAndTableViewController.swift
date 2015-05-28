@@ -10,34 +10,16 @@ import UIKit
 
 class MapAndTableViewController: UITabBarController {
     
-    // var sender: UIViewController?
-    
     override func viewWillAppear( animated: Bool )
     {
-        println( "MapAndTableView will appear..." )
-        OnTheMapClient.sharedInstance().getStudentLocations()
-        
-        let googleMapView = viewControllers?.first as! GoogleMapViewController
-        googleMapView.studentLocations = OnTheMapClient.sharedInstance().studentLocations
-        googleMapView.listStudentLocations()
-        
         // create the navigation bar
         createNavigationBar()
-        
-        // OnTheMapClient.sharedInstance().getStudentLocations()
-        // println( "Got the student locations. They are: \( OnTheMapClient.sharedInstance().studentLocations.count )." )
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        println( "MapAndTableView did load." )
-        
-        // viewControllers?.first?.viewWillAppear( true )
-        // viewControllers?.first?.viewWillAppear( true )
-        // OnTheMapClient.sharedInstance().getStudentLocations()
-        // println( "Got the student locations. They are: \( OnTheMapClient.sharedInstance().studentLocations.count )." )
     }
     
     func createNavigationBar()

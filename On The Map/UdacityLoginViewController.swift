@@ -22,7 +22,7 @@ class UdacityLoginViewController: UIViewController {
     // if this line is part of configureUI(), which is only called after viewDidLoad()
     override func viewWillAppear( animated: Bool )
     {
-        self.navigationController?.setNavigationBarHidden( true, animated: false )
+        // self.navigationController?.setNavigationBarHidden( true, animated: false )
     }
     
     override func viewDidLoad() {
@@ -97,8 +97,6 @@ class UdacityLoginViewController: UIViewController {
     // segue to the map and table view if successful
     @IBAction func loginToUdacity( sender: BorderedButton )
     {
-        println( "Logging into Udacity..." )
-        
         let enteredEmail = emailTextField.text
         let enteredPassword = passwordTextField.text
         
@@ -108,42 +106,23 @@ class UdacityLoginViewController: UIViewController {
             
             if success
             {
-                println( "Segueing to MapAndTableView..." )
-                
                 // segue to MapAndTable view
                 dispatch_async( dispatch_get_main_queue(),
                 {
                     let mapAndTableView = self.storyboard?.instantiateViewControllerWithIdentifier( "MapAndTable" ) as! MapAndTableViewController
                     let googleMapView = self.storyboard?.instantiateViewControllerWithIdentifier( "GoogleMap" ) as! GoogleMapViewController
                     let studentListView = self.storyboard?.instantiateViewControllerWithIdentifier( "StudentList" ) as! StudentListTableViewController
-                    // let navControl = UINavigationController(rootViewController: mapAndTableView)
-                    // let navControl = self.storyboard?.instantiateViewControllerWithIdentifier( "MapAndTableNavCon" ) as! UINavigationController
                     
                     googleMapView.tabBarItem.image = UIImage( named: "map" )
                     googleMapView.tabBarItem.title = "Map"
                     googleMapView.navigationController?.navigationBarHidden = false
                     studentListView.tabBarItem.image = UIImage( named: "list" )
                     studentListView.tabBarItem.title = "List"
-                    // studentListView.navigationController?.navigationBarHidden = false
                     
                     mapAndTableView.viewControllers = [ googleMapView, studentListView ]
-                    // mapAndTableView.sender = self
                     
-//                    dispatch_async( dispatch_get_main_queue(),
-//                    {
-//                        OnTheMapClient.sharedInstance().getStudentLocations()
-//                        googleMapView.studentLocations = OnTheMapClient.sharedInstance().studentLocations
-//                        self.showViewController( mapAndTableView, sender: self )
-//                    } )
                     self.showViewController( mapAndTableView, sender: self )
                     mapAndTableView.viewWillAppear( true )
-                    // mapAndTableView.viewControllers?.first?.viewWillAppear( true )
-                    // navControl. = mapAndTableView
-                    
-                    // self.performSegueWithIdentifier( "segueToMapAndTable", sender: self )
-                    // navControl.showViewController( mapAndTableView, sender: self )
-                    
-                    // self.navigationController?.showViewController( mapAndTableView, sender: self )
                 } )
             }
             else if let error = loginError

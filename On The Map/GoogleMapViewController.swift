@@ -13,56 +13,48 @@ class GoogleMapViewController: UIViewController {
     
     var studentLocations = [ StudentLocation ]()
     var studentMap: MKMapView!
-    
-    override func viewWillAppear( animated: Bool )
-    {
-        println( "GoogleMapView will appear..." )
-        
-//        dispatch_async( dispatch_get_main_queue(),
-//        {
-//            OnTheMapClient.sharedInstance().getStudentLocations()
-//            println( "Got the student locations. They are: \( OnTheMapClient.sharedInstance().studentLocations.count )." )
-//        } )
-//        OnTheMapClient.sharedInstance().getStudentLocations()
-//        println( "Got the student locations. They are: \( OnTheMapClient.sharedInstance().studentLocations.count )." )
-//
-//        studentMap = MKMapView( frame: self.view.frame )
-//        studentMap.region = MKCoordinateRegion(
-//            center: CLLocationCoordinate2DMake( 33.862, -118.399 ),
-//            span: MKCoordinateSpan( latitudeDelta: 15.0, longitudeDelta: 15.0 )
-//        )
-//        
-//        self.view = studentMap
-//        
-//        var exampleInfo: StudentLocation = OnTheMapClient.sharedInstance().studentLocations.first!
-//        println( "exampleInfo: \( exampleInfo )." )
-//        
-//        var pin = MKPointAnnotation()
-//        pin.coordinate = exampleInfo.coordinate!
-//        pin.title = exampleInfo.title
-//        pin.subtitle = exampleInfo.subtitle
-//        
-//        studentMap.addAnnotation( pin )
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        println( "GoogleMapView did load." )
-        OnTheMapClient.sharedInstance().getStudentLocations()
-//        studentLocations = OnTheMapClient.sharedInstance().studentLocations
-//        println( "There are \( studentLocations.count ) student locations." )
         
-        // OnTheMapClient.sharedInstance().getStudentLocations()
-        // println( "Got the student locations. They are: \( OnTheMapClient.sharedInstance().studentLocations.count )." )
-        
-        // self.navigationController?.setNavigationBarHidden( false, animated: false )
-    }
-    
-    func listStudentLocations()
-    {
-        println( "The GoogleMapView has \( studentLocations.count ) student locations." )
+        OnTheMapClient.sharedInstance().getStudentLocations
+        {
+            success, studentLocations, error in
+            
+            if let error = error
+            {
+                println( error )
+            }
+            else if success
+            {
+                if let studentLocations = studentLocations
+                {
+                    self.studentLocations = studentLocations
+                    
+                    dispatch_async( dispatch_get_main_queue(),
+                    {
+                        self.studentMap = MKMapView( frame: self.view.frame )
+                        self.studentMap.region = MKCoordinateRegion(
+                            center: CLLocationCoordinate2DMake( 33.862, -118.399 ),
+                            span: MKCoordinateSpan( latitudeDelta: 15.0, longitudeDelta: 15.0 )
+                        )
+                        
+                        self.view = self.studentMap
+                        
+                        var exampleInfo: StudentLocation = self.studentLocations.first!
+                        
+                        var pin = MKPointAnnotation()
+                        pin.coordinate = exampleInfo.coordinate!
+                        pin.title = exampleInfo.title!
+                        pin.subtitle = exampleInfo.subtitle!
+                        
+                        self.studentMap.addAnnotation( pin )
+                    } )
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
