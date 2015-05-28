@@ -35,6 +35,7 @@ struct StudentLocation
     }
     var subtitle: String
     {
+        // return NSURL( string: "\( self.mediaURL! )" )!
         return self.mediaURL!
     }
     
