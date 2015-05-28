@@ -77,6 +77,33 @@ class MapAndTableViewController: UITabBarController {
     func refreshResults()
     {
         println( "Refreshing results..." )
+        OnTheMapClient.sharedInstance().getStudentLocations
+        {
+            success, studentLocations, error in
+            
+            if let error = error
+            {
+                // TODO: create alert for this error
+                println( "There was an error refreshing the student locations: \( error )." )
+            }
+            else if success
+            {
+                if let studentLocations = studentLocations
+                {
+                    dispatch_async( dispatch_get_main_queue(),
+                    {
+                        let googleMapView = self.viewControllers?.first as! GoogleMapViewController
+                        googleMapView.studentLocations = studentLocations
+                        googleMapView.studentMap.removeAnnotations( googleMapView.studentMap.annotations )
+                        googleMapView.addLocationsToMap()
+                        
+                        let studentTableView = self.viewControllers?.last as! StudentListTableViewController
+                        studentTableView.studentLocations = studentLocations
+                        studentTableView.tableView.reloadData()
+                    } )
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

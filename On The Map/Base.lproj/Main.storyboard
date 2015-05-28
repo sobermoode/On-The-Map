@@ -344,6 +344,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Item 2" id="o0Y-uf-04s"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZm-7D-ZRQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -359,7 +360,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="1dI-BS-lkJ">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentCell" id="1dI-BS-lkJ">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1dI-BS-lkJ" id="aRc-Rb-0np">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -371,7 +372,7 @@
                             <outlet property="delegate" destination="EDP-At-EJz" id="4As-R3-0Gc"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="81d-LG-nAz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -390,6 +391,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Item 1" id="ooo-j6-fuB"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AsZ-sy-fal" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -409,8 +411,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="fvz-2L-niA"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQK-6b-rYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
