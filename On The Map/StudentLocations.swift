@@ -7,19 +7,37 @@
 //
 
 import Foundation
+import MapKit
 
 struct StudentLocation
 {
+    // student info properties
     var objectID : String?
     var uniqueKey: String?
     var firstName: String?
     var lastName : String?
     var mapString: String?
     var mediaURL : String?
-    var latitude : Float?
-    var longitude: Float?
+    var latitude : Double?
+    var longitude: Double?
     var createdAt: NSDate?
     var updatedAt: NSDate?
+    
+    // computed properties;
+    // for use with map annotations
+    var coordinate: CLLocationCoordinate2D
+    {
+        return CLLocationCoordinate2D( latitude: self.latitude!, longitude: self.longitude! )
+    }
+    var title: String
+    {
+        return "\( self.firstName! ) \( self.lastName! )"
+    }
+    var subtitle: String
+    {
+        // return NSURL( string: "\( self.mediaURL! )" )!
+        return self.mediaURL!
+    }
     
     init( studentInfo: [ String : AnyObject ]? )
     {
@@ -31,8 +49,8 @@ struct StudentLocation
             self.lastName = studentInfo[ "lastName" ] as? String
             self.mapString = studentInfo[ "mapString" ] as? String
             self.mediaURL = studentInfo[ "mediaURL" ] as? String
-            self.latitude = studentInfo[ "latitude " ] as? Float
-            self.longitude = studentInfo[ "longitude" ] as? Float
+            self.latitude = studentInfo[ "latitude" ] as? Double
+            self.longitude = studentInfo[ "longitude" ] as? Double
             self.createdAt = studentInfo[ "createdAt" ] as? NSDate
             self.updatedAt = studentInfo[ "updatedAt" ] as? NSDate
         }

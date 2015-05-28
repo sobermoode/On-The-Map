@@ -197,7 +197,7 @@ class OnTheMapClient: NSObject
         return loginTask
     }
     
-    func getStudentLocations()
+    func getStudentLocations( completionHandler: ( success: Bool, studentLocations: [ StudentLocation ]?, error: String? ) -> Void )
     {
         let parseRequest = createParseRequest()
         
@@ -209,7 +209,11 @@ class OnTheMapClient: NSObject
             {
                 // handle error
                 // TODO: use alert for Parse error
-                println( "There was error with the Parse request." )
+                return completionHandler(
+                    success: false,
+                    studentLocations: nil,
+                    error: "There was a problem with the Parse request."
+                )
             }
             else
             {
@@ -221,20 +225,24 @@ class OnTheMapClient: NSObject
                     error: &jsonificationError
                 ) as! NSDictionary
                 
-                let studentLocations = results[ "results" ] as! NSArray
+                let udacityStudents = results[ "results" ] as! NSArray
                 
-                for currentLocation in studentLocations
+                // empty the current array of student locations
+                self.studentLocations.removeAll( keepCapacity: false )
+                
+                // populate array of student locations with most current data
+                for currentStudent in udacityStudents
                 {
-                    let locationDict: [ String : AnyObject ] = currentLocation as! Dictionary
+                    var newStudentInfo = StudentLocation( studentInfo: currentStudent as? [String : AnyObject] )
                     
-                    var newStudentInfo = StudentLocation( studentInfo: locationDict )
-                    
-//                    dispatch_async( dispatch_get_main_queue(),
-//                    {
-//                        self.studentLocations.append( newStudentInfo )
-//                    } )
                     self.studentLocations.append( newStudentInfo )
                 }
+                
+                return completionHandler(
+                    success: true,
+                    studentLocations: self.studentLocations,
+                    error: nil
+                )
             }
         }
         

@@ -9,11 +9,6 @@
 import UIKit
 
 class StudentListTableViewController: UITableViewController {
-    
-//    override func viewWillAppear(animated: Bool) {
-//        self.tabBarItem.image = UIImage(named: "list" )
-//        self.tabBarItem.title = "List"
-//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
