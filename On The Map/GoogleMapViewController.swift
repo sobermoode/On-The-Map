@@ -53,7 +53,7 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
                         self.view = self.studentMap
                         
                         // pin the student locations to the map
-                        self.addLocationsToMap( studentLocations )
+                        self.addLocationsToMap()
                     } )
                 }
             }
@@ -63,9 +63,9 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
     // the function receives the array of student locations from Parse
     // and then creates pins for each student with their relevant info
     // and adds the pin to the map
-    func addLocationsToMap( locations: [ StudentLocation ] )
+    func addLocationsToMap()
     {
-        for location in locations
+        for location in studentLocations
         {
             var pin = MKPointAnnotation()
             pin.coordinate = location.coordinate

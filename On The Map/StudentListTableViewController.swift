@@ -16,7 +16,8 @@ class StudentListTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         // self.tableView.frame.origin.y = 64
-        self.tableView.frame.inset(dx: 0.0, dy: 64.0)
+        // self.tableView.frame.inset(dx: 0.0, dy: 64.0)
+        println( "There are \( studentLocations.count ) student locations." )
     }
 
     override func viewDidLoad() {
