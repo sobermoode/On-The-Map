@@ -12,7 +12,7 @@ import CoreLocation
 
 class InformationPostingViewController: UIViewController {
     
-    // initial view outlets
+    // search view outlets
     @IBOutlet weak var enterLocationView: UIView!
     @IBOutlet weak var findButton: BorderedButton!
     @IBOutlet weak var locationTextField: UITextField!
@@ -32,6 +32,8 @@ class InformationPostingViewController: UIViewController {
         mapView.hidden = true
         linkSubmissionView.hidden = true
         configureButtons()
+        
+        locationTextField.text = "hermosa beach, ca"
     }
     
     func configureButtons()
@@ -56,12 +58,13 @@ class InformationPostingViewController: UIViewController {
         if address.isEmpty
         {
             // handle empty location with an alert
+            println( "Please enter the location you're studying from 😁" )
         }
         else
         {
             // NOTE:
             // I used the code from http://stackoverflow.com/a/24708029
-            // as a reference for helping devise this code
+            // as a reference when devising this solution
             geocoder.geocodeAddressString( address )
             {
                 placemarks, error in
@@ -69,16 +72,36 @@ class InformationPostingViewController: UIViewController {
                 if let error = error
                 {
                     // handle error with alert
+                    println( "There was an error finding that location." )
                 }
                 else
                 {
                     if let placemarks = placemarks
                     {
-                        println( "Got the placemarks!!!" )
-                        println( placemarks )
-                        self.mapView.hidden = false
-                        self.linkSubmissionView.hidden = false
-                        self.enterLocationView.hidden = true
+                        // if the search term returns ambiguous results, we'll use the first one as the "best";
+                        // if that isn't what the user wanted, they can refine their search
+                        if let bestResult = placemarks.first as? CLPlacemark
+                        {
+                            // set the map on the coordinates of the search location
+                            self.mapView.region = MKCoordinateRegion(
+                                center: bestResult.location.coordinate,
+                                span: MKCoordinateSpan(
+                                    latitudeDelta: 0.1,
+                                    longitudeDelta: 0.1
+                                )
+                            )
+                            
+                            // unhide the map view and link submission view;
+                            // hide the search view
+                            self.mapView.hidden = false
+                            self.linkSubmissionView.hidden = false
+                            self.enterLocationView.hidden = true
+                        }
+                        else
+                        {
+                            // handle this with an alert
+                            println( "That location didn't match any results." )
+                        }
                     }
                 }
             }
