@@ -22,6 +22,7 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet weak var linkSubmissionView: UIView!
     @IBOutlet weak var linkSubmissionTextField: UITextField!
     @IBOutlet weak var submitLinkButton: BorderedButton!
+    @IBOutlet weak var refineSearchButton: BorderedButton!
     
     let geocoder = CLGeocoder()
 
@@ -31,6 +32,7 @@ class InformationPostingViewController: UIViewController {
         // Do any additional setup after loading the view.
         mapView.hidden = true
         linkSubmissionView.hidden = true
+        refineSearchButton.hidden = true
         configureButtons()
         
         locationTextField.text = "hermosa beach, ca"
@@ -49,6 +51,12 @@ class InformationPostingViewController: UIViewController {
         submitLinkButton.highlightedBackingColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha:1.0)
         submitLinkButton.backingColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         submitLinkButton.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+        refineSearchButton.themeBorderedButton()
+        refineSearchButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
+        refineSearchButton.highlightedBackingColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha:1.0)
+        refineSearchButton.backingColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        refineSearchButton.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     }
 
     @IBAction func findOnTheMap( sender: BorderedButton )
@@ -57,7 +65,7 @@ class InformationPostingViewController: UIViewController {
         
         if address.isEmpty
         {
-            // handle empty location with an alert
+            // TODO: handle empty location with an alert
             println( "Please enter the location you're studying from 😁" )
         }
         else
@@ -71,7 +79,7 @@ class InformationPostingViewController: UIViewController {
                 
                 if let error = error
                 {
-                    // handle error with alert
+                    // TODO: handle error with alert
                     println( "There was an error finding that location." )
                 }
                 else
@@ -91,15 +99,16 @@ class InformationPostingViewController: UIViewController {
                                 )
                             )
                             
-                            // unhide the map view and link submission view;
+                            // show the map view and link submission view;
                             // hide the search view
                             self.mapView.hidden = false
                             self.linkSubmissionView.hidden = false
+                            self.refineSearchButton.hidden = false
                             self.enterLocationView.hidden = true
                         }
                         else
                         {
-                            // handle this with an alert
+                            // TODO: handle this with an alert
                             println( "That location didn't match any results." )
                         }
                     }
@@ -111,6 +120,16 @@ class InformationPostingViewController: UIViewController {
     @IBAction func submitLink( sender: BorderedButton )
     {
         println( "Submitting link..." )
+    }
+    
+    @IBAction func refineSearch( sender: BorderedButton )
+    {
+        // hide the map view and link submission view;
+        // show the search view
+        self.mapView.hidden = true
+        self.linkSubmissionView.hidden = true
+        self.refineSearchButton.hidden = true
+        self.enterLocationView.hidden = false
     }
     
     override func didReceiveMemoryWarning() {
