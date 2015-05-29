@@ -12,23 +12,32 @@ class OnTheMapClient: NSObject
 {
     var session: NSURLSession
     
-    // required for logging into Udacity
-    var sessionID: String?
+    // Udacity login reponse variables
+    // var sessionID: String?
+//    var userID: String?
+//    var userFirstName: String?
+//    var userLastName: String?
     
     // the current 100 student locations on the map
     var studentLocations = [ StudentLocation ]()
     
+    // Udacity request URLs,
+    // Udacity login response variables
     struct UdacityInfo
     {
         static let udacityLogin = "https://www.udacity.com/api/session"
-        static let personalKey = 968766250
+        static let udacityUserData = "https://www.udacity.com/api/users/<user_id>"
+        static var sessionID: String?
+        static var userFirstName: String?
+        static var userLastName: String?
+        static var personalKey: String?
     }
     
     struct ParseInfo
     {
         static let appID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
         static let apiKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
-        static let GETURL = "https://api.parse.com/1/classes/StudentLocation"
+        static let apiURL = "https://api.parse.com/1/classes/StudentLocation"
     }
     
     // NOTE:
@@ -177,11 +186,23 @@ class OnTheMapClient: NSObject
                 // successful login
                 else
                 {
-                    let session = dataJSON[ "session" ] as! NSDictionary
-                    let id = session[ "id" ] as! String
+                    let account = dataJSON[ "account" ] as! NSDictionary
+                        let session = dataJSON[ "session" ] as! NSDictionary
+                        // let id = session[ "id" ] as! String
+                        
+                        // save the personal key
+                        OnTheMapClient.UdacityInfo.personalKey = account[ "key" ] as? String
+                        
+                        // save the session ID
+                        OnTheMapClient.UdacityInfo.sessionID = session[ "id" ] as? String
                     
-                    // save the session ID
-                    self.sessionID = id
+                    // get current user data
+                    dispatch_async( dispatch_get_main_queue(),
+                    {
+                        // self.getUserData()
+                        
+                        self.getUserData()
+                    } )
                     
                     return completionHandler(
                         success: true,
@@ -197,9 +218,56 @@ class OnTheMapClient: NSObject
         return loginTask
     }
     
+    func getUserData()
+    {
+        println( "personal key: \( OnTheMapClient.UdacityInfo.personalKey )." )
+        var userDataURL = OnTheMapClient.UdacityInfo.udacityUserData
+        let requestURL = userDataURL.stringByReplacingOccurrencesOfString( "<user_id>", withString: OnTheMapClient.UdacityInfo.personalKey!, options: nil, range: nil )
+//        if let url = NSURL( string: "https://www.udacity.com/api/users/\( OnTheMapClient.UdacityInfo.personalKey )" )
+//        {
+//            println( "The URL is: \( url )." )
+//        }
+//        else
+//        {
+//            println( "There was an error creating the URL for getUserData()." )
+//        }
+        
+        let userDataRequest = NSMutableURLRequest( URL: NSURL( string: requestURL )! )
+        
+        let userDataTask = session.dataTaskWithRequest( userDataRequest )
+        {
+            data, response, error in
+            
+            if let error = error
+            {
+                // TODO: handle with an alert
+                println( "There was a problem getting your user data from Udacity: \( error )." )
+            }
+            else
+            {
+                println( data )
+                // parse returned data, as per the Udacity API guide
+                let newData = data.subdataWithRange( NSMakeRange( 5, data.length - 5 ) )
+                let dataJSON = NSJSONSerialization.JSONObjectWithData(
+                    newData,
+                    options: nil,
+                    error: nil
+                ) as! NSDictionary
+                
+                println( "dataJSON: \( dataJSON )." )
+                
+                let user = dataJSON[ "user" ] as! NSDictionary
+                OnTheMapClient.UdacityInfo.userFirstName = user[ "first_name" ] as? String
+                OnTheMapClient.UdacityInfo.userLastName = user[ "last_name" ] as? String
+            }
+        }
+        
+        userDataTask.resume()
+    }
+    
     func getStudentLocations( completionHandler: ( success: Bool, studentLocations: [ StudentLocation ]?, error: String? ) -> Void )
     {
-        let parseRequest = createParseRequest()
+        let parseRequest = createParseRequestForType( "GET", studentInfo: nil )
         
         let studentLocationsTask = session.dataTaskWithRequest( parseRequest )
         {
@@ -249,11 +317,18 @@ class OnTheMapClient: NSObject
         studentLocationsTask.resume()
     }
     
-    func createParseRequest() -> NSURLRequest
+    func createParseRequestForType( methodType: String, studentInfo: [ String : AnyObject ]? ) -> NSURLRequest
     {
-        let request = NSMutableURLRequest( URL: NSURL( string: OnTheMapClient.ParseInfo.GETURL )! )
+        let request = NSMutableURLRequest( URL: NSURL( string: OnTheMapClient.ParseInfo.apiURL )! )
         request.addValue( OnTheMapClient.ParseInfo.appID, forHTTPHeaderField: "X-Parse-Application-Id" )
         request.addValue( OnTheMapClient.ParseInfo.apiKey, forHTTPHeaderField: "X-Parse-REST-API-Key" )
+        
+        if methodType == "POST"
+        {
+            // add extra POST values
+            request.addValue( "application/json", forHTTPHeaderField: "Content-Type" )
+            // studentInfo[ "uniqueKey" ] = "1234"
+        }
         
         return request
     }

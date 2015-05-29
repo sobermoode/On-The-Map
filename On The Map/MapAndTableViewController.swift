@@ -20,6 +20,8 @@ class MapAndTableViewController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        println( "Current user info:" )
+        println( "\(OnTheMapClient.UdacityInfo.userFirstName ), \(OnTheMapClient.UdacityInfo.userLastName), \(OnTheMapClient.UdacityInfo.personalKey)." )
     }
     
     func createNavigationBar()

@@ -39,6 +39,11 @@ struct StudentLocation
         return self.mediaURL!
     }
     
+    init()
+    {
+        
+    }
+    
     init( studentInfo: [ String : AnyObject ]? )
     {
         if let studentInfo = studentInfo

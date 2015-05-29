@@ -25,6 +25,8 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet weak var refineSearchButton: BorderedButton!
     
     let geocoder = CLGeocoder()
+    
+    var currentLocation: CLLocationCoordinate2D?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,6 +101,9 @@ class InformationPostingViewController: UIViewController {
                                 )
                             )
                             
+                            // set the current location
+                            self.currentLocation = bestResult.location.coordinate
+                            
                             // show the map view and link submission view;
                             // hide the search view
                             self.mapView.hidden = false
@@ -120,6 +125,9 @@ class InformationPostingViewController: UIViewController {
     @IBAction func submitLink( sender: BorderedButton )
     {
         println( "Submitting link..." )
+        
+        // Parse POST request
+        
     }
     
     @IBAction func refineSearch( sender: BorderedButton )
