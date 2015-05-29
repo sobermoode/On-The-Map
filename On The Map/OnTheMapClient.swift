@@ -187,20 +187,17 @@ class OnTheMapClient: NSObject
                 else
                 {
                     let account = dataJSON[ "account" ] as! NSDictionary
-                        let session = dataJSON[ "session" ] as! NSDictionary
-                        // let id = session[ "id" ] as! String
-                        
-                        // save the personal key
-                        OnTheMapClient.UdacityInfo.personalKey = account[ "key" ] as? String
-                        
-                        // save the session ID
-                        OnTheMapClient.UdacityInfo.sessionID = session[ "id" ] as? String
+                    let session = dataJSON[ "session" ] as! NSDictionary
+                    
+                    // save the personal key
+                    OnTheMapClient.UdacityInfo.personalKey = account[ "key" ] as? String
+                    
+                    // save the session ID
+                    OnTheMapClient.UdacityInfo.sessionID = session[ "id" ] as? String
                     
                     // get current user data
                     dispatch_async( dispatch_get_main_queue(),
                     {
-                        // self.getUserData()
-                        
                         self.getUserData()
                     } )
                     
@@ -220,7 +217,7 @@ class OnTheMapClient: NSObject
     
     func getUserData()
     {
-        println( "personal key: \( OnTheMapClient.UdacityInfo.personalKey )." )
+        // println( "personal key: \( OnTheMapClient.UdacityInfo.personalKey )." )
         var userDataURL = OnTheMapClient.UdacityInfo.udacityUserData
         let requestURL = userDataURL.stringByReplacingOccurrencesOfString( "<user_id>", withString: OnTheMapClient.UdacityInfo.personalKey!, options: nil, range: nil )
 //        if let url = NSURL( string: "https://www.udacity.com/api/users/\( OnTheMapClient.UdacityInfo.personalKey )" )
@@ -245,7 +242,7 @@ class OnTheMapClient: NSObject
             }
             else
             {
-                println( data )
+                // println( data )
                 // parse returned data, as per the Udacity API guide
                 let newData = data.subdataWithRange( NSMakeRange( 5, data.length - 5 ) )
                 let dataJSON = NSJSONSerialization.JSONObjectWithData(
@@ -254,7 +251,7 @@ class OnTheMapClient: NSObject
                     error: nil
                 ) as! NSDictionary
                 
-                println( "dataJSON: \( dataJSON )." )
+                // println( "dataJSON: \( dataJSON )." )
                 
                 let user = dataJSON[ "user" ] as! NSDictionary
                 OnTheMapClient.UdacityInfo.userFirstName = user[ "first_name" ] as? String
@@ -326,11 +323,57 @@ class OnTheMapClient: NSObject
         if methodType == "POST"
         {
             // add extra POST values
+            request.HTTPMethod = "POST"
             request.addValue( "application/json", forHTTPHeaderField: "Content-Type" )
-            // studentInfo[ "uniqueKey" ] = "1234"
+            
+            // println( studentInfo! )
+            var dataficationError: NSError?
+            let requestData = NSJSONSerialization.dataWithJSONObject(
+                studentInfo!,
+                options: nil,
+                error: &dataficationError
+            )
+            request.HTTPBody = requestData
         }
         
         return request
+    }
+    
+    func postNewStudentInfo( studentInfo: [ String : AnyObject ], completionHandler: ( success: Bool, postResults: [ String : AnyObject ]?, postingError: NSError? ) -> Void )
+    {
+        let postRequest = createParseRequestForType( "POST", studentInfo: studentInfo )
+        
+        let postTask = session.dataTaskWithRequest( postRequest )
+        {
+            data, response, error in
+            
+            if let error = error
+            {
+                return completionHandler(
+                    success: false,
+                    postResults: nil,
+                    postingError: error
+                )
+            }
+            else
+            {
+                println( "Successful POST!!!" )
+                var jsonificationError: NSError?
+                let dataJSON = NSJSONSerialization.JSONObjectWithData(
+                    data,
+                    options: nil,
+                    error: &jsonificationError
+                ) as! [ String : AnyObject ]
+                
+                return completionHandler(
+                    success: true,
+                    postResults: dataJSON,
+                    postingError: nil
+                )
+            }
+        }
+        
+        postTask.resume()
     }
     
     // NOTE:

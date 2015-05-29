@@ -76,7 +76,12 @@ class MapAndTableViewController: UITabBarController {
         println( "Dropping a pin..." )
         let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView" ) as! InformationPostingViewController
         
-        presentViewController( infoView, animated: true, completion: nil )
+        presentViewController( infoView, animated: true )
+        {
+            // completion handler
+            println( "Dismissing the InformationPostingView and refreshing the results..." )
+            self.refreshResults()
+        }
     }
     
     func refreshResults()

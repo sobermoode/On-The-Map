@@ -20,8 +20,8 @@ struct StudentLocation
     var mediaURL : String?
     var latitude : Double?
     var longitude: Double?
-    var createdAt: NSDate?
-    var updatedAt: NSDate?
+    var createdAt: String?
+    var updatedAt: String?
     
     // computed properties;
     // for use with map annotations
@@ -39,9 +39,14 @@ struct StudentLocation
         return self.mediaURL!
     }
     
+    // maybe pass in a dictionary of the rest of the values,
+    // then pass that to initWithInfoDictionary( info )
     init()
     {
-        
+        // createdAt = NSDate()
+        // updatedAt = createdAt
+        firstName = OnTheMapClient.UdacityInfo.userFirstName
+        lastName = OnTheMapClient.UdacityInfo.userLastName
     }
     
     init( studentInfo: [ String : AnyObject ]? )
@@ -56,8 +61,8 @@ struct StudentLocation
             self.mediaURL = studentInfo[ "mediaURL" ] as? String
             self.latitude = studentInfo[ "latitude" ] as? Double
             self.longitude = studentInfo[ "longitude" ] as? Double
-            self.createdAt = studentInfo[ "createdAt" ] as? NSDate
-            self.updatedAt = studentInfo[ "updatedAt" ] as? NSDate
+            self.createdAt = studentInfo[ "createdAt" ] as? String
+            self.updatedAt = studentInfo[ "updatedAt" ] as? String
         }
     }
 }

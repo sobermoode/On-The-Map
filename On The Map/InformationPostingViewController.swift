@@ -124,10 +124,46 @@ class InformationPostingViewController: UIViewController {
     
     @IBAction func submitLink( sender: BorderedButton )
     {
+        if linkSubmissionTextField.text.isEmpty
+        {
+            // TODO: handle with alert
+            println( "Please submit a link to your work 😁" )
+        }
+        // var newStudentLocation = StudentLocation()
         println( "Submitting link..." )
         
-        // Parse POST request
+        var assembledData = [ String : AnyObject ]()
+        assembledData[ "uniqueKey" ] = "1234"
+        assembledData[ "firstName" ] = OnTheMapClient.UdacityInfo.userFirstName
+        assembledData[ "lastName" ] = OnTheMapClient.UdacityInfo.userLastName
+        assembledData[ "mapString" ] = locationTextField.text
+        assembledData[ "mediaURL" ] = linkSubmissionTextField.text
+        assembledData[ "latitude" ] = currentLocation?.latitude
+        assembledData[ "longitude" ] = currentLocation?.longitude
         
+        // Parse POST request
+        OnTheMapClient.sharedInstance().postNewStudentInfo( assembledData )
+        {
+            success, postResults, postingError in
+            
+            if let error = postingError
+            {
+                // handle with alert
+                println( "There was a problem posting the new data: \( error )." )
+            }
+            else if success
+            {
+                self.dismissViewControllerAnimated(
+                    true,
+                    completion: nil
+                )
+//                if let results = postResults
+//                {
+//                    assembledData[ "createdAt" ] = results[ "createdAt" ]
+//                    assembledData[ "objectID" ] = results[ "objectId" ]
+//                }
+            }
+        }
     }
     
     @IBAction func refineSearch( sender: BorderedButton )
