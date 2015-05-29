@@ -20,6 +20,8 @@ class MapAndTableViewController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        println( "Current user info:" )
+        println( "\(OnTheMapClient.UdacityInfo.userFirstName ), \(OnTheMapClient.UdacityInfo.userLastName), \(OnTheMapClient.UdacityInfo.personalKey)." )
     }
     
     func createNavigationBar()
@@ -72,6 +74,14 @@ class MapAndTableViewController: UITabBarController {
     func dropPin()
     {
         println( "Dropping a pin..." )
+        let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView" ) as! InformationPostingViewController
+        
+        presentViewController( infoView, animated: true )
+        {
+            // completion handler
+            println( "Dismissing the InformationPostingView and refreshing the results..." )
+            self.refreshResults()
+        }
     }
     
     func refreshResults()

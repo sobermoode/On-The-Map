@@ -45,7 +45,10 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
                         self.studentMap = MKMapView( frame: self.view.frame )
                         self.studentMap.region = MKCoordinateRegion(
                             center: CLLocationCoordinate2DMake( 33.862, -118.399 ),
-                            span: MKCoordinateSpan( latitudeDelta: 15.0, longitudeDelta: 15.0 )
+                            span: MKCoordinateSpan(
+                                latitudeDelta: 15.0,
+                                longitudeDelta: 15.0
+                            )
                         )
                         self.studentMap.delegate = self
                         
