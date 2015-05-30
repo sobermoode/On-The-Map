@@ -12,12 +12,6 @@ class OnTheMapClient: NSObject
 {
     var session: NSURLSession
     
-    // Udacity login reponse variables
-    // var sessionID: String?
-//    var userID: String?
-//    var userFirstName: String?
-//    var userLastName: String?
-    
     // the current 100 student locations on the map
     var studentLocations = [ StudentLocation ]()
     
@@ -62,11 +56,15 @@ class OnTheMapClient: NSObject
         ]
         
         // turn the login parameters into a data object to attach to the request
-        var jsonifyError: NSError?
-        var loginData = NSJSONSerialization.dataWithJSONObject( loginParameters, options: nil, error: &jsonifyError )!
+        var jsonificationError: NSError?
+        var loginData = NSJSONSerialization.dataWithJSONObject(
+            loginParameters,
+            options: nil,
+            error: &jsonificationError
+        )!
         
         // if there was an error with the JSON-ification, use the completion handler to fail
-        if jsonifyError != nil
+        if jsonificationError != nil
         {
             return completionHandler(
                 success: false,
@@ -76,7 +74,7 @@ class OnTheMapClient: NSObject
         }
         
         // create the request
-        let request = createRequestForPOST(
+        let request = createPOSTRequestForUdacity(
             url: OnTheMapClient.UdacityInfo.udacityLogin,
             parameters: loginData
         )
@@ -106,7 +104,7 @@ class OnTheMapClient: NSObject
     
     // create a URL request with the supplied username/password dictionary
     // as a data object for the HTTPBody
-    func createRequestForPOST( #url: String, parameters: NSData ) -> NSURLRequest
+    func createPOSTRequestForUdacity( #url: String, parameters: NSData ) -> NSURLRequest
     {
         let request = NSMutableURLRequest( URL: NSURL( string: url )! )
         request.HTTPMethod = "POST"
@@ -199,13 +197,31 @@ class OnTheMapClient: NSObject
                     dispatch_async( dispatch_get_main_queue(),
                     {
                         self.getUserData()
+                        {
+                            success, username in
+                            
+                            if success
+                            {
+                                let returnedName = username as [ String : String ]!
+                                OnTheMapClient.UdacityInfo.userFirstName = returnedName[ "first" ]! as String
+                                OnTheMapClient.UdacityInfo.userLastName = returnedName[ "last" ]! as String
+                                
+                                return completionHandler(
+                                    success: true,
+                                    loginError: nil,
+                                    timeoutError: nil
+                                )
+                            }
+                            else
+                            {
+                                return completionHandler(
+                                    success: false,
+                                    loginError: "There was an error getting your user data from Udacity.",
+                                    timeoutError: nil
+                                )
+                            }
+                        }
                     } )
-                    
-                    return completionHandler(
-                        success: true,
-                        loginError: nil,
-                        timeoutError: nil
-                    )
                 }
             }
         }
@@ -215,19 +231,12 @@ class OnTheMapClient: NSObject
         return loginTask
     }
     
-    func getUserData()
+    // after successfully logging into Udacity, get the user's data
+    func getUserData( completionHandler: ( success: Bool, username: [ String : String ]? ) -> Void )
     {
-        // println( "personal key: \( OnTheMapClient.UdacityInfo.personalKey )." )
+        // create the request URL by replacing the placeholder with the user's userID
         var userDataURL = OnTheMapClient.UdacityInfo.udacityUserData
         let requestURL = userDataURL.stringByReplacingOccurrencesOfString( "<user_id>", withString: OnTheMapClient.UdacityInfo.personalKey!, options: nil, range: nil )
-//        if let url = NSURL( string: "https://www.udacity.com/api/users/\( OnTheMapClient.UdacityInfo.personalKey )" )
-//        {
-//            println( "The URL is: \( url )." )
-//        }
-//        else
-//        {
-//            println( "There was an error creating the URL for getUserData()." )
-//        }
         
         let userDataRequest = NSMutableURLRequest( URL: NSURL( string: requestURL )! )
         
@@ -237,12 +246,14 @@ class OnTheMapClient: NSObject
             
             if let error = error
             {
-                // TODO: handle with an alert
-                println( "There was a problem getting your user data from Udacity: \( error )." )
+                // could not get the user data from Udacity
+                return completionHandler(
+                    success: false,
+                    username: nil
+                )
             }
             else
             {
-                // println( data )
                 // parse returned data, as per the Udacity API guide
                 let newData = data.subdataWithRange( NSMakeRange( 5, data.length - 5 ) )
                 let dataJSON = NSJSONSerialization.JSONObjectWithData(
@@ -251,17 +262,22 @@ class OnTheMapClient: NSObject
                     error: nil
                 ) as! NSDictionary
                 
-                // println( "dataJSON: \( dataJSON )." )
-                
                 let user = dataJSON[ "user" ] as! NSDictionary
-                OnTheMapClient.UdacityInfo.userFirstName = user[ "first_name" ] as? String
-                OnTheMapClient.UdacityInfo.userLastName = user[ "last_name" ] as? String
+                var username = [ String : String ]()
+                username[ "first" ] = user[ "first_name" ] as? String
+                username[ "last" ] = user[ "last_name" ] as? String
+                
+                return completionHandler(
+                    success: true,
+                    username: username
+                )
             }
         }
         
         userDataTask.resume()
     }
     
+    // make Parse request for the locations of where Udacity students are studying
     func getStudentLocations( completionHandler: ( success: Bool, studentLocations: [ StudentLocation ]?, error: String? ) -> Void )
     {
         let parseRequest = createParseRequestForType( "GET", studentInfo: nil )
