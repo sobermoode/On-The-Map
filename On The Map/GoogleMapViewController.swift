@@ -5,6 +5,14 @@
 //  Created by Aaron Justman on 5/24/15.
 //  Copyright (c) 2015 AaronJ. All rights reserved.
 //
+//  NOTE (5/29/15):
+//  I originally attempted to use the Google Maps API to implement these features,
+//  but, while reading through the forums, looking for solutions to the many problems
+//  I was having, I realized that I should be using MapKit instead. Once I made that
+//  breakthrough, development went much smoother, and much more quickly. I pretty much
+//  finished the projet, before, during the process of adding polish, I discovered that
+//  I probably should have remade this controller with a different name. But that's why
+//  it's named the way it is.
 
 import UIKit
 import MapKit
@@ -28,7 +36,10 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
             // if there was an error retrieving the student locations
             if let error = error
             {
-                println( error )
+                self.createAlert(
+                    title: "Whoops!",
+                    message: error
+                )
             }
             // otherwise, we have locations to pin on the map
             else if success
@@ -106,6 +117,30 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
         let urlString: String! = view.annotation.subtitle
         
         UIApplication.sharedApplication().openURL( NSURL( string: urlString )! )
+    }
+    
+    // NOTE:
+    // alert code adapted from
+    // http://stackoverflow.com/a/24022696
+    func createAlert( #title: String, message: String )
+    {
+        var alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: UIAlertControllerStyle.Alert
+        )
+        
+        alert.addAction( UIAlertAction(
+            title: "OK",
+            style: UIAlertActionStyle.Default,
+            handler: nil )
+        )
+        
+        self.presentViewController(
+            alert,
+            animated: true,
+            completion: nil
+        )
     }
 
     override func didReceiveMemoryWarning() {

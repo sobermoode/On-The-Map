@@ -144,24 +144,24 @@ class InformationPostingViewController: UIViewController {
         // Parse POST request
         OnTheMapClient.sharedInstance().postNewStudentInfo( assembledData )
         {
-            success, postResults, postingError in
+            success, postingError in
             
             if let error = postingError
             {
                 // handle with alert
-                println( "There was a problem posting the new data: \( error )." )
+                self.createAlert(
+                    title: "Whoops!",
+                    message: "There was a problem putting your location on the map."
+                )
             }
             else if success
             {
+                // successfully added the location to the map,
+                // dismiss this view controller
                 self.dismissViewControllerAnimated(
                     true,
                     completion: nil
                 )
-//                if let results = postResults
-//                {
-//                    assembledData[ "createdAt" ] = results[ "createdAt" ]
-//                    assembledData[ "objectID" ] = results[ "objectId" ]
-//                }
             }
         }
     }
@@ -174,6 +174,30 @@ class InformationPostingViewController: UIViewController {
         self.linkSubmissionView.hidden = true
         self.refineSearchButton.hidden = true
         self.enterLocationView.hidden = false
+    }
+    
+    // NOTE:
+    // alert code adapted from
+    // http://stackoverflow.com/a/24022696
+    func createAlert( #title: String, message: String )
+    {
+        var alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: UIAlertControllerStyle.Alert
+        )
+        
+        alert.addAction( UIAlertAction(
+            title: "OK",
+            style: UIAlertActionStyle.Default,
+            handler: nil )
+        )
+        
+        self.presentViewController(
+            alert,
+            animated: true,
+            completion: nil
+        )
     }
     
     override func didReceiveMemoryWarning() {

@@ -288,8 +288,7 @@ class OnTheMapClient: NSObject
             
             if let error = error
             {
-                // handle error
-                // TODO: use alert for Parse error
+                // use the completion handler to send the error back to the GoogleMapViewController
                 return completionHandler(
                     success: false,
                     studentLocations: nil,
@@ -319,6 +318,7 @@ class OnTheMapClient: NSObject
                     self.studentLocations.append( newStudentInfo )
                 }
                 
+                // send the locations back to the GoogleMapViewController
                 return completionHandler(
                     success: true,
                     studentLocations: self.studentLocations,
@@ -332,6 +332,7 @@ class OnTheMapClient: NSObject
     
     func createParseRequestForType( methodType: String, studentInfo: [ String : AnyObject ]? ) -> NSURLRequest
     {
+        // this is all that is needed for a GET request
         let request = NSMutableURLRequest( URL: NSURL( string: OnTheMapClient.ParseInfo.apiURL )! )
         request.addValue( OnTheMapClient.ParseInfo.appID, forHTTPHeaderField: "X-Parse-Application-Id" )
         request.addValue( OnTheMapClient.ParseInfo.apiKey, forHTTPHeaderField: "X-Parse-REST-API-Key" )
@@ -342,7 +343,6 @@ class OnTheMapClient: NSObject
             request.HTTPMethod = "POST"
             request.addValue( "application/json", forHTTPHeaderField: "Content-Type" )
             
-            // println( studentInfo! )
             var dataficationError: NSError?
             let requestData = NSJSONSerialization.dataWithJSONObject(
                 studentInfo!,
@@ -355,8 +355,10 @@ class OnTheMapClient: NSObject
         return request
     }
     
-    func postNewStudentInfo( studentInfo: [ String : AnyObject ], completionHandler: ( success: Bool, postResults: [ String : AnyObject ]?, postingError: NSError? ) -> Void )
+    func postNewStudentInfo( studentInfo: [ String : AnyObject ], completionHandler: ( success: Bool, postingError: NSError? ) -> Void )
     {
+        // the POST request to add a student location to the map requires the data object,
+        // with the info passed from the InformationPostingViewController
         let postRequest = createParseRequestForType( "POST", studentInfo: studentInfo )
         
         let postTask = session.dataTaskWithRequest( postRequest )
@@ -367,23 +369,13 @@ class OnTheMapClient: NSObject
             {
                 return completionHandler(
                     success: false,
-                    postResults: nil,
                     postingError: error
                 )
             }
             else
-            {
-                println( "Successful POST!!!" )
-                var jsonificationError: NSError?
-                let dataJSON = NSJSONSerialization.JSONObjectWithData(
-                    data,
-                    options: nil,
-                    error: &jsonificationError
-                ) as! [ String : AnyObject ]
-                
+            {                
                 return completionHandler(
                     success: true,
-                    postResults: dataJSON,
                     postingError: nil
                 )
             }
