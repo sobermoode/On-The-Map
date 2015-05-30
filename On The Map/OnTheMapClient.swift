@@ -288,11 +288,12 @@ class OnTheMapClient: NSObject
             
             if let error = error
             {
-                // use the completion handler to send the error back to the GoogleMapViewController
+                // use the completion handler to send the error back to the
+                // MapAndTableViewController and the GoogleMapViewController
                 return completionHandler(
                     success: false,
                     studentLocations: nil,
-                    error: "There was a problem with the Parse request."
+                    error: "There was a problem getting the student locations."
                 )
             }
             else

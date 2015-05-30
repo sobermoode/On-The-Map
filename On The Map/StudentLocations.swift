@@ -35,18 +35,7 @@ struct StudentLocation
     }
     var subtitle: String
     {
-        // return NSURL( string: "\( self.mediaURL! )" )!
         return self.mediaURL!
-    }
-    
-    // maybe pass in a dictionary of the rest of the values,
-    // then pass that to initWithInfoDictionary( info )
-    init()
-    {
-        // createdAt = NSDate()
-        // updatedAt = createdAt
-        firstName = OnTheMapClient.UdacityInfo.userFirstName
-        lastName = OnTheMapClient.UdacityInfo.userLastName
     }
     
     init( studentInfo: [ String : AnyObject ]? )
