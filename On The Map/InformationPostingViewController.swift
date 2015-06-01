@@ -18,6 +18,7 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet weak var enterLocationView: UIView!
     @IBOutlet weak var findButton: BorderedButton!
     @IBOutlet weak var locationTextField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // map view outlets
     @IBOutlet weak var mapView: MKMapView!
@@ -65,6 +66,10 @@ class InformationPostingViewController: UIViewController {
 
     @IBAction func findOnTheMap( sender: BorderedButton )
     {
+        // show the activity indicator
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
+        
         let address = locationTextField.text
         
         if address.isEmpty
@@ -73,6 +78,9 @@ class InformationPostingViewController: UIViewController {
                 title: "Whoops!",
                 message: "Please enter the location you're studying from 😁"
             )
+            
+            // stop and hide the activity indicator
+            activityIndicator.stopAnimating()
         }
         else
         {
@@ -89,6 +97,9 @@ class InformationPostingViewController: UIViewController {
                         title: "Whoops!",
                         message: "There was an error finding that location."
                     )
+                    
+                    // stop and hide the activity indicator
+                    self.activityIndicator.stopAnimating()
                 }
                 else
                 {
@@ -124,6 +135,9 @@ class InformationPostingViewController: UIViewController {
                             self.linkSubmissionView.hidden = false
                             self.refineSearchButton.hidden = false
                             self.enterLocationView.hidden = true
+                            
+                            // stop and hide the activity indicator
+                            self.activityIndicator.stopAnimating()
                         }
                     }
                 }
