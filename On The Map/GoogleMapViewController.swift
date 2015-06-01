@@ -30,7 +30,6 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
         // get the student locations from Parse
         OnTheMapClient.sharedInstance().getStudentLocations
         {
-            // completion handler...
             success, studentLocations, error in
             
             // if there was an error retrieving the student locations
@@ -52,7 +51,7 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
                     // map updates must be made on the main thread
                     dispatch_async( dispatch_get_main_queue(),
                     {
-                        // create the map and center it on hermosa beach, ca
+                        // create the map and center it on hermosa beach, ca (my hometown 😁)
                         self.studentMap = MKMapView( frame: self.view.frame )
                         self.studentMap.region = MKCoordinateRegion(
                             center: CLLocationCoordinate2DMake( 33.862, -118.399 ),
@@ -114,9 +113,15 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
     
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
         
-        let urlString: String! = view.annotation.subtitle
-        
-        UIApplication.sharedApplication().openURL( NSURL( string: urlString )! )
+        dispatch_async( dispatch_get_main_queue(),
+        {
+            let urlString: String! = view.annotation.subtitle
+            
+            UIApplication.sharedApplication().openURL( NSURL( string: urlString )! )
+        } )
+//        let urlString: String! = view.annotation.subtitle
+//        
+//        UIApplication.sharedApplication().openURL( NSURL( string: urlString )! )
     }
     
     // NOTE:

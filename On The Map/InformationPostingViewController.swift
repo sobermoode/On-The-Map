@@ -81,8 +81,10 @@ class InformationPostingViewController: UIViewController {
                 
                 if let error = error
                 {
-                    // TODO: handle error with alert
-                    println( "There was an error finding that location." )
+                    self.createAlert(
+                        title: "Whoops!",
+                        message: "There was an error finding that location."
+                    )
                 }
                 else
                 {
@@ -100,6 +102,13 @@ class InformationPostingViewController: UIViewController {
                                     longitudeDelta: 0.1
                                 )
                             )
+                            
+                            // drop a pin at this location
+                            var pin = MKPointAnnotation()
+                            pin.coordinate = bestResult.location.coordinate
+                            pin.title = address
+                            
+                            self.mapView.addAnnotation( pin )
                             
                             // set the current location
                             self.currentLocation = bestResult.location.coordinate
@@ -126,44 +135,55 @@ class InformationPostingViewController: UIViewController {
     {
         if linkSubmissionTextField.text.isEmpty
         {
-            // TODO: handle with alert
-            println( "Please submit a link to your work 😁" )
+            createAlert(
+                title: "Whoops!",
+                message: "Please submit a link to your work 😁"
+            )
         }
-        // var newStudentLocation = StudentLocation()
-        println( "Submitting link..." )
-        
-        var assembledData = [ String : AnyObject ]()
-        assembledData[ "uniqueKey" ] = "1234"
-        assembledData[ "firstName" ] = OnTheMapClient.UdacityInfo.userFirstName
-        assembledData[ "lastName" ] = OnTheMapClient.UdacityInfo.userLastName
-        assembledData[ "mapString" ] = locationTextField.text
-        assembledData[ "mediaURL" ] = linkSubmissionTextField.text
-        assembledData[ "latitude" ] = currentLocation?.latitude
-        assembledData[ "longitude" ] = currentLocation?.longitude
-        
-        // Parse POST request
-        OnTheMapClient.sharedInstance().postNewStudentInfo( assembledData )
+        else if let enteredURL = NSURL( string: linkSubmissionTextField.text )
         {
-            success, postingError in
+            var assembledData = [ String : AnyObject ]()
+            assembledData[ "uniqueKey" ] = "1234"
+            assembledData[ "firstName" ] = OnTheMapClient.UdacityInfo.userFirstName
+            assembledData[ "lastName" ] = OnTheMapClient.UdacityInfo.userLastName
+            assembledData[ "mapString" ] = locationTextField.text
+            assembledData[ "mediaURL" ] = linkSubmissionTextField.text
+            assembledData[ "latitude" ] = currentLocation?.latitude
+            assembledData[ "longitude" ] = currentLocation?.longitude
             
-            if let error = postingError
+            // Parse POST request
+            OnTheMapClient.sharedInstance().postNewStudentInfo( assembledData )
             {
-                // handle with alert
-                self.createAlert(
-                    title: "Whoops!",
-                    message: "There was a problem putting your location on the map."
-                )
-            }
-            else if success
-            {
-                // successfully added the location to the map,
-                // dismiss this view controller
-                self.dismissViewControllerAnimated(
-                    true,
-                    completion: nil
-                )
+                success, postingError in
+                
+                if let error = postingError
+                {
+                    // handle with alert
+                    self.createAlert(
+                        title: "Whoops!",
+                        message: "There was a problem putting your location on the map."
+                    )
+                }
+                else if success
+                {
+                    // successfully added the location to the map,
+                    // dismiss this view controller
+                    self.dismissViewControllerAnimated(
+                        true,
+                        completion: nil
+                    )
+                }
             }
         }
+        else
+        {
+            createAlert(
+                title: "Whoops!",
+                message: "Please enter a valid URL."
+            )
+        }
+        
+        
     }
     
     @IBAction func refineSearch( sender: BorderedButton )

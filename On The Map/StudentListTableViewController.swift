@@ -17,15 +17,12 @@ class StudentListTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         // self.tableView.frame.origin.y = 64
         // self.tableView.frame.inset(dx: 0.0, dy: 64.0)
-        println( "There are \( studentLocations.count ) student locations." )
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         studentLocations = OnTheMapClient.sharedInstance().studentLocations
-        
-        // println( "StudentListTableViewController has \( studentLocations.count ) locations." )
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -67,9 +64,17 @@ class StudentListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let currentStudent = studentLocations[ indexPath.row ]
-        let studentURL = currentStudent.subtitle
-        UIApplication.sharedApplication().openURL( NSURL( string: studentURL )! )
+        dispatch_async( dispatch_get_main_queue(),
+        {
+            let currentStudent = self.studentLocations[ indexPath.row ]
+            if let studentURL = NSURL( string: currentStudent.subtitle )
+            {
+                UIApplication.sharedApplication().openURL( studentURL )
+            }
+        } )
+//        let currentStudent = studentLocations[ indexPath.row ]
+//        let studentURL = currentStudent.subtitle
+//        UIApplication.sharedApplication().openURL( NSURL( string: studentURL )! )
     }
 
     /*
