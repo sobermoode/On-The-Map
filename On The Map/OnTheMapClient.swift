@@ -338,9 +338,9 @@ class OnTheMapClient: NSObject
         request.addValue( OnTheMapClient.ParseInfo.appID, forHTTPHeaderField: "X-Parse-Application-Id" )
         request.addValue( OnTheMapClient.ParseInfo.apiKey, forHTTPHeaderField: "X-Parse-REST-API-Key" )
         
+        // a POST request requires extra values
         if methodType == "POST"
         {
-            // add extra POST values
             request.HTTPMethod = "POST"
             request.addValue( "application/json", forHTTPHeaderField: "Content-Type" )
             

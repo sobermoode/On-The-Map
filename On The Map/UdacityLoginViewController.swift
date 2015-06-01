@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 AaronJ. All rights reserved.
 //
 
-// TODO: Remove hardcoded username and password
-
 import UIKit
 
 class UdacityLoginViewController: UIViewController {
@@ -57,7 +55,6 @@ class UdacityLoginViewController: UIViewController {
         emailTextField.textColor = UIColor.whiteColor()
         emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         emailTextField.tintColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
-        emailTextField.text = "sobermoode@gmail.com"
         
         /* configure password textfield */
         // code based on the MyFavoriteMovies app
@@ -70,7 +67,6 @@ class UdacityLoginViewController: UIViewController {
         passwordTextField.textColor = UIColor.whiteColor()
         passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         passwordTextField.tintColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
-        passwordTextField.text = "udacityrul3z"
         
         // configure login button and facebook button
         // BorderedButton code based on the MyFavoriteMovies app

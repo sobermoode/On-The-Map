@@ -13,14 +13,11 @@ class StudentListTableViewController: UITableViewController {
     var studentLocations = [ StudentLocation ]()
     
     let reuseIdentifer = "studentCell"
-    
-    override func viewWillAppear(animated: Bool) {
-        // self.tableView.frame.origin.y = 64
-        // self.tableView.frame.inset(dx: 0.0, dy: 64.0)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.contentInset = UIEdgeInsets(top: 64.0, left: 0.0, bottom: 0.0, right: 0.0)
         
         studentLocations = OnTheMapClient.sharedInstance().studentLocations
 
@@ -72,9 +69,6 @@ class StudentListTableViewController: UITableViewController {
                 UIApplication.sharedApplication().openURL( studentURL )
             }
         } )
-//        let currentStudent = studentLocations[ indexPath.row ]
-//        let studentURL = currentStudent.subtitle
-//        UIApplication.sharedApplication().openURL( NSURL( string: studentURL )! )
     }
 
     /*

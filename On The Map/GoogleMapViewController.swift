@@ -119,9 +119,6 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
             
             UIApplication.sharedApplication().openURL( NSURL( string: urlString )! )
         } )
-//        let urlString: String! = view.annotation.subtitle
-//        
-//        UIApplication.sharedApplication().openURL( NSURL( string: urlString )! )
     }
     
     // NOTE:

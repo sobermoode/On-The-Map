@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 AaronJ. All rights reserved.
 //
 
-// TODO: Remove hardcoded location search
-
 import UIKit
 import MapKit
 import CoreLocation
@@ -39,8 +37,6 @@ class InformationPostingViewController: UIViewController {
         linkSubmissionView.hidden = true
         refineSearchButton.hidden = true
         configureButtons()
-        
-        locationTextField.text = "hermosa beach, ca"
     }
     
     func configureButtons()
