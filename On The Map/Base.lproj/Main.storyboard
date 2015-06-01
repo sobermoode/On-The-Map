@@ -587,6 +587,12 @@
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <activityIndicatorView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="FUY-PB-Jye">
+                                                <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                                <variation key="widthClass=compact" fixedFrame="YES">
+                                                    <rect key="frame" x="182" y="24" width="37" height="37"/>
+                                                </variation>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.2156862745" green="0.50196078430000002" blue="0.72941176470000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -597,6 +603,7 @@
                                         <variation key="default">
                                             <mask key="subviews">
                                                 <exclude reference="9Po-Nu-lDd"/>
+                                                <exclude reference="FUY-PB-Jye"/>
                                             </mask>
                                             <mask key="constraints">
                                                 <exclude reference="15s-5S-uhT"/>
@@ -607,6 +614,7 @@
                                         <variation key="widthClass=compact">
                                             <mask key="subviews">
                                                 <include reference="9Po-Nu-lDd"/>
+                                                <include reference="FUY-PB-Jye"/>
                                             </mask>
                                             <mask key="constraints">
                                                 <include reference="15s-5S-uhT"/>
@@ -754,6 +762,11 @@
                                 <exclude reference="M5E-ya-8my"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="bxT-zI-9aq"/>
+                                <exclude reference="Sp7-SN-wsF"/>
+                                <exclude reference="ivT-Bt-LMo"/>
+                                <exclude reference="7E9-QM-dah"/>
+                                <exclude reference="JDT-LD-TPT"/>
                                 <exclude reference="M6Z-NS-gsY"/>
                                 <exclude reference="hzY-65-t2U"/>
                                 <exclude reference="lAf-Lo-Z5e"/>
@@ -762,11 +775,6 @@
                                 <exclude reference="a2F-cy-dIJ"/>
                                 <exclude reference="hWP-z1-A4K"/>
                                 <exclude reference="xsN-ix-MaN"/>
-                                <exclude reference="7E9-QM-dah"/>
-                                <exclude reference="JDT-LD-TPT"/>
-                                <exclude reference="Sp7-SN-wsF"/>
-                                <exclude reference="ivT-Bt-LMo"/>
-                                <exclude reference="bxT-zI-9aq"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -777,6 +785,11 @@
                                 <include reference="M5E-ya-8my"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="bxT-zI-9aq"/>
+                                <include reference="Sp7-SN-wsF"/>
+                                <include reference="ivT-Bt-LMo"/>
+                                <include reference="7E9-QM-dah"/>
+                                <include reference="JDT-LD-TPT"/>
                                 <include reference="M6Z-NS-gsY"/>
                                 <include reference="hzY-65-t2U"/>
                                 <include reference="lAf-Lo-Z5e"/>
@@ -785,15 +798,11 @@
                                 <include reference="a2F-cy-dIJ"/>
                                 <include reference="hWP-z1-A4K"/>
                                 <include reference="xsN-ix-MaN"/>
-                                <include reference="7E9-QM-dah"/>
-                                <include reference="JDT-LD-TPT"/>
-                                <include reference="Sp7-SN-wsF"/>
-                                <include reference="ivT-Bt-LMo"/>
-                                <include reference="bxT-zI-9aq"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="FUY-PB-Jye" id="bfO-wi-h0i"/>
                         <outlet property="enterLocationView" destination="F1h-hQ-WCO" id="kIy-Nz-YQ9"/>
                         <outlet property="findButton" destination="UcM-qL-Ycz" id="3P9-5D-2hb"/>
                         <outlet property="linkSubmissionTextField" destination="thZ-8G-8mP" id="0fj-aC-Rkk"/>
