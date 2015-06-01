@@ -17,7 +17,13 @@ class StudentListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.contentInset = UIEdgeInsets(top: 64.0, left: 0.0, bottom: 0.0, right: 0.0)
+        // put the table view under the tab bar controllers's navigation bar
+        self.tableView.contentInset = UIEdgeInsets(
+            top: 64.0,
+            left: 0.0,
+            bottom: 0.0,
+            right: 0.0
+        )
         
         studentLocations = OnTheMapClient.sharedInstance().studentLocations
 
