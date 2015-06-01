@@ -20,8 +20,6 @@ class MapAndTableViewController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        println( "Current user info:" )
-        println( "\(OnTheMapClient.UdacityInfo.userFirstName ), \(OnTheMapClient.UdacityInfo.userLastName), \(OnTheMapClient.UdacityInfo.personalKey)." )
     }
     
     func createNavigationBar()
@@ -71,30 +69,31 @@ class MapAndTableViewController: UITabBarController {
         dismissViewControllerAnimated( true, completion: nil )
     }
     
+    // bring up the InformationPostingViewController,
+    // dismiss it when a location is successfully added to the map
     func dropPin()
     {
-        println( "Dropping a pin..." )
         let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView" ) as! InformationPostingViewController
         
         presentViewController( infoView, animated: true )
         {
             // completion handler
-            println( "Dismissing the InformationPostingView and refreshing the results..." )
             self.refreshResults()
         }
     }
     
     func refreshResults()
     {
-        println( "Refreshing results..." )
         OnTheMapClient.sharedInstance().getStudentLocations
         {
             success, studentLocations, error in
             
             if let error = error
             {
-                // TODO: create alert for this error
-                println( "There was an error refreshing the student locations: \( error )." )
+                self.createAlert(
+                    title: "Whoops!",
+                    message: error
+                )
             }
             else if success
             {
@@ -102,11 +101,13 @@ class MapAndTableViewController: UITabBarController {
                 {
                     dispatch_async( dispatch_get_main_queue(),
                     {
+                        // update the pins on the map view
                         let googleMapView = self.viewControllers?.first as! GoogleMapViewController
                         googleMapView.studentLocations = studentLocations
                         googleMapView.studentMap.removeAnnotations( googleMapView.studentMap.annotations )
                         googleMapView.addLocationsToMap()
                         
+                        // update the student list on the table view
                         let studentTableView = self.viewControllers?.last as! StudentListTableViewController
                         studentTableView.studentLocations = studentLocations
                         studentTableView.tableView.reloadData()
@@ -114,6 +115,30 @@ class MapAndTableViewController: UITabBarController {
                 }
             }
         }
+    }
+    
+    // NOTE:
+    // alert code adapted from
+    // http://stackoverflow.com/a/24022696
+    func createAlert( #title: String, message: String )
+    {
+        var alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: UIAlertControllerStyle.Alert
+        )
+        
+        alert.addAction( UIAlertAction(
+            title: "OK",
+            style: UIAlertActionStyle.Default,
+            handler: nil )
+        )
+        
+        self.presentViewController(
+            alert,
+            animated: true,
+            completion: nil
+        )
     }
 
     override func didReceiveMemoryWarning() {

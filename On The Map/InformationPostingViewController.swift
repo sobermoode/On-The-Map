@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 AaronJ. All rights reserved.
 //
 
+// TODO: Remove hardcoded location search
+
 import UIKit
 import MapKit
 import CoreLocation
@@ -67,8 +69,10 @@ class InformationPostingViewController: UIViewController {
         
         if address.isEmpty
         {
-            // TODO: handle empty location with an alert
-            println( "Please enter the location you're studying from 😁" )
+            self.createAlert(
+                title: "Whoops!",
+                message: "Please enter the location you're studying from 😁"
+            )
         }
         else
         {
@@ -81,8 +85,10 @@ class InformationPostingViewController: UIViewController {
                 
                 if let error = error
                 {
-                    // TODO: handle error with alert
-                    println( "There was an error finding that location." )
+                    self.createAlert(
+                        title: "Whoops!",
+                        message: "There was an error finding that location."
+                    )
                 }
                 else
                 {
@@ -101,6 +107,14 @@ class InformationPostingViewController: UIViewController {
                                 )
                             )
                             
+                            // drop a pin at this location
+                            var pin = MKPointAnnotation()
+                            pin.coordinate = bestResult.location.coordinate
+                            pin.title = bestResult.locality
+                            pin.subtitle = "\( bestResult.location.coordinate.latitude ), \( bestResult.location.coordinate.longitude )"
+                            
+                            self.mapView.addAnnotation( pin )
+                            
                             // set the current location
                             self.currentLocation = bestResult.location.coordinate
                             
@@ -110,11 +124,6 @@ class InformationPostingViewController: UIViewController {
                             self.linkSubmissionView.hidden = false
                             self.refineSearchButton.hidden = false
                             self.enterLocationView.hidden = true
-                        }
-                        else
-                        {
-                            // TODO: handle this with an alert
-                            println( "That location didn't match any results." )
                         }
                     }
                 }
@@ -126,44 +135,56 @@ class InformationPostingViewController: UIViewController {
     {
         if linkSubmissionTextField.text.isEmpty
         {
-            // TODO: handle with alert
-            println( "Please submit a link to your work 😁" )
+            createAlert(
+                title: "Whoops!",
+                message: "Please submit a link to your work 😁"
+            )
         }
-        // var newStudentLocation = StudentLocation()
-        println( "Submitting link..." )
-        
-        var assembledData = [ String : AnyObject ]()
-        assembledData[ "uniqueKey" ] = "1234"
-        assembledData[ "firstName" ] = OnTheMapClient.UdacityInfo.userFirstName
-        assembledData[ "lastName" ] = OnTheMapClient.UdacityInfo.userLastName
-        assembledData[ "mapString" ] = locationTextField.text
-        assembledData[ "mediaURL" ] = linkSubmissionTextField.text
-        assembledData[ "latitude" ] = currentLocation?.latitude
-        assembledData[ "longitude" ] = currentLocation?.longitude
-        
-        // Parse POST request
-        OnTheMapClient.sharedInstance().postNewStudentInfo( assembledData )
+        else if let enteredURL = NSURL( string: linkSubmissionTextField.text )
         {
-            success, postResults, postingError in
+            var assembledData = [ String : AnyObject ]()
+            assembledData[ "uniqueKey" ] = "1234"
+            assembledData[ "firstName" ] = OnTheMapClient.UdacityInfo.userFirstName
+            assembledData[ "lastName" ] = OnTheMapClient.UdacityInfo.userLastName
+            assembledData[ "mapString" ] = locationTextField.text
+            assembledData[ "mediaURL" ] = linkSubmissionTextField.text
+            assembledData[ "latitude" ] = currentLocation?.latitude
+            assembledData[ "longitude" ] = currentLocation?.longitude
             
-            if let error = postingError
+            // Parse POST request
+            OnTheMapClient.sharedInstance().postNewStudentInfo( assembledData )
             {
-                // handle with alert
-                println( "There was a problem posting the new data: \( error )." )
-            }
-            else if success
-            {
-                self.dismissViewControllerAnimated(
-                    true,
-                    completion: nil
-                )
-//                if let results = postResults
-//                {
-//                    assembledData[ "createdAt" ] = results[ "createdAt" ]
-//                    assembledData[ "objectID" ] = results[ "objectId" ]
-//                }
+                success, postingError in
+                
+                if let error = postingError
+                {
+                    // handle with alert
+                    self.createAlert(
+                        title: "Whoops!",
+                        message: "There was a problem putting your location on the map."
+                    )
+                }
+                else if success
+                {
+                    // successfully added the location to the map,
+                    // dismiss this view controller
+                    self.dismissViewControllerAnimated(
+                        true,
+                        completion: nil
+                    )
+                }
             }
         }
+        else
+        {
+            // if the supplied URL is invalid in some way
+            createAlert(
+                title: "Whoops!",
+                message: "Please enter a valid URL."
+            )
+        }
+        
+        
     }
     
     @IBAction func refineSearch( sender: BorderedButton )
@@ -174,6 +195,30 @@ class InformationPostingViewController: UIViewController {
         self.linkSubmissionView.hidden = true
         self.refineSearchButton.hidden = true
         self.enterLocationView.hidden = false
+    }
+    
+    // NOTE:
+    // alert code adapted from
+    // http://stackoverflow.com/a/24022696
+    func createAlert( #title: String, message: String )
+    {
+        var alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: UIAlertControllerStyle.Alert
+        )
+        
+        alert.addAction( UIAlertAction(
+            title: "OK",
+            style: UIAlertActionStyle.Default,
+            handler: nil )
+        )
+        
+        self.presentViewController(
+            alert,
+            animated: true,
+            completion: nil
+        )
     }
     
     override func didReceiveMemoryWarning() {
