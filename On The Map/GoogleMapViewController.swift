@@ -10,7 +10,7 @@
 //  but, while reading through the forums, looking for solutions to the many problems
 //  I was having, I realized that I should be using MapKit instead. Once I made that
 //  breakthrough, development went much smoother, and much more quickly. I pretty much
-//  finished the projet, before, during the process of adding polish, I discovered that
+//  finished the project, before, during the process of adding polish, I discovered that
 //  I probably should have remade this controller with a different name. But that's why
 //  it's named the way it is.
 

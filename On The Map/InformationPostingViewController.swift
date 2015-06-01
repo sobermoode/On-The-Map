@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 AaronJ. All rights reserved.
 //
 
+// TODO: Remove hardcoded location search
+
 import UIKit
 import MapKit
 import CoreLocation
@@ -67,8 +69,10 @@ class InformationPostingViewController: UIViewController {
         
         if address.isEmpty
         {
-            // TODO: handle empty location with an alert
-            println( "Please enter the location you're studying from 😁" )
+            self.createAlert(
+                title: "Whoops!",
+                message: "Please enter the location you're studying from 😁"
+            )
         }
         else
         {
@@ -106,7 +110,8 @@ class InformationPostingViewController: UIViewController {
                             // drop a pin at this location
                             var pin = MKPointAnnotation()
                             pin.coordinate = bestResult.location.coordinate
-                            pin.title = address
+                            pin.title = bestResult.locality
+                            pin.subtitle = "\( bestResult.location.coordinate.latitude ), \( bestResult.location.coordinate.longitude )"
                             
                             self.mapView.addAnnotation( pin )
                             
@@ -119,11 +124,6 @@ class InformationPostingViewController: UIViewController {
                             self.linkSubmissionView.hidden = false
                             self.refineSearchButton.hidden = false
                             self.enterLocationView.hidden = true
-                        }
-                        else
-                        {
-                            // TODO: handle this with an alert
-                            println( "That location didn't match any results." )
                         }
                     }
                 }
@@ -177,6 +177,7 @@ class InformationPostingViewController: UIViewController {
         }
         else
         {
+            // if the supplied URL is invalid in some way
             createAlert(
                 title: "Whoops!",
                 message: "Please enter a valid URL."

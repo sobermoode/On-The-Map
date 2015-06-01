@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 AaronJ. All rights reserved.
 //
 
-// TODO: OnTheMapClient
-// create the OnTheMapClient class and abstract all network code to it.
+// TODO: Remove hardcoded username and password
 
 import UIKit
 
