@@ -205,6 +205,11 @@ class InformationPostingViewController: UIViewController {
         self.enterLocationView.hidden = false
     }
     
+    @IBAction func cancelPinDrop( sender: UIButton )
+    {
+        dismissViewControllerAnimated( true, completion: nil )
+    }
+    
     // NOTE:
     // alert code adapted from
     // http://stackoverflow.com/a/24022696
