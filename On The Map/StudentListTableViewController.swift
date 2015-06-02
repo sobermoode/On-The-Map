@@ -56,12 +56,13 @@ class StudentListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifer, forIndexPath: indexPath) as! UITableViewCell
         
+        // get the current student
         let currentStudent = studentLocations[ indexPath.row ]
 
         // Configure the cell...
         
+        // the only cell content is the student's full name
         cell.textLabel?.text = currentStudent.title
-        cell.detailTextLabel?.text = currentStudent.subtitle
 
         return cell
     }
@@ -69,12 +70,48 @@ class StudentListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         dispatch_async( dispatch_get_main_queue(),
         {
+            // get the current student and their URL
             let currentStudent = self.studentLocations[ indexPath.row ]
-            if let studentURL = NSURL( string: currentStudent.subtitle )
+            let studentURL = NSURL( string: currentStudent.subtitle )
+            
+            // can that URL be opened?
+            let canOpenURL = UIApplication.sharedApplication().openURL( studentURL! )
+            if canOpenURL
             {
-                UIApplication.sharedApplication().openURL( studentURL )
+                UIApplication.sharedApplication().openURL( studentURL! )
+            }
+            else
+            {
+                self.createAlert(
+                    title: "Whoops!",
+                    message: "This student's URL (\( studentURL! )) couldn't be opened."
+                )
             }
         } )
+    }
+    
+    // NOTE:
+    // alert code adapted from
+    // http://stackoverflow.com/a/24022696
+    func createAlert( #title: String, message: String )
+    {
+        var alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: UIAlertControllerStyle.Alert
+        )
+        
+        alert.addAction( UIAlertAction(
+            title: "OK",
+            style: UIAlertActionStyle.Default,
+            handler: nil )
+        )
+        
+        self.presentViewController(
+            alert,
+            animated: true,
+            completion: nil
+        )
     }
 
     /*
