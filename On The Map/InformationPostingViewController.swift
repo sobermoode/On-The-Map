@@ -193,8 +193,6 @@ class InformationPostingViewController: UIViewController {
                 message: "Please enter a valid URL."
             )
         }
-        
-        
     }
     
     @IBAction func refineSearch( sender: BorderedButton )
@@ -229,6 +227,14 @@ class InformationPostingViewController: UIViewController {
             animated: true,
             completion: nil
         )
+    }
+    
+    // refresh the map view when this view disappears
+    override func viewWillDisappear( animated: Bool )
+    {
+        let tabController = presentingViewController as! MapAndTableViewController
+        
+        tabController.refreshResults()
     }
     
     override func didReceiveMemoryWarning() {
