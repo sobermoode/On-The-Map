@@ -116,8 +116,21 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
         dispatch_async( dispatch_get_main_queue(),
         {
             let urlString: String! = view.annotation.subtitle
+            let studentURL = NSURL( string: urlString )
             
-            UIApplication.sharedApplication().openURL( NSURL( string: urlString )! )
+            // can that URL be opened?
+            let canOpenURL = UIApplication.sharedApplication().openURL( studentURL! )
+            if canOpenURL
+            {
+                UIApplication.sharedApplication().openURL( studentURL! )
+            }
+            else
+            {
+                self.createAlert(
+                    title: "Whoops!",
+                    message: "This student's URL (\( studentURL! )) couldn't be opened."
+                )
+            }
         } )
     }
     
