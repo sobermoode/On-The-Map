@@ -11,7 +11,7 @@ import MapKit
 
 class MapAndTableViewController: UITabBarController {
     
-    var didPost: Bool?
+    var didPost = false
     var currentLocation: CLLocationCoordinate2D?
     
     override func viewWillAppear( animated: Bool )
@@ -64,7 +64,7 @@ class MapAndTableViewController: UITabBarController {
         navBar.items = [ navItem ]
         
         // add the complete navigation bar to the view
-        self.view.addSubview( navBar )
+        view.addSubview( navBar )
     }
     
     // to return to the UdacityLoginViewController
@@ -107,7 +107,8 @@ class MapAndTableViewController: UITabBarController {
                         googleMapView.studentMap.removeAnnotations( googleMapView.studentMap.annotations )
                         googleMapView.addLocationsToMap()
                         
-                        if self.didPost!
+                        // center the map on the just-posted location (if one was just posted)
+                        if self.didPost
                         {
                             googleMapView.centerMapOnLocation( self.currentLocation! )
                         }
