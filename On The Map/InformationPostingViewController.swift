@@ -89,10 +89,13 @@ class InformationPostingViewController: UIViewController {
                 
                 if let error = error
                 {
-                    self.createAlert(
-                        title: "Whoops!",
-                        message: "There was an error finding that location."
-                    )
+                    dispatch_async( dispatch_get_main_queue(),
+                    {
+                        self.createAlert(
+                            title: "Whoops!",
+                            message: "There was an error finding that location."
+                        )
+                    } )
                     
                     // stop and hide the activity indicator
                     self.activityIndicator.stopAnimating()
@@ -169,10 +172,13 @@ class InformationPostingViewController: UIViewController {
                 if let error = postingError
                 {
                     // handle with alert
-                    self.createAlert(
-                        title: "Whoops!",
-                        message: "There was a problem putting your location on the map."
-                    )
+                    dispatch_async( dispatch_get_main_queue(),
+                    {
+                        self.createAlert(
+                            title: "Whoops!",
+                            message: "There was a problem putting your location on the map."
+                        )
+                    } )
                 }
                 else if success
                 {
