@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import MapKit
 
 class MapAndTableViewController: UITabBarController {
+    
+    var didPost: Bool?
+    var currentLocation: CLLocationCoordinate2D?
     
     override func viewWillAppear( animated: Bool )
     {
@@ -102,6 +106,11 @@ class MapAndTableViewController: UITabBarController {
                         googleMapView.studentLocations = studentLocations
                         googleMapView.studentMap.removeAnnotations( googleMapView.studentMap.annotations )
                         googleMapView.addLocationsToMap()
+                        
+                        if self.didPost!
+                        {
+                            googleMapView.centerMapOnLocation( self.currentLocation! )
+                        }
                         
                         // update the student list on the table view
                         let studentTableView = self.viewControllers?.last as! StudentListTableViewController

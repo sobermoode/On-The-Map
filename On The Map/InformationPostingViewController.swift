@@ -25,9 +25,12 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet weak var submitLinkButton: BorderedButton!
     @IBOutlet weak var refineSearchButton: BorderedButton!
     
+    // for use with geocoding the student's location
     let geocoder = CLGeocoder()
     
+    // to set the map view on a just-posted location
     var currentLocation: CLLocationCoordinate2D?
+    var didPost = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -182,7 +185,9 @@ class InformationPostingViewController: UIViewController {
                 }
                 else if success
                 {
-                    // successfully added the location to the map,
+                    // successfully added the location to the map
+                    self.didPost = true
+                    
                     // dismiss this view controller
                     self.dismissViewControllerAnimated(
                         true,
@@ -244,6 +249,12 @@ class InformationPostingViewController: UIViewController {
     override func viewWillDisappear( animated: Bool )
     {
         let tabController = presentingViewController as! MapAndTableViewController
+        
+        if didPost
+        {
+            tabController.didPost = true
+            tabController.currentLocation = currentLocation
+        }
         
         tabController.refreshResults()
     }

@@ -89,6 +89,17 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func centerMapOnLocation( location: CLLocationCoordinate2D )
+    {
+        studentMap.region = MKCoordinateRegion(
+            center: CLLocationCoordinate2DMake( location.latitude, location.longitude ),
+            span: MKCoordinateSpan(
+                latitudeDelta: 15.0,
+                longitudeDelta: 15.0
+            )
+        )
+    }
+    
     // NOTE:
     // code taken from Jarrod Parkes's PinSample project, posted to the forums
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
