@@ -250,9 +250,12 @@ class InformationPostingViewController: UIViewController {
     {
         let tabController = presentingViewController as! MapAndTableViewController
         
+        // let the tab controller know if a new location was posted
+        tabController.didPost = didPost
+        
+        // if so, give the tab controller the new location
         if didPost
         {
-            tabController.didPost = true
             tabController.currentLocation = currentLocation
         }
         

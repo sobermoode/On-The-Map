@@ -107,6 +107,7 @@ class MapAndTableViewController: UITabBarController {
                         googleMapView.studentMap.removeAnnotations( googleMapView.studentMap.annotations )
                         googleMapView.addLocationsToMap()
                         
+                        // center the map on the just-posted location (if one was just posted)
                         if self.didPost!
                         {
                             googleMapView.centerMapOnLocation( self.currentLocation! )
