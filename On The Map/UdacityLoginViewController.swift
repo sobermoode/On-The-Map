@@ -32,7 +32,6 @@ class UdacityLoginViewController: UIViewController {
     // by Jarrod Parkes
     func configureUI()
     {
-        
         /* Configure background gradient */
         // code based on the MovieManager app
         self.view.backgroundColor = UIColor.clearColor()
@@ -175,15 +174,4 @@ class UdacityLoginViewController: UIViewController {
             completion: nil
         )
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

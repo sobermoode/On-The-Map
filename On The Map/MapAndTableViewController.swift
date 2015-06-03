@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import MapKit
 
 class MapAndTableViewController: UITabBarController {
+    
+    var didPost: Bool?
+    var currentLocation: CLLocationCoordinate2D?
     
     override func viewWillAppear( animated: Bool )
     {
@@ -75,11 +79,7 @@ class MapAndTableViewController: UITabBarController {
     {
         let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView" ) as! InformationPostingViewController
         
-        presentViewController( infoView, animated: true )
-        {
-            // completion handler
-            self.refreshResults()
-        }
+        presentViewController( infoView, animated: true, completion: nil )
     }
     
     func refreshResults()
@@ -106,6 +106,11 @@ class MapAndTableViewController: UITabBarController {
                         googleMapView.studentLocations = studentLocations
                         googleMapView.studentMap.removeAnnotations( googleMapView.studentMap.annotations )
                         googleMapView.addLocationsToMap()
+                        
+                        if self.didPost!
+                        {
+                            googleMapView.centerMapOnLocation( self.currentLocation! )
+                        }
                         
                         // update the student list on the table view
                         let studentTableView = self.viewControllers?.last as! StudentListTableViewController
@@ -145,16 +150,4 @@ class MapAndTableViewController: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

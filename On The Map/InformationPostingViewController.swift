@@ -25,9 +25,12 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet weak var submitLinkButton: BorderedButton!
     @IBOutlet weak var refineSearchButton: BorderedButton!
     
+    // for use with geocoding the student's location
     let geocoder = CLGeocoder()
     
+    // to set the map view on a just-posted location
     var currentLocation: CLLocationCoordinate2D?
+    var didPost = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,10 +92,13 @@ class InformationPostingViewController: UIViewController {
                 
                 if let error = error
                 {
-                    self.createAlert(
-                        title: "Whoops!",
-                        message: "There was an error finding that location."
-                    )
+                    dispatch_async( dispatch_get_main_queue(),
+                    {
+                        self.createAlert(
+                            title: "Whoops!",
+                            message: "There was an error finding that location."
+                        )
+                    } )
                     
                     // stop and hide the activity indicator
                     self.activityIndicator.stopAnimating()
@@ -169,14 +175,19 @@ class InformationPostingViewController: UIViewController {
                 if let error = postingError
                 {
                     // handle with alert
-                    self.createAlert(
-                        title: "Whoops!",
-                        message: "There was a problem putting your location on the map."
-                    )
+                    dispatch_async( dispatch_get_main_queue(),
+                    {
+                        self.createAlert(
+                            title: "Whoops!",
+                            message: "There was a problem putting your location on the map."
+                        )
+                    } )
                 }
                 else if success
                 {
-                    // successfully added the location to the map,
+                    // successfully added the location to the map
+                    self.didPost = true
+                    
                     // dismiss this view controller
                     self.dismissViewControllerAnimated(
                         true,
@@ -193,8 +204,6 @@ class InformationPostingViewController: UIViewController {
                 message: "Please enter a valid URL."
             )
         }
-        
-        
     }
     
     @IBAction func refineSearch( sender: BorderedButton )
@@ -205,6 +214,11 @@ class InformationPostingViewController: UIViewController {
         self.linkSubmissionView.hidden = true
         self.refineSearchButton.hidden = true
         self.enterLocationView.hidden = false
+    }
+    
+    @IBAction func cancelPinDrop( sender: UIButton )
+    {
+        dismissViewControllerAnimated( true, completion: nil )
     }
     
     // NOTE:
@@ -231,20 +245,22 @@ class InformationPostingViewController: UIViewController {
         )
     }
     
+    // refresh the map view when this view disappears
+    override func viewWillDisappear( animated: Bool )
+    {
+        let tabController = presentingViewController as! MapAndTableViewController
+        
+        if didPost
+        {
+            tabController.didPost = true
+            tabController.currentLocation = currentLocation
+        }
+        
+        tabController.refreshResults()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -89,6 +89,17 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func centerMapOnLocation( location: CLLocationCoordinate2D )
+    {
+        studentMap.region = MKCoordinateRegion(
+            center: CLLocationCoordinate2DMake( location.latitude, location.longitude ),
+            span: MKCoordinateSpan(
+                latitudeDelta: 15.0,
+                longitudeDelta: 15.0
+            )
+        )
+    }
+    
     // NOTE:
     // code taken from Jarrod Parkes's PinSample project, posted to the forums
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
@@ -116,8 +127,21 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
         dispatch_async( dispatch_get_main_queue(),
         {
             let urlString: String! = view.annotation.subtitle
+            let studentURL = NSURL( string: urlString )
             
-            UIApplication.sharedApplication().openURL( NSURL( string: urlString )! )
+            // can that URL be opened?
+            let canOpenURL = UIApplication.sharedApplication().openURL( studentURL! )
+            if canOpenURL
+            {
+                UIApplication.sharedApplication().openURL( studentURL! )
+            }
+            else
+            {
+                self.createAlert(
+                    title: "Whoops!",
+                    message: "This student's URL (\( studentURL! )) couldn't be opened."
+                )
+            }
         } )
     }
     
@@ -149,16 +173,4 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
