@@ -49,7 +49,7 @@ class UdacityLoginViewController: UIViewController {
         let emailTextFieldPaddingView = UIView(frame: emailTextFieldPaddingViewFrame)
         emailTextField.leftView = emailTextFieldPaddingView
         emailTextField.leftViewMode = .Always
-        emailTextField.font = UIFont(name: "AvenirNext-Medium", size: 17.0)
+        emailTextField.font = UIFont(name: "AvenirNext-Medium", size: 14.0)
         emailTextField.backgroundColor = UIColor(red: 1.0, green: 0.776, blue: 0.576, alpha:1.0)
         emailTextField.textColor = UIColor.whiteColor()
         emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
@@ -61,7 +61,7 @@ class UdacityLoginViewController: UIViewController {
         let passwordTextFieldPaddingView = UIView(frame: passwordTextFieldPaddingViewFrame)
         passwordTextField.leftView = passwordTextFieldPaddingView
         passwordTextField.leftViewMode = .Always
-        passwordTextField.font = UIFont(name: "AvenirNext-Medium", size: 17.0)
+        passwordTextField.font = UIFont(name: "AvenirNext-Medium", size: 14.0)
         passwordTextField.backgroundColor = UIColor(red: 1.0, green: 0.776, blue: 0.576, alpha:1.0)
         passwordTextField.textColor = UIColor.whiteColor()
         passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
