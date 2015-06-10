@@ -764,9 +764,9 @@
                             <constraint firstItem="9jd-RQ-nCa" firstAttribute="top" secondItem="oex-d6-UrT" secondAttribute="bottom" id="JDT-LD-TPT"/>
                             <constraint firstItem="F1h-hQ-WCO" firstAttribute="trailing" secondItem="oex-d6-UrT" secondAttribute="trailing" id="M6Z-NS-gsY"/>
                             <constraint firstItem="M5E-ya-8my" firstAttribute="top" secondItem="9jd-RQ-nCa" secondAttribute="bottom" constant="9" id="Sp7-SN-wsF"/>
+                            <constraint firstItem="1OC-g4-m1n" firstAttribute="leading" secondItem="smH-j4-QjL" secondAttribute="trailing" constant="-85" id="Uhi-Jn-xi6"/>
                             <constraint firstItem="oex-d6-UrT" firstAttribute="leading" secondItem="9jd-RQ-nCa" secondAttribute="leading" id="a2F-cy-dIJ"/>
                             <constraint firstItem="Q1e-i1-7v5" firstAttribute="top" secondItem="M5E-ya-8my" secondAttribute="bottom" constant="11" id="bxT-zI-9aq"/>
-                            <constraint firstItem="1OC-g4-m1n" firstAttribute="leading" secondItem="M5E-ya-8my" secondAttribute="trailing" constant="40" id="fpb-LL-AiZ"/>
                             <constraint firstItem="oex-d6-UrT" firstAttribute="leading" secondItem="F1h-hQ-WCO" secondAttribute="leading" id="hWP-z1-A4K"/>
                             <constraint firstAttribute="trailing" secondItem="F1h-hQ-WCO" secondAttribute="trailing" id="hzY-65-t2U"/>
                             <constraint firstItem="M5E-ya-8my" firstAttribute="centerX" secondItem="9jd-RQ-nCa" secondAttribute="centerX" id="ivT-Bt-LMo"/>
@@ -782,13 +782,6 @@
                                 <exclude reference="1OC-g4-m1n"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="bxT-zI-9aq"/>
-                                <exclude reference="33f-gk-8Nd"/>
-                                <exclude reference="fpb-LL-AiZ"/>
-                                <exclude reference="Sp7-SN-wsF"/>
-                                <exclude reference="ivT-Bt-LMo"/>
-                                <exclude reference="7E9-QM-dah"/>
-                                <exclude reference="JDT-LD-TPT"/>
                                 <exclude reference="M6Z-NS-gsY"/>
                                 <exclude reference="hzY-65-t2U"/>
                                 <exclude reference="lAf-Lo-Z5e"/>
@@ -797,6 +790,13 @@
                                 <exclude reference="a2F-cy-dIJ"/>
                                 <exclude reference="hWP-z1-A4K"/>
                                 <exclude reference="xsN-ix-MaN"/>
+                                <exclude reference="7E9-QM-dah"/>
+                                <exclude reference="JDT-LD-TPT"/>
+                                <exclude reference="Sp7-SN-wsF"/>
+                                <exclude reference="ivT-Bt-LMo"/>
+                                <exclude reference="bxT-zI-9aq"/>
+                                <exclude reference="33f-gk-8Nd"/>
+                                <exclude reference="Uhi-Jn-xi6"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -808,13 +808,6 @@
                                 <include reference="1OC-g4-m1n"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="bxT-zI-9aq"/>
-                                <include reference="33f-gk-8Nd"/>
-                                <include reference="fpb-LL-AiZ"/>
-                                <include reference="Sp7-SN-wsF"/>
-                                <include reference="ivT-Bt-LMo"/>
-                                <include reference="7E9-QM-dah"/>
-                                <include reference="JDT-LD-TPT"/>
                                 <include reference="M6Z-NS-gsY"/>
                                 <include reference="hzY-65-t2U"/>
                                 <include reference="lAf-Lo-Z5e"/>
@@ -823,6 +816,13 @@
                                 <include reference="a2F-cy-dIJ"/>
                                 <include reference="hWP-z1-A4K"/>
                                 <include reference="xsN-ix-MaN"/>
+                                <include reference="7E9-QM-dah"/>
+                                <include reference="JDT-LD-TPT"/>
+                                <include reference="Sp7-SN-wsF"/>
+                                <include reference="ivT-Bt-LMo"/>
+                                <include reference="bxT-zI-9aq"/>
+                                <include reference="33f-gk-8Nd"/>
+                                <include reference="Uhi-Jn-xi6"/>
                             </mask>
                         </variation>
                     </view>
