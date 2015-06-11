@@ -77,7 +77,7 @@ class MapAndTableViewController: UITabBarController {
     // dismiss it when a location is successfully added to the map
     func dropPin()
     {
-        let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView" ) as! InformationPostingViewController
+        let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView2" ) as! InformationPostingView2Controller
         
         presentViewController( infoView, animated: true, completion: nil )
     }
