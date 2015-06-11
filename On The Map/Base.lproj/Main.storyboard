@@ -776,8 +776,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SNz-IL-Vhz" userLabel="Cancel View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.91764705879999997" green="0.72941176470000002" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="iQ4-NE-Ljf"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="iQ4-NE-Ljf"/>
+                                    </mask>
+                                </variation>
                                 <variation key="widthClass=compact" ambiguous="YES">
                                     <rect key="frame" x="0.0" y="20" width="400" height="50"/>
+                                    <mask key="constraints">
+                                        <include reference="iQ4-NE-Ljf"/>
+                                    </mask>
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Tq-SB-TS4" userLabel="Gray View">
@@ -841,7 +852,7 @@
                                 <include reference="u3y-yc-Vtr"/>
                                 <include reference="edP-OU-PEk"/>
                                 <include reference="lxT-ab-iAA"/>
-                                <include reference="1ir-2q-tDD"/>
+                                <exclude reference="1ir-2q-tDD"/>
                                 <include reference="TGd-QE-Ssn"/>
                                 <include reference="lae-rp-aIo"/>
                             </mask>
