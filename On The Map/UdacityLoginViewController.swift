@@ -20,6 +20,16 @@ class UdacityLoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         configureUI()
+        
+        // NOTE:
+        // code taken from http://stackoverflow.com/a/27079103,
+        // as per the suggestion from the code review
+        // Looks for single or multiple taps.
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: "DismissKeyboard"
+        )
+        view.addGestureRecognizer( tap )
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,6 +42,10 @@ class UdacityLoginViewController: UIViewController {
     // by Jarrod Parkes
     func configureUI()
     {
+        // TODO: REMOVE THIS!!!
+        emailTextField.text = "sobermoode@gmail.com"
+        passwordTextField.text = "udacityrul3z"
+        
         /* Configure background gradient */
         // code based on the MovieManager app
         self.view.backgroundColor = UIColor.clearColor()
@@ -78,6 +92,13 @@ class UdacityLoginViewController: UIViewController {
         facebookButton.highlightedBackingColor = UIColor(red: 0.0, green: 0.298, blue: 0.686, alpha:1.0)
         facebookButton.backingColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         facebookButton.backgroundColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
+    }
+    
+    // Calls this function when the tap is recognized.
+    func DismissKeyboard()
+    {
+        // Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing( true )
     }
     
     // attempt to verify user credentials with Udacity;

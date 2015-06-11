@@ -40,6 +40,10 @@ class InformationPostingViewController: UIViewController {
         linkSubmissionView.hidden = true
         refineSearchButton.hidden = true
         configureButtons()
+        
+        //Looks for single or multiple taps.
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        view.addGestureRecognizer(tap)
     }
     
     func configureButtons()
@@ -61,6 +65,12 @@ class InformationPostingViewController: UIViewController {
         refineSearchButton.highlightedBackingColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha:1.0)
         refineSearchButton.backingColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         refineSearchButton.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    }
+    
+    //Calls this function when the tap is recognized.
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 
     @IBAction func findOnTheMap( sender: BorderedButton )
