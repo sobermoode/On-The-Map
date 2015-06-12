@@ -991,7 +991,45 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gZL-kG-E6m" userLabel="Blue View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t4C-J0-LkA">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="18"/>
+                                        <state key="normal" title="Find on the map">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="0.2156862745" green="0.50196078430000002" blue="0.72941176470000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="t4C-J0-LkA" secondAttribute="trailing" constant="8" id="5WN-v9-IGP"/>
+                                    <constraint firstItem="t4C-J0-LkA" firstAttribute="top" secondItem="gZL-kG-E6m" secondAttribute="top" constant="32" id="6z7-Vm-GEq"/>
+                                    <constraint firstAttribute="bottom" secondItem="t4C-J0-LkA" secondAttribute="bottom" constant="308" id="E3P-ne-dXP"/>
+                                    <constraint firstItem="t4C-J0-LkA" firstAttribute="leading" secondItem="gZL-kG-E6m" secondAttribute="leading" constant="8" id="Rze-bo-q7a"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="t4C-J0-LkA"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="5WN-v9-IGP"/>
+                                        <exclude reference="6z7-Vm-GEq"/>
+                                        <exclude reference="E3P-ne-dXP"/>
+                                        <exclude reference="Rze-bo-q7a"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="t4C-J0-LkA"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="5WN-v9-IGP"/>
+                                        <include reference="6z7-Vm-GEq"/>
+                                        <include reference="E3P-ne-dXP"/>
+                                        <include reference="Rze-bo-q7a"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
