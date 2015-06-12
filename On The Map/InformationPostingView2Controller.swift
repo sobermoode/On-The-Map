@@ -10,6 +10,11 @@ import UIKit
 
 class InformationPostingView2Controller: UIViewController {
 
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var locationTextField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var findButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,6 +43,15 @@ class InformationPostingView2Controller: UIViewController {
         view.endEditing( true )
     }
     
+    @IBAction func cancel( sender: UIButton )
+    {
+        dismissViewControllerAnimated( true, completion: nil )
+    }
+    
+    @IBAction func findOnTheMap( sender: UIButton )
+    {
+        
+    }
 
     /*
     // MARK: - Navigation
