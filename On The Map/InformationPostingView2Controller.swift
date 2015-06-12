@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import MapKit
 
 class InformationPostingView2Controller: UIViewController {
 
+    // view outlets
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var findButton: UIButton!
+    
+    // for use with geocoding the student's location
+    let geocoder = CLGeocoder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +55,111 @@ class InformationPostingView2Controller: UIViewController {
     
     @IBAction func findOnTheMap( sender: UIButton )
     {
+        // show the activity indicator
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
         
+        let address = locationTextField.text
+        
+        // make sure there is a string to geocode
+        if address.isEmpty
+        {
+            self.createAlert(
+                title: "Whoops!",
+                message: "Please enter the location you're studying from 😁"
+            )
+            
+            // stop and hide the activity indicator
+            activityIndicator.stopAnimating()
+        }
+        else
+        {
+            // NOTE:
+            // I used the code from http://stackoverflow.com/a/24708029
+            // as a reference when devising this solution
+            geocoder.geocodeAddressString( address )
+            {
+                placemarks, error in
+                
+                if let error = error
+                {
+                    dispatch_async( dispatch_get_main_queue(),
+                        {
+                            self.createAlert(
+                                title: "Whoops!",
+                                message: "There was an error finding that location."
+                            )
+                    } )
+                    
+                    // stop and hide the activity indicator
+                    self.activityIndicator.stopAnimating()
+                }
+                else
+                {
+                    if let placemarks = placemarks
+                    {
+                        // if the search term returns ambiguous results, we'll use the first one as the "best";
+                        // if that isn't what the user wanted, they can refine their search
+                        if let bestResult = placemarks.first as? CLPlacemark
+                        {
+                            // set the map on the coordinates of the search location
+                            self.mapView.region = MKCoordinateRegion(
+                                center: bestResult.location.coordinate,
+                                span: MKCoordinateSpan(
+                                    latitudeDelta: 0.1,
+                                    longitudeDelta: 0.1
+                                )
+                            )
+                            
+                            // drop a pin at this location
+                            var pin = MKPointAnnotation()
+                            pin.coordinate = bestResult.location.coordinate
+                            pin.title = bestResult.locality
+                            pin.subtitle = "\( bestResult.location.coordinate.latitude ), \( bestResult.location.coordinate.longitude )"
+                            
+                            self.mapView.addAnnotation( pin )
+                            
+                            // set the current location
+                            self.currentLocation = bestResult.location.coordinate
+                            
+                            // show the map view and link submission view;
+                            // hide the search view
+                            self.mapView.hidden = false
+                            self.linkSubmissionView.hidden = false
+                            self.refineSearchButton.hidden = false
+                            self.enterLocationView.hidden = true
+                            
+                            // stop and hide the activity indicator
+                            self.activityIndicator.stopAnimating()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // NOTE:
+    // alert code adapted from
+    // http://stackoverflow.com/a/24022696
+    func createAlert( #title: String, message: String )
+    {
+        var alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: UIAlertControllerStyle.Alert
+        )
+        
+        alert.addAction( UIAlertAction(
+            title: "OK",
+            style: UIAlertActionStyle.Default,
+            handler: nil )
+        )
+        
+        self.presentViewController(
+            alert,
+            animated: true,
+            completion: nil
+        )
     }
 
     /*
