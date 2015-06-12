@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fyt-X7-xxZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tVZ-Dc-laf">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -1153,8 +1153,7 @@
                                                 <exclude reference="dex-7x-Anw"/>
                                             </mask>
                                         </variation>
-                                        <variation key="widthClass=compact" ambiguous="YES">
-                                            <rect key="frame" x="177" y="0.0" width="48" height="50"/>
+                                        <variation key="widthClass=compact">
                                             <mask key="constraints">
                                                 <exclude reference="xz2-yL-uYa"/>
                                                 <exclude reference="dex-7x-Anw"/>
@@ -1219,8 +1218,7 @@
                                         <exclude reference="yP1-y5-UDs"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="20" width="400" height="50"/>
+                                <variation key="widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="ziW-bo-N6n"/>
                                     </mask>
@@ -1248,16 +1246,70 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Err-RS-qLk" userLabel="Refine Search view">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Qg-fR-kRP">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="15"/>
+                                        <state key="normal" title="Refine Search">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="153" y="8" width="95" height="33"/>
+                                        </variation>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="7Qg-fR-kRP"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="70" width="400" height="50"/>
+                                    <mask key="subviews">
+                                        <include reference="7Qg-fR-kRP"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Err-RS-qLk" firstAttribute="trailing" secondItem="lfs-U9-S05" secondAttribute="trailing" id="2aN-rY-b1d"/>
+                            <constraint firstAttribute="trailing" secondItem="Err-RS-qLk" secondAttribute="trailing" id="JbB-DA-0VW"/>
+                            <constraint firstItem="lfs-U9-S05" firstAttribute="top" secondItem="otF-1F-ccI" secondAttribute="bottom" id="K6w-h4-LrI"/>
+                            <constraint firstItem="Err-RS-qLk" firstAttribute="leading" secondItem="lfs-U9-S05" secondAttribute="leading" id="MvO-sN-R9U"/>
+                            <constraint firstItem="Err-RS-qLk" firstAttribute="leading" secondItem="YlC-K0-QUh" secondAttribute="leading" id="hl7-Hh-WIl"/>
+                            <constraint firstItem="Err-RS-qLk" firstAttribute="top" secondItem="lfs-U9-S05" secondAttribute="bottom" id="p7S-2Z-Q2a"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="lfs-U9-S05"/>
+                                <exclude reference="Err-RS-qLk"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="K6w-h4-LrI"/>
+                                <exclude reference="2aN-rY-b1d"/>
+                                <exclude reference="JbB-DA-0VW"/>
+                                <exclude reference="MvO-sN-R9U"/>
+                                <exclude reference="hl7-Hh-WIl"/>
+                                <exclude reference="p7S-2Z-Q2a"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="lfs-U9-S05"/>
+                                <include reference="Err-RS-qLk"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="K6w-h4-LrI"/>
+                                <include reference="2aN-rY-b1d"/>
+                                <include reference="JbB-DA-0VW"/>
+                                <include reference="MvO-sN-R9U"/>
+                                <include reference="hl7-Hh-WIl"/>
+                                <include reference="p7S-2Z-Q2a"/>
                             </mask>
                         </variation>
                     </view>

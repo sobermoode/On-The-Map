@@ -20,6 +20,9 @@ class InformationPostingView2Controller: UIViewController {
     // for use with geocoding the student's location
     let geocoder = CLGeocoder()
     
+    // for use when canceling from the map search view
+    var didCancel = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
