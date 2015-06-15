@@ -19,12 +19,6 @@ class MapAndTableViewController: UITabBarController {
         // create the navigation bar
         createNavigationBar()
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
     
     func createNavigationBar()
     {
@@ -145,10 +139,5 @@ class MapAndTableViewController: UITabBarController {
             animated: true,
             completion: nil
         )
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }

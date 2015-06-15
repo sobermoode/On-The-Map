@@ -23,6 +23,8 @@ class InformationPostingView2Controller: UIViewController {
     // for use when canceling from the map search view
     var didCancelMapSearch = false
     
+    // if the "cancel" action originated from the map search view,
+    // then dimiss this view as well
     override func viewWillAppear( animated: Bool )
     {
         if didCancelMapSearch
@@ -45,13 +47,6 @@ class InformationPostingView2Controller: UIViewController {
             action: "DismissKeyboard"
         )
         view.addGestureRecognizer( tap )
-        
-        // activityIndicator.hidesWhenStopped = true
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // Calls this function when the tap is recognized.
@@ -61,6 +56,7 @@ class InformationPostingView2Controller: UIViewController {
         view.endEditing( true )
     }
     
+    // go back to the information posting view
     @IBAction func cancel( sender: UIButton )
     {
         dismissViewControllerAnimated( true, completion: nil )
@@ -111,8 +107,6 @@ class InformationPostingView2Controller: UIViewController {
                 {
                     let mapSearchView = self.storyboard?.instantiateViewControllerWithIdentifier( "MapSearch" ) as! MapSearchViewController
                     
-                    // self.presentViewController( mapSearchView, animated: true, completion: nil )
-                    
                     if let placemarks = placemarks
                     {
                         // if the search term returns ambiguous results, we'll use the first one as the "best";
@@ -127,36 +121,6 @@ class InformationPostingView2Controller: UIViewController {
                             
                             // stop and hide the activity indicator
                             self.activityIndicator.stopAnimating()
-                            
-                            // set the map on the coordinates of the search location
-//                            self.mapView.region = MKCoordinateRegion(
-//                                center: bestResult.location.coordinate,
-//                                span: MKCoordinateSpan(
-//                                    latitudeDelta: 0.1,
-//                                    longitudeDelta: 0.1
-//                                )
-//                            )
-                            
-                            // drop a pin at this location
-//                            var pin = MKPointAnnotation()
-//                            pin.coordinate = bestResult.location.coordinate
-//                            pin.title = bestResult.locality
-//                            pin.subtitle = "\( bestResult.location.coordinate.latitude ), \( bestResult.location.coordinate.longitude )"
-//                            
-//                            self.mapView.addAnnotation( pin )
-//                            
-//                            // set the current location
-//                            self.currentLocation = bestResult.location.coordinate
-//                            
-//                            // show the map view and link submission view;
-//                            // hide the search view
-//                            self.mapView.hidden = false
-//                            self.linkSubmissionView.hidden = false
-//                            self.refineSearchButton.hidden = false
-//                            self.enterLocationView.hidden = true
-//                            
-//                            // stop and hide the activity indicator
-//                            self.activityIndicator.stopAnimating()
                         }
                     }
                 }
@@ -187,15 +151,4 @@ class InformationPostingView2Controller: UIViewController {
             completion: nil
         )
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

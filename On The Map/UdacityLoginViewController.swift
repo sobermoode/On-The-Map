@@ -31,11 +31,6 @@ class UdacityLoginViewController: UIViewController {
         )
         view.addGestureRecognizer( tap )
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     // NOTE:
     // Most of the configureUI() code is based on parts of the MovieManager and MyFavoriteMovies apps
