@@ -57,7 +57,7 @@ class MapSearchViewController: UIViewController {
     
     @IBAction func refineSearch( sender: UIButton )
     {
-        
+        dismissViewControllerAnimated( true, completion: nil )
     }
     
     override func didReceiveMemoryWarning() {

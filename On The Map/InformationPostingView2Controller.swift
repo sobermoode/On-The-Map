@@ -125,6 +125,9 @@ class InformationPostingView2Controller: UIViewController {
                             // present the map search controller
                             self.presentViewController( mapSearchView, animated: true, completion: nil )
                             
+                            // stop and hide the activity indicator
+                            self.activityIndicator.stopAnimating()
+                            
                             // set the map on the coordinates of the search location
 //                            self.mapView.region = MKCoordinateRegion(
 //                                center: bestResult.location.coordinate,
