@@ -11,8 +11,7 @@ import MapKit
 
 class MapAndTableViewController: UITabBarController {
     
-    var didPost = false
-    // var currentLocation: CLLocationCoordinate2D?
+    var didPost: Bool = false
     var currentLocation: CLPlacemark!
     
     override func viewWillAppear( animated: Bool )

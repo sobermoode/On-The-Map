@@ -37,10 +37,6 @@ class UdacityLoginViewController: UIViewController {
     // by Jarrod Parkes
     func configureUI()
     {
-        // TODO: REMOVE THIS!!!
-        emailTextField.text = "sobermoode@gmail.com"
-        passwordTextField.text = "udacityrul3z"
-        
         /* Configure background gradient */
         // code based on the MovieManager app
         self.view.backgroundColor = UIColor.clearColor()

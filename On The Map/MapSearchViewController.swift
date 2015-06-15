@@ -15,7 +15,6 @@ class MapSearchViewController: UIViewController {
     @IBOutlet weak var submittedLinkTextField: UITextField!
     
     var currentSearch: CLPlacemark!
-    // var didPost: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +33,10 @@ class MapSearchViewController: UIViewController {
         // drop a pin at this location
         var pin = MKPointAnnotation()
         pin.coordinate = currentSearch.location.coordinate
+        
+        // the locality is cool, but if the user has a typo in what they entered,
+        // the search may come up in some random place, without that property set to anything.
+        // will use whatever was entered, in that case.
         if let pinTitle = currentSearch.locality
         {
             pin.title = currentSearch.locality
@@ -59,6 +62,7 @@ class MapSearchViewController: UIViewController {
     
     @IBAction func submitLink( sender: UIButton )
     {
+        // make sure there's something in the text field
         if submittedLinkTextField.text.isEmpty
         {
             createAlert(
@@ -70,7 +74,6 @@ class MapSearchViewController: UIViewController {
         {
             // can that URL be opened?
             let studentURL = NSURL( string: submittedLinkTextField.text )!
-            // let canOpenURL = UIApplication.sharedApplication().openURL( studentURL )
             if isValidURL( studentURL )
             {
                 var assembledData = [ String : AnyObject ]()
@@ -100,9 +103,6 @@ class MapSearchViewController: UIViewController {
                     }
                     else if success
                     {
-                        // successfully added the location to the map
-                        // self.didPost = true
-                        
                         // pass the relevant information to the info posting view
                         let infoView = self.presentingViewController as! InformationPostingView2Controller
                         infoView.didPost = true
@@ -131,6 +131,8 @@ class MapSearchViewController: UIViewController {
         dismissViewControllerAnimated( true, completion: nil )
     }
     
+    // NOTE:
+    // this was a suggestion from my previous code review
     func isValidURL( url: NSURL ) -> Bool
     {
         let request = NSURLRequest( URL: url )
@@ -161,21 +163,4 @@ class MapSearchViewController: UIViewController {
             completion: nil
         )
     }
-    
-//    override func viewWillDisappear( animated: Bool )
-//    {
-//        // if a new location was posted, let the tab controller know about it,
-//        // so the results can be refreshed
-//        if didPost
-//        {
-//            let tabController = presentingViewController as! MapAndTableViewController
-//            tabController.didPost = true
-//            tabController.currentLocation = currentSearch
-//            tabController.refreshResults()
-//        }
-//        else
-//        {
-//            return
-//        }
-//    }
 }

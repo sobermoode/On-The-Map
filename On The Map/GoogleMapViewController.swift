@@ -91,8 +91,6 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
     
     func centerMapOnLocation( newLocation: CLPlacemark )
     {
-        println( "Centering the map on the new location..." )
-        
         studentMap.region = MKCoordinateRegion(
             center: CLLocationCoordinate2DMake( newLocation.location.coordinate.latitude, newLocation.location.coordinate.longitude ),
             span: MKCoordinateSpan(

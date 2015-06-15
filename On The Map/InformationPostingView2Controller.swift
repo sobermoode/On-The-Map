@@ -27,13 +27,11 @@ class InformationPostingView2Controller: UIViewController {
     var didPost: Bool = false
     var postedLocation: CLPlacemark!
     
-    // if the "cancel" action originated from the map search view,
-    // then dimiss this view as well
     override func viewWillAppear( animated: Bool )
     {
+        // canceled the posting action, but from the map search view
         if didCancelMapSearch
         {
-            // canceled the posting action, but from the map search view
             cancel( cancelButton )
         }
         else if didPost
