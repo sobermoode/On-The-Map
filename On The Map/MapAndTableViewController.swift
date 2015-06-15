@@ -12,7 +12,8 @@ import MapKit
 class MapAndTableViewController: UITabBarController {
     
     var didPost = false
-    var currentLocation: CLLocationCoordinate2D?
+    // var currentLocation: CLLocationCoordinate2D?
+    var currentLocation: CLPlacemark!
     
     override func viewWillAppear( animated: Bool )
     {
@@ -104,7 +105,7 @@ class MapAndTableViewController: UITabBarController {
                         // center the map on the just-posted location (if one was just posted)
                         if self.didPost
                         {
-                            googleMapView.centerMapOnLocation( self.currentLocation! )
+                            googleMapView.centerMapOnLocation( self.currentLocation )
                         }
                         
                         // update the student list on the table view

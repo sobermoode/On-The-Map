@@ -266,7 +266,7 @@ class InformationPostingViewController: UIViewController {
         // if so, give the tab controller the new location
         if didPost
         {
-            tabController.currentLocation = currentLocation
+            // tabController.currentLocation = currentLocation
         }
         
         tabController.refreshResults()

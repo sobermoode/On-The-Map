@@ -1272,6 +1272,9 @@
                                                 <include reference="pV8-L7-FVl"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="submitLink:" destination="tVZ-Dc-laf" eventType="touchUpInside" id="Def-b9-RXz"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1468,6 +1471,7 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="0Uh-VT-X2Z" id="J06-lO-r9L"/>
+                        <outlet property="submittedLinkTextField" destination="mxU-Wi-dnJ" id="YMx-ii-6Bl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FQF-Pd-gg5" userLabel="First Responder" sceneMemberID="firstResponder"/>

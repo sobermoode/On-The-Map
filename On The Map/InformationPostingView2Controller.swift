@@ -23,14 +23,31 @@ class InformationPostingView2Controller: UIViewController {
     // for use when canceling from the map search view
     var didCancelMapSearch = false
     
+    // to let the tab bar controller know that a new location was posted
+    var didPost: Bool = false
+    var postedLocation: CLPlacemark!
+    
     // if the "cancel" action originated from the map search view,
     // then dimiss this view as well
     override func viewWillAppear( animated: Bool )
     {
         if didCancelMapSearch
         {
+            // canceled the posting action, but from the map search view
             cancel( cancelButton )
         }
+        else if didPost
+        {
+            // if a new location was posted, let the tab controller know about it,
+            // so the results can be refreshed
+            let tabController = presentingViewController as! MapAndTableViewController
+            tabController.didPost = true
+            tabController.currentLocation = postedLocation
+            tabController.refreshResults()
+            
+            dismissViewControllerAnimated( true, completion: nil )
+        }
+
     }
     
     override func viewDidLoad() {

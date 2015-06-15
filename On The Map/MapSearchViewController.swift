@@ -12,8 +12,10 @@ import MapKit
 class MapSearchViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var submittedLinkTextField: UITextField!
     
     var currentSearch: CLPlacemark!
+    // var didPost: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,8 +57,125 @@ class MapSearchViewController: UIViewController {
         dismissViewControllerAnimated( true, completion: nil )
     }
     
+    @IBAction func submitLink( sender: UIButton )
+    {
+        if submittedLinkTextField.text.isEmpty
+        {
+            createAlert(
+                title: "Whoops!",
+                message: "Please submit a link to your work 😁"
+            )
+        }
+        else
+        {
+            // can that URL be opened?
+            let studentURL = NSURL( string: submittedLinkTextField.text )!
+            // let canOpenURL = UIApplication.sharedApplication().openURL( studentURL )
+            if isValidURL( studentURL )
+            {
+                var assembledData = [ String : AnyObject ]()
+                assembledData[ "uniqueKey" ] = "1234"
+                assembledData[ "firstName" ] = OnTheMapClient.UdacityInfo.userFirstName
+                assembledData[ "lastName" ] = OnTheMapClient.UdacityInfo.userLastName
+                assembledData[ "mapString" ] = currentSearch.name
+                assembledData[ "mediaURL" ] = submittedLinkTextField.text
+                assembledData[ "latitude" ] = currentSearch.location.coordinate.latitude
+                assembledData[ "longitude" ] = currentSearch.location.coordinate.longitude
+                
+                // Parse POST request
+                OnTheMapClient.sharedInstance().postNewStudentInfo( assembledData )
+                {
+                    success, postingError in
+                    
+                    if let error = postingError
+                    {
+                        // handle with alert
+                        dispatch_async( dispatch_get_main_queue(),
+                        {
+                            self.createAlert(
+                                title: "Whoops!",
+                                message: "There was a problem putting your location on the map."
+                            )
+                        } )
+                    }
+                    else if success
+                    {
+                        // successfully added the location to the map
+                        // self.didPost = true
+                        
+                        // pass the relevant information to the info posting view
+                        let infoView = self.presentingViewController as! InformationPostingView2Controller
+                        infoView.didPost = true
+                        infoView.postedLocation = self.currentSearch
+                        
+                        // dismiss this view controller
+                        self.dismissViewControllerAnimated(
+                            true,
+                            completion: nil
+                        )
+                    }
+                }
+            }
+            else
+            {
+                self.createAlert(
+                    title: "Whoops!",
+                    message: "That wasn't a valid URL."
+                )
+            }
+        }
+    }
+    
     @IBAction func refineSearch( sender: UIButton )
     {
         dismissViewControllerAnimated( true, completion: nil )
     }
+    
+    func isValidURL( url: NSURL ) -> Bool
+    {
+        let request = NSURLRequest( URL: url )
+        
+        return NSURLConnection.canHandleRequest( request )
+    }
+    
+    // NOTE:
+    // alert code adapted from
+    // http://stackoverflow.com/a/24022696
+    func createAlert( #title: String, message: String )
+    {
+        var alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: UIAlertControllerStyle.Alert
+        )
+        
+        alert.addAction( UIAlertAction(
+            title: "OK",
+            style: UIAlertActionStyle.Default,
+            handler: nil )
+        )
+        
+        self.presentViewController(
+            alert,
+            animated: true,
+            completion: nil
+        )
+    }
+    
+//    override func viewWillDisappear( animated: Bool )
+//    {
+//        // if a new location was posted, let the tab controller know about it,
+//        // so the results can be refreshed
+//        if didPost
+//        {
+//            let tabController = presentingViewController as! MapAndTableViewController
+//            tabController.didPost = true
+//            tabController.currentLocation = currentSearch
+//            tabController.refreshResults()
+//        }
+//        else
+//        {
+//            return
+//        }
+//    }
 }
