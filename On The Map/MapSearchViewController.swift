@@ -21,13 +21,29 @@ class MapSearchViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // set the map on the coordinates of the search location
-//        self.mapView.region = MKCoordinateRegion(
-//            center: bestResult.location.coordinate,
-//            span: MKCoordinateSpan(
-//                latitudeDelta: 0.1,
-//                longitudeDelta: 0.1
-//            )
-//        )
+        mapView.region = MKCoordinateRegion(
+            center: currentSearch.location.coordinate,
+            span: MKCoordinateSpan(
+                latitudeDelta: 0.1,
+                longitudeDelta: 0.1
+            )
+        )
+        
+        // drop a pin at this location
+        var pin = MKPointAnnotation()
+        pin.coordinate = currentSearch.location.coordinate
+        if let pinTitle = currentSearch.locality
+        {
+            pin.title = currentSearch.locality
+        }
+        else
+        {
+            pin.title = currentSearch.name
+        }
+        
+        pin.subtitle = "\( currentSearch.location.coordinate.latitude ), \( currentSearch.location.coordinate.longitude )"
+        
+        mapView.addAnnotation( pin )
     }
 
     @IBAction func cancelToInfoView( sender: UIButton )

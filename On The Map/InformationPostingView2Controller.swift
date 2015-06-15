@@ -23,7 +23,8 @@ class InformationPostingView2Controller: UIViewController {
     // for use when canceling from the map search view
     var didCancelMapSearch = false
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear( animated: Bool )
+    {
         if didCancelMapSearch
         {
             cancel( cancelButton )
@@ -96,11 +97,11 @@ class InformationPostingView2Controller: UIViewController {
                 if let error = error
                 {
                     dispatch_async( dispatch_get_main_queue(),
-                        {
-                            self.createAlert(
-                                title: "Whoops!",
-                                message: "There was an error finding that location."
-                            )
+                    {
+                        self.createAlert(
+                            title: "Whoops!",
+                            message: "There was an error finding that location."
+                        )
                     } )
                     
                     // stop and hide the activity indicator
