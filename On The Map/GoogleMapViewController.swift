@@ -81,7 +81,7 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
         for location in studentLocations
         {
             var pin = MKPointAnnotation()
-            pin.coordinate = location.coordinate
+            pin.coordinate = location.coordinate!
             pin.title = location.title
             pin.subtitle = location.subtitle
             

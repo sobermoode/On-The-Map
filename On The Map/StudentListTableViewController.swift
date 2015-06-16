@@ -59,7 +59,7 @@ class StudentListTableViewController: UITableViewController {
         {
             // get the current student and their URL
             let currentStudent = self.studentLocations[ indexPath.row ]
-            let studentURL = NSURL( string: currentStudent.subtitle )
+            let studentURL = NSURL( string: currentStudent.subtitle! )
             
             // can that URL be opened?
             let canOpenURL = UIApplication.sharedApplication().openURL( studentURL! )
