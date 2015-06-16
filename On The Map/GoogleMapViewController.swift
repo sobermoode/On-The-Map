@@ -21,12 +21,18 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
     
     var studentLocations = [ StudentLocation ]()
     var studentMap: MKMapView!
+    var isUpdating: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
+        populateMap()
+    }
+    
+    func populateMap()
+    {
         // get the student locations from Parse
         OnTheMapClient.sharedInstance().getStudentLocations
         {
@@ -40,7 +46,7 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
                     message: error
                 )
             }
-            // otherwise, we have locations to pin on the map
+                // otherwise, we have locations to pin on the map
             else if success
             {
                 if let studentLocations = studentLocations
@@ -66,16 +72,23 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
                         self.view = self.studentMap
                         
                         // pin the student locations to the map
-                        self.addLocationsToMap()
+                        if self.isUpdating
+                        {
+                            self.studentMap.removeAnnotations( self.studentMap.annotations )
+                            self.isUpdating = false
+                            self.addLocationsToMap()
+                        }
+                        else
+                        {
+                            self.addLocationsToMap()
+                        }
                     } )
                 }
             }
         }
     }
     
-    // the function receives the array of student locations from Parse
-    // and then creates pins for each student with their relevant info
-    // and adds the pin to the map
+    // create the pins at each location and add them to the map
     func addLocationsToMap()
     {
         for location in studentLocations

@@ -76,45 +76,14 @@ class MapAndTableViewController: UITabBarController {
         presentViewController( infoView, animated: true, completion: nil )
     }
     
+    // tell the map view to refresh itself
     func refreshResults()
     {
-        OnTheMapClient.sharedInstance().getStudentLocations
-        {
-            success, studentLocations, error in
-            
-            if let error = error
-            {
-                self.createAlert(
-                    title: "Whoops!",
-                    message: error
-                )
-            }
-            else if success
-            {
-                if let studentLocations = studentLocations
-                {
-                    dispatch_async( dispatch_get_main_queue(),
-                    {
-                        // update the pins on the map view
-                        let googleMapView = self.viewControllers?.first as! GoogleMapViewController
-                        googleMapView.studentLocations = studentLocations
-                        googleMapView.studentMap.removeAnnotations( googleMapView.studentMap.annotations )
-                        googleMapView.addLocationsToMap()
-                        
-                        // center the map on the just-posted location (if one was just posted)
-                        if self.didPost
-                        {
-                            googleMapView.centerMapOnLocation( self.currentLocation )
-                        }
-                        
-                        // update the student list on the table view
-                        let studentTableView = self.viewControllers?.last as! StudentListTableViewController
-                        studentTableView.studentLocations = studentLocations
-                        studentTableView.tableView.reloadData()
-                    } )
-                }
-            }
-        }
+        let googleMapView = self.viewControllers?.first as? GoogleMapViewController
+        
+        // let it know to remove the current annotations first
+        googleMapView?.isUpdating = true
+        googleMapView?.populateMap()
     }
     
     // NOTE:
