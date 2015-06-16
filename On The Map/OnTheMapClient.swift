@@ -135,7 +135,7 @@ class OnTheMapClient: NSObject
                 return completionHandler(
                     success: false,
                     loginError: nil,
-                    timeoutError: "The login attempt timed out."
+                    timeoutError: error.localizedDescription
                 )
             }
             else

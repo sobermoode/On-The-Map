@@ -13,6 +13,8 @@ class UdacityLoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: BorderedButton!
+    
+    // hidden for now
     @IBOutlet weak var facebookButton: BorderedButton!
     
     override func viewDidLoad() {
@@ -79,10 +81,12 @@ class UdacityLoginViewController: UIViewController {
         loginButton.backingColor = UIColor(red: 0.956, green:0.333, blue:0.0, alpha: 1.0)
         loginButton.backgroundColor = UIColor(red: 0.956, green:0.333, blue:0.0, alpha: 1.0)
         
+        /* this button is hidden for now
         facebookButton.themeBorderedButton()
         facebookButton.highlightedBackingColor = UIColor(red: 0.0, green: 0.298, blue: 0.686, alpha:1.0)
         facebookButton.backingColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         facebookButton.backgroundColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
+        */
     }
     
     // Calls this function when the tap is recognized.
@@ -154,6 +158,7 @@ class UdacityLoginViewController: UIViewController {
         UIApplication.sharedApplication().openURL( NSURL( string: "https://www.udacity.com/account/auth#!/signin" )! )
     }
 
+    /* this button is hidden for now
     // show the Facebook alert
     @IBAction func facebookAlert( sender: BorderedButton )
     {
@@ -162,6 +167,7 @@ class UdacityLoginViewController: UIViewController {
             message: "I don't have a Facebook account, so I haven't implemented this functionality."
         )
     }
+    */
     
     // NOTE:
     // alert code adapted from
