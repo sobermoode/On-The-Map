@@ -76,14 +76,13 @@ class MapAndTableViewController: UITabBarController {
         presentViewController( infoView, animated: true, completion: nil )
     }
     
-    // tell the map view to refresh itself
+    // tell the views to refresh themselves
     func refreshResults()
     {
+        // tell the map to update itself, along with the table view
         let googleMapView = self.viewControllers?.first as? GoogleMapViewController
         
-        // let it know to remove the current annotations first
-        googleMapView?.isUpdating = true
-        googleMapView?.populateMap()
+        googleMapView?.populateMap( didPost, withLocation: currentLocation )
     }
     
     // NOTE:

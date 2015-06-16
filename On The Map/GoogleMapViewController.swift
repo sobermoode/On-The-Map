@@ -21,17 +21,22 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
     
     var studentLocations = [ StudentLocation ]()
     var studentMap: MKMapView!
-    var isUpdating: Bool = false
+    var studentListView: StudentListTableViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        populateMap()
+        // use the tab controller to get a reference to the table view,
+        // so it can be updated when the map is
+        let tabController = parentViewController as? MapAndTableViewController
+        studentListView = tabController?.viewControllers?.last as? StudentListTableViewController
+        
+        populateMap( false, withLocation: nil )
     }
     
-    func populateMap()
+    func populateMap( didPost: Bool, withLocation newLocation: CLPlacemark! )
     {
         // get the student locations from Parse
         OnTheMapClient.sharedInstance().getStudentLocations
@@ -53,6 +58,7 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
                 {
                     // save the locations
                     self.studentLocations = studentLocations
+                    self.studentListView.studentLocations = studentLocations
                     
                     // map updates must be made on the main thread
                     dispatch_async( dispatch_get_main_queue(),
@@ -71,17 +77,17 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
                         // set the map as the view
                         self.view = self.studentMap
                         
-                        // pin the student locations to the map
-                        if self.isUpdating
+                        // add all the current locations to the map
+                        self.studentMap.removeAnnotations( self.studentMap.annotations )
+                        self.addLocationsToMap()
+                        
+                        if didPost
                         {
-                            self.studentMap.removeAnnotations( self.studentMap.annotations )
-                            self.isUpdating = false
-                            self.addLocationsToMap()
+                            self.centerMapOnLocation( newLocation )
                         }
-                        else
-                        {
-                            self.addLocationsToMap()
-                        }
+                        
+                        // reload the table view with the current data
+                        self.studentListView.tableView.reloadData()
                     } )
                 }
             }
