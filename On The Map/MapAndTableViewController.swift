@@ -11,19 +11,13 @@ import MapKit
 
 class MapAndTableViewController: UITabBarController {
     
-    var didPost = false
-    var currentLocation: CLLocationCoordinate2D?
+    var didPost: Bool = false
+    var currentLocation: CLPlacemark!
     
     override func viewWillAppear( animated: Bool )
     {
         // create the navigation bar
         createNavigationBar()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     func createNavigationBar()
@@ -77,50 +71,19 @@ class MapAndTableViewController: UITabBarController {
     // dismiss it when a location is successfully added to the map
     func dropPin()
     {
-        let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView" ) as! InformationPostingViewController
+        let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView2" ) as! InformationPostingView2Controller
         
         presentViewController( infoView, animated: true, completion: nil )
     }
     
+    // tell the map view to refresh itself
     func refreshResults()
     {
-        OnTheMapClient.sharedInstance().getStudentLocations
-        {
-            success, studentLocations, error in
-            
-            if let error = error
-            {
-                self.createAlert(
-                    title: "Whoops!",
-                    message: error
-                )
-            }
-            else if success
-            {
-                if let studentLocations = studentLocations
-                {
-                    dispatch_async( dispatch_get_main_queue(),
-                    {
-                        // update the pins on the map view
-                        let googleMapView = self.viewControllers?.first as! GoogleMapViewController
-                        googleMapView.studentLocations = studentLocations
-                        googleMapView.studentMap.removeAnnotations( googleMapView.studentMap.annotations )
-                        googleMapView.addLocationsToMap()
-                        
-                        // center the map on the just-posted location (if one was just posted)
-                        if self.didPost
-                        {
-                            googleMapView.centerMapOnLocation( self.currentLocation! )
-                        }
-                        
-                        // update the student list on the table view
-                        let studentTableView = self.viewControllers?.last as! StudentListTableViewController
-                        studentTableView.studentLocations = studentLocations
-                        studentTableView.tableView.reloadData()
-                    } )
-                }
-            }
-        }
+        let googleMapView = self.viewControllers?.first as? GoogleMapViewController
+        
+        // let it know to remove the current annotations first
+        googleMapView?.isUpdating = true
+        googleMapView?.populateMap()
     }
     
     // NOTE:
@@ -145,10 +108,5 @@ class MapAndTableViewController: UITabBarController {
             animated: true,
             completion: nil
         )
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }

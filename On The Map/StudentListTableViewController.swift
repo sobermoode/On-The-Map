@@ -28,11 +28,6 @@ class StudentListTableViewController: UITableViewController {
         studentLocations = OnTheMapClient.sharedInstance().studentLocations
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -64,7 +59,7 @@ class StudentListTableViewController: UITableViewController {
         {
             // get the current student and their URL
             let currentStudent = self.studentLocations[ indexPath.row ]
-            let studentURL = NSURL( string: currentStudent.subtitle )
+            let studentURL = NSURL( string: currentStudent.subtitle! )
             
             // can that URL be opened?
             let canOpenURL = UIApplication.sharedApplication().openURL( studentURL! )

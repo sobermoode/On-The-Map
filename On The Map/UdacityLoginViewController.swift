@@ -13,6 +13,8 @@ class UdacityLoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: BorderedButton!
+    
+    // hidden for now
     @IBOutlet weak var facebookButton: BorderedButton!
     
     override func viewDidLoad() {
@@ -20,11 +22,16 @@ class UdacityLoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         configureUI()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        // NOTE:
+        // code taken from http://stackoverflow.com/a/27079103,
+        // as per the suggestion from the code review
+        // Looks for single or multiple taps.
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: "DismissKeyboard"
+        )
+        view.addGestureRecognizer( tap )
     }
     
     // NOTE:
@@ -32,6 +39,10 @@ class UdacityLoginViewController: UIViewController {
     // by Jarrod Parkes
     func configureUI()
     {
+        // TODO: REMOVE THIS!!!
+        emailTextField.text = "sobermoode@gmail.com"
+        passwordTextField.text = "udacityrul3z"
+        
         /* Configure background gradient */
         // code based on the MovieManager app
         self.view.backgroundColor = UIColor.clearColor()
@@ -49,7 +60,7 @@ class UdacityLoginViewController: UIViewController {
         let emailTextFieldPaddingView = UIView(frame: emailTextFieldPaddingViewFrame)
         emailTextField.leftView = emailTextFieldPaddingView
         emailTextField.leftViewMode = .Always
-        emailTextField.font = UIFont(name: "AvenirNext-Medium", size: 17.0)
+        emailTextField.font = UIFont(name: "AvenirNext-Medium", size: 14.0)
         emailTextField.backgroundColor = UIColor(red: 1.0, green: 0.776, blue: 0.576, alpha:1.0)
         emailTextField.textColor = UIColor.whiteColor()
         emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
@@ -61,7 +72,7 @@ class UdacityLoginViewController: UIViewController {
         let passwordTextFieldPaddingView = UIView(frame: passwordTextFieldPaddingViewFrame)
         passwordTextField.leftView = passwordTextFieldPaddingView
         passwordTextField.leftViewMode = .Always
-        passwordTextField.font = UIFont(name: "AvenirNext-Medium", size: 17.0)
+        passwordTextField.font = UIFont(name: "AvenirNext-Medium", size: 14.0)
         passwordTextField.backgroundColor = UIColor(red: 1.0, green: 0.776, blue: 0.576, alpha:1.0)
         passwordTextField.textColor = UIColor.whiteColor()
         passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
@@ -74,10 +85,19 @@ class UdacityLoginViewController: UIViewController {
         loginButton.backingColor = UIColor(red: 0.956, green:0.333, blue:0.0, alpha: 1.0)
         loginButton.backgroundColor = UIColor(red: 0.956, green:0.333, blue:0.0, alpha: 1.0)
         
+        /* this button is hidden for now
         facebookButton.themeBorderedButton()
         facebookButton.highlightedBackingColor = UIColor(red: 0.0, green: 0.298, blue: 0.686, alpha:1.0)
         facebookButton.backingColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         facebookButton.backgroundColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
+        */
+    }
+    
+    // Calls this function when the tap is recognized.
+    func DismissKeyboard()
+    {
+        // Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing( true )
     }
     
     // attempt to verify user credentials with Udacity;
@@ -142,6 +162,7 @@ class UdacityLoginViewController: UIViewController {
         UIApplication.sharedApplication().openURL( NSURL( string: "https://www.udacity.com/account/auth#!/signin" )! )
     }
 
+    /* this button is hidden for now
     // show the Facebook alert
     @IBAction func facebookAlert( sender: BorderedButton )
     {
@@ -150,6 +171,7 @@ class UdacityLoginViewController: UIViewController {
             message: "I don't have a Facebook account, so I haven't implemented this functionality."
         )
     }
+    */
     
     // NOTE:
     // alert code adapted from

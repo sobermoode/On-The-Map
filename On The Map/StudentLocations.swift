@@ -25,15 +25,15 @@ struct StudentLocation
     
     // computed properties;
     // for use with map annotations
-    var coordinate: CLLocationCoordinate2D
+    var coordinate: CLLocationCoordinate2D?
     {
         return CLLocationCoordinate2D( latitude: self.latitude!, longitude: self.longitude! )
     }
-    var title: String
+    var title: String?
     {
         return "\( self.firstName! ) \( self.lastName! )"
     }
-    var subtitle: String
+    var subtitle: String?
     {
         return self.mediaURL!
     }
