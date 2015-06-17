@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapAndTableViewController: UITabBarController {
+class MapAndTableViewController: UITabBarController, UIBarPositioningDelegate {
     
     var didPost: Bool = false
     var currentLocation: CLPlacemark!
@@ -71,7 +71,7 @@ class MapAndTableViewController: UITabBarController {
     // dismiss it when a location is successfully added to the map
     func dropPin()
     {
-        let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView2" ) as! InformationPostingView2Controller
+        let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView3" ) as! InformationPosting3ViewController
         
         presentViewController( infoView, animated: true, completion: nil )
     }
@@ -107,5 +107,9 @@ class MapAndTableViewController: UITabBarController {
             animated: true,
             completion: nil
         )
+    }
+    
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return UIBarPosition.Top
     }
 }
