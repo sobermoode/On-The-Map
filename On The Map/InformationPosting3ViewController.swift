@@ -145,68 +145,11 @@ class InformationPosting3ViewController: UIViewController {
                 }
                 else
                 {
-                    // create the map
-                    self.locationMap = MKMapView( frame: CGRect(
-                        origin: CGPoint(
-                            x: 0, y: 64
-                        ),
-                        size: CGSize(
-                            width: self.view.frame.width, height: self.view.frame.height - 64
-                        )
-                    ) )
-                    
-                    // create the "submit link" text area and button
-                    self.submittedLinkTextField = UITextField(
-                        frame: CGRect(
-                            x: 25, y: 10,
-                            width: CGRectGetWidth( self.locationMap.frame)  - 50, height: 30
-                        )
-                    )
-                    self.submittedLinkTextField.backgroundColor = UIColor.whiteColor()
-                    self.submittedLinkTextField.font = UIFont( name: "AvenirNext-Regular", size: 14 )
-                    self.submittedLinkTextField.textAlignment = NSTextAlignment.Center
-                    self.submittedLinkTextField.placeholder = "Link to your stuff"
-                    self.submittedLinkTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
-                    
-                    var submitLinkButton = UIButton(
-                        frame: CGRect(
-                            x: CGRectGetMidX( self.locationMap.frame ) - 100, y: 45,
-                            width: 200, height: 30
-                        )
-                    )
-                    submitLinkButton.backgroundColor = UIColor.lightGrayColor()
-                    submitLinkButton.setTitle(
-                        "Submit link",
-                        forState: UIControlState.Normal
-                    )
-                    submitLinkButton.titleLabel?.font = UIFont( name: "AvenirNext-DemiBold", size: 14 )
-                    submitLinkButton.setTitleColor( UIColor.whiteColor(), forState: UIControlState.Normal )
-                    submitLinkButton.addTarget(
-                        self,
-                        action: "submitLink:",
-                        forControlEvents: UIControlEvents.TouchUpInside
-                    )
-                    
-                    // create the "refine search" button
-                    var refineSearchButton = UIButton(
-                        frame: CGRect(
-                            x: CGRectGetMidX( self.locationMap.frame ) - 100,
-                            y: self.locationMap.frame.height - 40,
-                            width: 200, height: 30
-                        )
-                    )
-                    refineSearchButton.backgroundColor = UIColor.lightGrayColor()
-                    refineSearchButton.setTitle(
-                        "Refine search",
-                        forState: UIControlState.Normal
-                    )
-                    refineSearchButton.titleLabel?.font = UIFont( name: "AvenirNext-DemiBold", size: 14 )
-                    refineSearchButton.setTitleColor( UIColor.whiteColor(), forState: UIControlState.Normal )
-                    refineSearchButton.addTarget(
-                        self,
-                        action: "hideMap:",
-                        forControlEvents: UIControlEvents.TouchUpInside
-                    )
+                    // create the map view and its view elements
+                    self.locationMap = self.createMap()
+                    self.submittedLinkTextField = self.createSubmittedLinkTextField()
+                    let submitLinkButton = self.createSubmitLinkButton()
+                    let refineSearchButton = self.createRefineSearchButton()
                     
                     if let placemarks = placemarks
                     {
@@ -257,6 +200,89 @@ class InformationPosting3ViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    // functions to create the map view and its view elements
+    
+    func createMap() -> MKMapView
+    {
+        // create the map
+        let newMap = MKMapView( frame: CGRect(
+            origin: CGPoint(
+                x: 0, y: 64
+            ),
+            size: CGSize(
+                width: self.view.frame.width, height: self.view.frame.height - 64
+            )
+        ) )
+        
+        return newMap
+    }
+    
+    func createSubmittedLinkTextField() -> UITextField
+    {
+        let newSubmittedLinkTextField = UITextField(
+            frame: CGRect(
+                x: 25, y: 10,
+                width: CGRectGetWidth( self.locationMap.frame)  - 50, height: 30
+            )
+        )
+        newSubmittedLinkTextField.backgroundColor = UIColor.whiteColor()
+        newSubmittedLinkTextField.font = UIFont( name: "AvenirNext-Regular", size: 14 )
+        newSubmittedLinkTextField.textAlignment = NSTextAlignment.Center
+        newSubmittedLinkTextField.placeholder = "Link to your stuff"
+        newSubmittedLinkTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
+        
+        return newSubmittedLinkTextField
+    }
+    
+    func createSubmitLinkButton() -> UIButton
+    {
+        let newSubmitLinkButton = UIButton(
+            frame: CGRect(
+                x: CGRectGetMidX( self.locationMap.frame ) - 100, y: 45,
+                width: 200, height: 30
+            )
+        )
+        newSubmitLinkButton.backgroundColor = UIColor.lightGrayColor()
+        newSubmitLinkButton.setTitle(
+            "Submit link",
+            forState: UIControlState.Normal
+        )
+        newSubmitLinkButton.titleLabel?.font = UIFont( name: "AvenirNext-DemiBold", size: 14 )
+        newSubmitLinkButton.setTitleColor( UIColor.whiteColor(), forState: UIControlState.Normal )
+        newSubmitLinkButton.addTarget(
+            self,
+            action: "submitLink:",
+            forControlEvents: UIControlEvents.TouchUpInside
+        )
+        
+        return newSubmitLinkButton
+    }
+    
+    func createRefineSearchButton() -> UIButton
+    {
+        let newRefineSearchButton = UIButton(
+            frame: CGRect(
+                x: CGRectGetMidX( self.locationMap.frame ) - 100,
+                y: self.locationMap.frame.height - 40,
+                width: 200, height: 30
+            )
+        )
+        newRefineSearchButton.backgroundColor = UIColor.lightGrayColor()
+        newRefineSearchButton.setTitle(
+            "Refine search",
+            forState: UIControlState.Normal
+        )
+        newRefineSearchButton.titleLabel?.font = UIFont( name: "AvenirNext-DemiBold", size: 14 )
+        newRefineSearchButton.setTitleColor( UIColor.whiteColor(), forState: UIControlState.Normal )
+        newRefineSearchButton.addTarget(
+            self,
+            action: "hideMap:",
+            forControlEvents: UIControlEvents.TouchUpInside
+        )
+        
+        return newRefineSearchButton
     }
     
     // submit the user's link
