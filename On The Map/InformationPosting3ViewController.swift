@@ -11,14 +11,17 @@ import MapKit
 
 class InformationPosting3ViewController: UIViewController {
     
+    // initial view outlets
     @IBOutlet weak var yourLocationTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // the navigation bar
     var navBar: UINavigationBar!
     
-    // for use with geocoding the student's location
+    // everything needed for the map
     let geocoder = CLGeocoder()
+    var locationMap: MKMapView!
+    var submittedLinkTextField: UITextField!
     
     // for use when canceling from the map search view
     // var didCancelMapSearch = false
@@ -100,12 +103,11 @@ class InformationPosting3ViewController: UIViewController {
 
     @IBAction func findOnTheMap( sender: UIButton )
     {
-        // view.hidden = true
-        
         // show the activity indicator
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
         
+        // get the user's location
         let address = yourLocationTextField.text
         
         // make sure there is a string to geocode
@@ -143,16 +145,68 @@ class InformationPosting3ViewController: UIViewController {
                 }
                 else
                 {
-                    let locationMap = MKMapView( frame: CGRect(
+                    // create the map
+                    self.locationMap = MKMapView( frame: CGRect(
                         origin: CGPoint(
-                            x: 0,
-                            y: 64
+                            x: 0, y: 64
                         ),
                         size: CGSize(
-                            width: self.view.frame.width,
-                            height: self.view.frame.height - 64
+                            width: self.view.frame.width, height: self.view.frame.height - 64
                         )
                     ) )
+                    
+                    // create the "submit link" text area and button
+                    self.submittedLinkTextField = UITextField(
+                        frame: CGRect(
+                            x: 25, y: 10,
+                            width: CGRectGetWidth( self.locationMap.frame)  - 50, height: 30
+                        )
+                    )
+                    self.submittedLinkTextField.backgroundColor = UIColor.whiteColor()
+                    self.submittedLinkTextField.font = UIFont( name: "AvenirNext-Regular", size: 14 )
+                    self.submittedLinkTextField.textAlignment = NSTextAlignment.Center
+                    self.submittedLinkTextField.placeholder = "Link to your stuff"
+                    self.submittedLinkTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
+                    
+                    var submitLinkButton = UIButton(
+                        frame: CGRect(
+                            x: CGRectGetMidX( self.locationMap.frame ) - 100, y: 45,
+                            width: 200, height: 30
+                        )
+                    )
+                    submitLinkButton.backgroundColor = UIColor.lightGrayColor()
+                    submitLinkButton.setTitle(
+                        "Submit link",
+                        forState: UIControlState.Normal
+                    )
+                    submitLinkButton.titleLabel?.font = UIFont( name: "AvenirNext-DemiBold", size: 14 )
+                    submitLinkButton.setTitleColor( UIColor.whiteColor(), forState: UIControlState.Normal )
+                    submitLinkButton.addTarget(
+                        self,
+                        action: "submitLink:",
+                        forControlEvents: UIControlEvents.TouchUpInside
+                    )
+                    
+                    // create the "refine search" button
+                    var refineSearchButton = UIButton(
+                        frame: CGRect(
+                            x: CGRectGetMidX( self.locationMap.frame ) - 100,
+                            y: self.locationMap.frame.height - 40,
+                            width: 200, height: 30
+                        )
+                    )
+                    refineSearchButton.backgroundColor = UIColor.lightGrayColor()
+                    refineSearchButton.setTitle(
+                        "Refine search",
+                        forState: UIControlState.Normal
+                    )
+                    refineSearchButton.titleLabel?.font = UIFont( name: "AvenirNext-DemiBold", size: 14 )
+                    refineSearchButton.setTitleColor( UIColor.whiteColor(), forState: UIControlState.Normal )
+                    refineSearchButton.addTarget(
+                        self,
+                        action: "hideMap:",
+                        forControlEvents: UIControlEvents.TouchUpInside
+                    )
                     
                     if let placemarks = placemarks
                     {
@@ -161,7 +215,7 @@ class InformationPosting3ViewController: UIViewController {
                         if let bestResult = placemarks.first as? CLPlacemark
                         {
                             // set the map on the coordinates of the search location
-                            locationMap.region = MKCoordinateRegion(
+                            self.locationMap.region = MKCoordinateRegion(
                                 center: bestResult.location.coordinate,
                                 span: MKCoordinateSpan(
                                     latitudeDelta: 0.1,
@@ -187,17 +241,34 @@ class InformationPosting3ViewController: UIViewController {
                             
                             pin.subtitle = "\( bestResult.location.coordinate.latitude ), \( bestResult.location.coordinate.longitude )"
                             
-                            locationMap.addAnnotation( pin )
+                            self.locationMap.addAnnotation( pin )
                             
                             // stop and hide the activity indicator
                             self.activityIndicator.stopAnimating()
                             
-                            self.view.addSubview( locationMap )
+                            // add the map to the view
+                            self.locationMap.addSubview( self.submittedLinkTextField )
+                            self.locationMap.addSubview( submitLinkButton )
+                            self.locationMap.addSubview( refineSearchButton )
+                            self.view.addSubview( self.locationMap )
+                            
                         }
                     }
                 }
             }
         }
+    }
+    
+    // submit the user's link
+    func submitLink( sender: UIButton )
+    {
+        println( "Submitting link..." )
+    }
+    
+    // remove the map, so the user can refine their search
+    func hideMap( sender: UIButton )
+    {
+        locationMap.removeFromSuperview()
     }
     
     // NOTE:
@@ -223,15 +294,4 @@ class InformationPosting3ViewController: UIViewController {
             completion: nil
         )
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
