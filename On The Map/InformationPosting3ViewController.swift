@@ -143,7 +143,16 @@ class InformationPosting3ViewController: UIViewController {
                 }
                 else
                 {
-                    let locationMap = MKMapView( frame: self.view.frame )
+                    let locationMap = MKMapView( frame: CGRect(
+                        origin: CGPoint(
+                            x: 0,
+                            y: 64
+                        ),
+                        size: CGSize(
+                            width: self.view.frame.width,
+                            height: self.view.frame.height - 64
+                        )
+                    ) )
                     
                     if let placemarks = placemarks
                     {
