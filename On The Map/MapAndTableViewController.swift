@@ -11,7 +11,6 @@ import MapKit
 
 class MapAndTableViewController: UITabBarController, UIBarPositioningDelegate {
     
-    // var didPost: Bool = false
     var currentLocation: CLPlacemark!
     
     override func viewWillAppear( animated: Bool )
@@ -83,6 +82,10 @@ class MapAndTableViewController: UITabBarController, UIBarPositioningDelegate {
         let googleMapView = self.viewControllers?.first as? GoogleMapViewController
         
         googleMapView?.populateMap( newLocation: currentLocation )
+        
+        // otherwise, every time the Refresh button is pressed, it will snap back
+        // to the last place you entered on the map
+        currentLocation = nil
     }
     
     // NOTE:

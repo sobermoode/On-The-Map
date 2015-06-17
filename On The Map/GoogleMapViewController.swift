@@ -51,7 +51,7 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
                     message: error
                 )
             }
-                // otherwise, we have locations to pin on the map
+            // otherwise, we have locations to pin on the map
             else if success
             {
                 if let studentLocations = studentLocations

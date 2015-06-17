@@ -24,13 +24,6 @@ class InformationPosting3ViewController: UIViewController {
     var currentSearch: CLPlacemark!
     var submittedLinkTextField: UITextField!
     
-    // for use when canceling from the map search view
-    // var didCancelMapSearch = false
-    
-    // to let the tab bar controller know that a new location was posted
-    var didPost: Bool = false
-    var postedLocation: CLPlacemark!
-    
     override func viewWillAppear( animated: Bool )
     {
         // create the nav bar
@@ -292,8 +285,6 @@ class InformationPosting3ViewController: UIViewController {
     // submit the user's link
     func submitLink( sender: UIButton )
     {
-        println( "Submitting link..." )
-        
         // make sure there's something in the text field
         if submittedLinkTextField.text.isEmpty
         {
@@ -335,11 +326,7 @@ class InformationPosting3ViewController: UIViewController {
                     }
                     else if success
                     {
-                        // pass the relevant information to the info posting view
-//                        let infoView = self.presentingViewController as! InformationPostingView2Controller
-//                        infoView.didPost = true
-//                        infoView.postedLocation = self.currentSearch
-                        
+                        // let the tab bar controller know to refresh its views
                         if let tabController = self.presentingViewController as? MapAndTableViewController
                         {
                             tabController.currentLocation = self.currentSearch
