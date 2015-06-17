@@ -10,6 +10,9 @@ import UIKit
 
 class InformationPosting3ViewController: UIViewController {
     
+    @IBOutlet weak var yourLocationTextField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var navBar: UINavigationBar!
     
     override func viewWillAppear( animated: Bool )
@@ -26,8 +29,7 @@ class InformationPosting3ViewController: UIViewController {
                 )
             )
         )
-        // navBar.translucent = false
-        // navBar.barTintColor = UIColor.clearColor()
+        navBar.translucent = false
         
         var navItem = UINavigationItem( title: "Your Location" )
         
@@ -49,6 +51,23 @@ class InformationPosting3ViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        // NOTE:
+        // code taken from http://stackoverflow.com/a/27079103,
+        // as per the suggestion from the code review
+        // Looks for single or multiple taps.
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: "DismissKeyboard"
+        )
+        view.addGestureRecognizer( tap )
+    }
+    
+    // Calls this function when the tap is recognized.
+    func DismissKeyboard()
+    {
+        // Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing( true )
     }
     
     func cancel()
@@ -56,6 +75,11 @@ class InformationPosting3ViewController: UIViewController {
         dismissViewControllerAnimated( true, completion: nil )
     }
 
+    @IBAction func findOnTheMap( sender: UIButton )
+    {
+        
+    }
+    
     /*
     // MARK: - Navigation
 
