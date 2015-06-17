@@ -33,10 +33,10 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
         let tabController = parentViewController as? MapAndTableViewController
         studentListView = tabController?.viewControllers?.last as? StudentListTableViewController
         
-        populateMap( false, withLocation: nil )
+        populateMap( newLocation: nil )
     }
     
-    func populateMap( didPost: Bool, withLocation newLocation: CLPlacemark! )
+    func populateMap( #newLocation: CLPlacemark? )
     {
         // get the student locations from Parse
         OnTheMapClient.sharedInstance().getStudentLocations
@@ -81,9 +81,9 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
                         self.studentMap.removeAnnotations( self.studentMap.annotations )
                         self.addLocationsToMap()
                         
-                        if didPost
+                        if newLocation != nil
                         {
-                            self.centerMapOnLocation( newLocation )
+                            self.centerMapOnLocation( newLocation! )
                         }
                         
                         // reload the table view with the current data
@@ -108,7 +108,7 @@ class GoogleMapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func centerMapOnLocation( newLocation: CLPlacemark )
+    func centerMapOnLocation( newLocation: CLPlacemark! )
     {
         studentMap.region = MKCoordinateRegion(
             center: CLLocationCoordinate2DMake( newLocation.location.coordinate.latitude, newLocation.location.coordinate.longitude ),

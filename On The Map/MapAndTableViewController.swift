@@ -11,7 +11,7 @@ import MapKit
 
 class MapAndTableViewController: UITabBarController, UIBarPositioningDelegate {
     
-    var didPost: Bool = false
+    // var didPost: Bool = false
     var currentLocation: CLPlacemark!
     
     override func viewWillAppear( animated: Bool )
@@ -82,7 +82,7 @@ class MapAndTableViewController: UITabBarController, UIBarPositioningDelegate {
         // tell the map to update itself, along with the table view
         let googleMapView = self.viewControllers?.first as? GoogleMapViewController
         
-        googleMapView?.populateMap( didPost, withLocation: currentLocation )
+        googleMapView?.populateMap( newLocation: currentLocation )
     }
     
     // NOTE:
