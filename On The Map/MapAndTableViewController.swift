@@ -9,9 +9,8 @@
 import UIKit
 import MapKit
 
-class MapAndTableViewController: UITabBarController {
+class MapAndTableViewController: UITabBarController, UIBarPositioningDelegate {
     
-    var didPost: Bool = false
     var currentLocation: CLPlacemark!
     
     override func viewWillAppear( animated: Bool )
@@ -71,7 +70,7 @@ class MapAndTableViewController: UITabBarController {
     // dismiss it when a location is successfully added to the map
     func dropPin()
     {
-        let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView2" ) as! InformationPostingView2Controller
+        let infoView = self.storyboard?.instantiateViewControllerWithIdentifier( "InformationPostingView3" ) as! InformationPosting3ViewController
         
         presentViewController( infoView, animated: true, completion: nil )
     }
@@ -82,7 +81,11 @@ class MapAndTableViewController: UITabBarController {
         // tell the map to update itself, along with the table view
         let googleMapView = self.viewControllers?.first as? GoogleMapViewController
         
-        googleMapView?.populateMap( didPost, withLocation: currentLocation )
+        googleMapView?.populateMap( newLocation: currentLocation )
+        
+        // otherwise, every time the Refresh button is pressed, it will snap back
+        // to the last place you entered on the map
+        currentLocation = nil
     }
     
     // NOTE:
@@ -107,5 +110,9 @@ class MapAndTableViewController: UITabBarController {
             animated: true,
             completion: nil
         )
+    }
+    
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return UIBarPosition.Top
     }
 }

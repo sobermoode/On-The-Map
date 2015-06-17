@@ -39,7 +39,7 @@ class InformationPostingView2Controller: UIViewController {
             // if a new location was posted, let the tab controller know about it,
             // so the results can be refreshed
             let tabController = presentingViewController as! MapAndTableViewController
-            tabController.didPost = true
+            // tabController.didPost = true
             tabController.currentLocation = postedLocation
             tabController.refreshResults()
             
